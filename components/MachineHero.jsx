@@ -54,7 +54,7 @@ export default function MachineHero() {
         </svg>
 
         <OrangeSliceDecor
-          className="right-[14%] top-[16%] h-32 w-32 md:h-40 md:w-40"
+          className="left-[12%] top-[14%] h-32 w-32 md:left-[16%] md:h-40 md:w-40"
           opacity={0.22}
           rotate={18}
         />
@@ -177,6 +177,17 @@ export default function MachineHero() {
         </motion.div>
 
         <div className="relative min-h-0 max-lg:min-h-[46vh] lg:h-auto">
+          <OrangeSliceDecor
+            className="right-[-8%] top-[8%] h-40 w-40 md:h-52 md:w-52"
+            opacity={0.18}
+            rotate={22}
+          />
+          <OrangeSliceDecor
+            className="left-[6%] bottom-[18%] h-32 w-32 md:h-40 md:w-40"
+            opacity={0.14}
+            rotate={-16}
+          />
+
           {/* Right section â€” top left (orange3 paused)
           <motion.div
             aria-hidden
@@ -215,7 +226,7 @@ export default function MachineHero() {
           {/* Right section â€” bottom right: juice glass */}
           <motion.div
             aria-hidden
-            className="pointer-events-none absolute bottom-2 right-0 z-[2] w-[clamp(7.5rem,15vw,11.5rem)] max-lg:bottom-8 max-lg:right-1 max-lg:w-28"
+            className="pointer-events-none absolute -bottom-14 -right-12 z-[2] w-[clamp(7.5rem,15vw,11.5rem)] max-lg:-bottom-4 max-lg:-right-6 max-lg:w-28"
             initial={false}
             animate={reduce ? { y: 0 } : { y: -4 }}
             transition={

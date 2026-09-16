@@ -2,30 +2,30 @@
 
 :root {
   --nav-h: 96px;
-  --background: #f7fbfa;
-  --foreground: #0f3d37;
+  --background: #fffaf6;
+  --foreground: #8b3410;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-ink: #0f3d37;
-  --color-ink-soft: #1a524a;
-  --color-paper: #f7fbfa;
+  --color-ink: #8b3410;
+  --color-ink-soft: #a84818;
+  --color-paper: #fffaf6;
   --color-cream: #ffffff;
   --color-orange: #ee6f28;
   --color-orange-deep: #d45a18;
   --color-pulp: #ffc89a;
-  --color-leaf: #0f3d37;
-  --color-muted: #5a736e;
-  --color-line: rgb(15 61 55 / 0.12);
+  --color-leaf: #d45a18;
+  --color-muted: #b8734a;
+  --color-line: rgb(238 111 40 / 0.14);
   --font-sans: var(--font-inter);
   --font-display: var(--font-inter);
 }
 
 html {
-  background: #f7fbfa;
-  color: #0f3d37;
+  background: #fffaf6;
+  color: #8b3410;
 }
 
 html,
@@ -36,8 +36,8 @@ body {
 
 body {
   min-height: 100%;
-  background: #f7fbfa;
-  color: #0f3d37;
+  background: #fffaf6;
+  color: #8b3410;
   font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
   font-weight: 400;
   letter-spacing: -0.011em;
@@ -96,7 +96,7 @@ body {
 }
 
 .faq-grid details {
-  border-bottom: 1px solid rgb(20 17 14 / 0.12);
+  border-bottom: 1px solid rgb(238 111 40 / 0.14);
 }
 
 .faq-grid summary {
@@ -132,19 +132,4 @@ model-viewer.machine-viewer {
 
 model-viewer.machine-viewer:focus {
   outline: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .has-cursor {
-    cursor: none;
-  }
-
-  .has-cursor a,
-  .has-cursor button,
-  .has-cursor summary,
-  .has-cursor input,
-  .has-cursor textarea,
-  .has-cursor select {
-    cursor: none;
-  }
 }

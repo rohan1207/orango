@@ -1,6 +1,5 @@
 import { Inter } from "next/font/google";
 import SiteChrome from "@/components/SiteChrome";
-import CustomCursor from "@/components/CustomCursor";
 import { brand } from "@/lib/site";
 import "./globals.css";
 
@@ -88,7 +87,6 @@ export default function RootLayout({ children }) {
         >
           Skip to content
         </a>
-        <CustomCursor />
         <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
