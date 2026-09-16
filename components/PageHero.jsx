@@ -20,11 +20,11 @@ export default function PageHero({ eyebrow, title, lede }) {
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="mt-3 max-w-4xl text-[clamp(2.1rem,5vw,3.75rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#0F3D37]">
+        <h1 className="mt-3 max-w-4xl text-[clamp(2.1rem,5vw,3.75rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#8B3410]">
           {title}
         </h1>
         {lede ? (
-          <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-[#0F3D37]/65 md:text-[17px]">
+          <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-[#8B3410]/65 md:text-[17px]">
             {lede}
           </p>
         ) : null}

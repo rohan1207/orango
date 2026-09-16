@@ -105,7 +105,7 @@ export default function BusinessOpportunityContent() {
   const reduce = useReducedMotion();
 
   return (
-    <article className="relative overflow-hidden bg-[#F7FBFA]">
+    <article className="relative overflow-hidden bg-[#FFFAF6]">
       <LiveBlobs />
 
       <section className="relative z-10 mx-auto max-w-[1440px] px-5 pb-10 pt-[calc(var(--nav-h)+2.5rem)] md:px-8 md:pb-14">
@@ -118,10 +118,10 @@ export default function BusinessOpportunityContent() {
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
               Business Opportunity
             </p>
-            <h1 className="mt-3 max-w-2xl text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#0F3D37]">
+            <h1 className="mt-3 max-w-2xl text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#8B3410]">
               Turn high footfall into fresh orange juice revenue.
             </h1>
-            <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-[#0F3D37]/70">
+            <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-[#8B3410]/70">
               OranGo partners with location hosts, operators, and strategic
               groups to place automated fresh-juice machines where people already
               spend time — without café build-outs or wet kitchens.
@@ -135,7 +135,7 @@ export default function BusinessOpportunityContent() {
               </Link>
               <Link
                 href="/vending-machine"
-                className="inline-flex items-center justify-center rounded-full border border-[#0F3D37]/15 bg-white px-6 py-3 text-[14px] font-semibold text-[#0F3D37] transition-colors hover:border-[#EE6F28]/40"
+                className="inline-flex items-center justify-center rounded-full border border-[#8B3410]/15 bg-white px-6 py-3 text-[14px] font-semibold text-[#8B3410] transition-colors hover:border-[#EE6F28]/40"
               >
                 See the machine
               </Link>
@@ -151,7 +151,7 @@ export default function BusinessOpportunityContent() {
             {proof.map((item) => (
               <div
                 key={item.label}
-                className="rounded-[1.35rem] bg-[#0F3D37] px-5 py-5 text-white"
+                className="rounded-[1.35rem] bg-[#EE6F28] px-5 py-5 text-white"
               >
                 <p className="text-[1.75rem] font-semibold tracking-[-0.03em] text-[#FFB45C]">
                   {item.value}
@@ -168,7 +168,7 @@ export default function BusinessOpportunityContent() {
           <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
             Partnership models
           </p>
-          <h2 className="mt-2 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#0F3D37]">
+          <h2 className="mt-2 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#8B3410]">
             Three ways to build with Orango.
           </h2>
         </div>
@@ -183,7 +183,7 @@ export default function BusinessOpportunityContent() {
               className={`flex flex-col rounded-[1.75rem] p-7 md:p-8 ${
                 i === 1
                   ? "bg-[#EE6F28] text-white"
-                  : "border border-[#0F3D37]/8 bg-white text-[#0F3D37]"
+                  : "border border-[#8B3410]/8 bg-white text-[#8B3410]"
               }`}
             >
               <p
@@ -198,7 +198,7 @@ export default function BusinessOpportunityContent() {
               </h3>
               <p
                 className={`mt-3 flex-1 text-[14px] leading-relaxed ${
-                  i === 1 ? "text-white/85" : "text-[#0F3D37]/65"
+                  i === 1 ? "text-white/85" : "text-[#8B3410]/65"
                 }`}
               >
                 {model.copy}
@@ -208,7 +208,7 @@ export default function BusinessOpportunityContent() {
                   <li
                     key={point}
                     className={`flex gap-2 text-[13px] ${
-                      i === 1 ? "text-white/90" : "text-[#0F3D37]/75"
+                      i === 1 ? "text-white/90" : "text-[#8B3410]/75"
                     }`}
                   >
                     <span
@@ -224,8 +224,8 @@ export default function BusinessOpportunityContent() {
                 href="/contact"
                 className={`mt-8 inline-flex items-center justify-center rounded-full px-5 py-3 text-[13px] font-semibold transition-colors ${
                   i === 1
-                    ? "bg-[#0F3D37] text-white hover:bg-[#0a2e2a]"
-                    : "bg-[#0F3D37] text-white hover:bg-[#EE6F28]"
+                    ? "bg-[#EE6F28] text-white hover:bg-[#D45A18]"
+                    : "bg-[#EE6F28] text-white hover:bg-[#EE6F28]"
                 }`}
               >
                 {model.cta}
@@ -240,7 +240,7 @@ export default function BusinessOpportunityContent() {
           initial={reduce ? false : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="overflow-hidden rounded-[2rem] bg-[#0F3D37] px-7 py-10 text-white md:px-12 md:py-14"
+          className="overflow-hidden rounded-[2rem] bg-[#EE6F28] px-7 py-10 text-white md:px-12 md:py-14"
         >
           <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#FFB45C]">
             Commercial logic
@@ -272,7 +272,7 @@ export default function BusinessOpportunityContent() {
           <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
             Ideal floors
           </p>
-          <h2 className="mt-2 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#0F3D37]">
+          <h2 className="mt-2 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#8B3410]">
             Where fresh juice already wants to live.
           </h2>
         </div>
@@ -284,15 +284,15 @@ export default function BusinessOpportunityContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: (i % 3) * 0.05 }}
-              className="rounded-[1.4rem] border border-[#0F3D37]/8 bg-white p-6"
+              className="rounded-[1.4rem] border border-[#8B3410]/8 bg-white p-6"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#EE6F28]">
                 {item.stat}
               </p>
-              <h3 className="mt-2 text-[1.15rem] font-semibold text-[#0F3D37]">
+              <h3 className="mt-2 text-[1.15rem] font-semibold text-[#8B3410]">
                 {item.title}
               </h3>
-              <p className="mt-2 text-[14px] leading-relaxed text-[#0F3D37]/65">
+              <p className="mt-2 text-[14px] leading-relaxed text-[#8B3410]/65">
                 {item.copy}
               </p>
             </motion.div>
@@ -311,14 +311,14 @@ export default function BusinessOpportunityContent() {
               className="mx-auto h-auto w-full max-w-[260px] object-contain"
             />
           </div>
-          <div className="rounded-[2rem] border border-[#0F3D37]/8 bg-white p-8 md:p-10">
+          <div className="rounded-[2rem] border border-[#8B3410]/8 bg-white p-8 md:p-10">
             <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#EE6F28]">
               What we look for
             </p>
-            <h2 className="mt-3 text-[clamp(1.5rem,2.8vw,2.2rem)] font-semibold leading-[1.12] tracking-[-0.03em] text-[#0F3D37]">
+            <h2 className="mt-3 text-[clamp(1.5rem,2.8vw,2.2rem)] font-semibold leading-[1.12] tracking-[-0.03em] text-[#8B3410]">
               Real floors. Real footfall. Partners ready to move.
             </h2>
-            <ul className="mt-6 space-y-3 text-[14px] leading-relaxed text-[#0F3D37]/75">
+            <ul className="mt-6 space-y-3 text-[14px] leading-relaxed text-[#8B3410]/75">
               {[
                 "High-visibility placement near circulation or dwell zones",
                 "Power access and a small service clear for replenishment",
@@ -331,7 +331,7 @@ export default function BusinessOpportunityContent() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-[14px] leading-relaxed text-[#0F3D37]/65">
+            <p className="mt-6 text-[14px] leading-relaxed text-[#8B3410]/65">
               We are early-stage and India-focused — actively building the
               partnerships and operational network that will help us scale.
             </p>
@@ -344,7 +344,7 @@ export default function BusinessOpportunityContent() {
           initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[2rem] bg-[#0F3D37] px-7 py-12 text-white md:px-12 md:py-14"
+          className="relative overflow-hidden rounded-[2rem] bg-[#EE6F28] px-7 py-12 text-white md:px-12 md:py-14"
         >
           <OrangeSliceDecor
             className="-right-12 bottom-0 h-52 w-52 md:h-60 md:w-60"

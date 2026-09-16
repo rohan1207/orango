@@ -73,7 +73,7 @@ export default function CtaSection() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/shop"
-                  className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-[#0F3D37] transition-colors hover:bg-[#FFF5ED]"
+                  className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-[#8B3410] transition-colors hover:bg-[#FFF5ED]"
                 >
                   Place a machine
                 </Link>
@@ -125,15 +125,15 @@ export default function CtaSection() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.07 }}
               whileHover={reduce ? undefined : { y: -5 }}
-              className="rounded-[1.6rem] border border-[#0F3D37]/8 bg-white p-7"
+              className="rounded-[1.6rem] border border-[#8B3410]/8 bg-white p-7"
             >
               <p className="text-[12px] font-semibold tracking-[0.16em] text-[#EE6F28]">
                 {model.kicker}
               </p>
-              <h3 className="mt-3 text-[1.25rem] font-semibold tracking-[-0.02em] text-[#0F3D37]">
+              <h3 className="mt-3 text-[1.25rem] font-semibold tracking-[-0.02em] text-[#8B3410]">
                 {model.title}
               </h3>
-              <p className="mt-2 text-[14px] leading-relaxed text-[#0F3D37]/65">
+              <p className="mt-2 text-[14px] leading-relaxed text-[#8B3410]/65">
                 {model.copy}
               </p>
             </motion.article>

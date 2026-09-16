@@ -6,7 +6,7 @@ import { brand, footerLegal, footerQuickLinks } from "@/lib/site";
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#0F3D37] text-white">
+    <footer className="relative overflow-hidden bg-[#EE6F28] text-white">
       <OrangeSliceDecor
         className="-left-16 top-8 h-52 w-52 md:h-60 md:w-60"
         opacity={0.18}
@@ -117,7 +117,7 @@ export default function Footer() {
               </ul>
               <Link
                 href="/contact"
-                className="mt-8 inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-[#0F3D37] transition-colors hover:bg-[#FFF5ED]"
+                className="mt-8 inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-[#8B3410] transition-colors hover:bg-[#FFF5ED]"
               >
                 Talk to us
               </Link>

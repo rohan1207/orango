@@ -35,7 +35,7 @@ export default function AboutContent() {
   const reduce = useReducedMotion();
 
   return (
-    <article className="relative overflow-hidden bg-[#F7FBFA]">
+    <article className="relative overflow-hidden bg-[#FFFAF6]">
       <LiveBlobs />
 
       <section className="relative z-10 mx-auto max-w-[1440px] px-5 pb-10 pt-[calc(var(--nav-h)+2.5rem)] md:px-8 md:pb-14">
@@ -48,10 +48,10 @@ export default function AboutContent() {
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
               About Us
             </p>
-            <h1 className="mt-3 max-w-xl text-[clamp(2rem,4.5vw,3.6rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#0F3D37]">
+            <h1 className="mt-3 max-w-xl text-[clamp(2rem,4.5vw,3.6rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#8B3410]">
               Bringing Fresh Orange Juice Closer to Everyday Life
             </h1>
-            <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-[#0F3D37]/70">
+            <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-[#8B3410]/70">
               Fresh orange juice has always existed — convenient access to it has
               not. OranGo makes the healthier pour as effortless as the drinks
               that already own India&apos;s public spaces.
@@ -65,7 +65,7 @@ export default function AboutContent() {
               </Link>
               <Link
                 href="/business-opportunity"
-                className="inline-flex items-center justify-center rounded-full border border-[#0F3D37]/15 bg-white px-6 py-3 text-[14px] font-semibold text-[#0F3D37] transition-colors hover:border-[#EE6F28]/40"
+                className="inline-flex items-center justify-center rounded-full border border-[#8B3410]/15 bg-white px-6 py-3 text-[14px] font-semibold text-[#8B3410] transition-colors hover:border-[#EE6F28]/40"
               >
                 Partner with us
               </Link>
@@ -84,7 +84,7 @@ export default function AboutContent() {
               rotate={-10}
             />
             <div className="relative grid grid-cols-2 gap-3">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] bg-[#0F3D37]">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] bg-[#EE6F28]">
                 <Image
                   src="/orange-half.png"
                   alt="Fresh Valencia orange half"
@@ -130,12 +130,12 @@ export default function AboutContent() {
               initial={reduce ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 + i * 0.05 }}
-              className="rounded-[1.25rem] border border-[#0F3D37]/8 bg-white px-5 py-4"
+              className="rounded-[1.25rem] border border-[#8B3410]/8 bg-white px-5 py-4"
             >
               <p className="text-[1.5rem] font-semibold tracking-[-0.03em] text-[#EE6F28]">
                 {item.value}
               </p>
-              <p className="mt-1 text-[13px] text-[#0F3D37]/65">{item.label}</p>
+              <p className="mt-1 text-[13px] text-[#8B3410]/65">{item.label}</p>
             </motion.div>
           ))}
         </div>
@@ -147,7 +147,7 @@ export default function AboutContent() {
             initial={reduce ? false : { opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="rounded-[1.75rem] bg-[#0F3D37] p-8 text-white md:p-10 lg:col-span-5"
+            className="rounded-[1.75rem] bg-[#EE6F28] p-8 text-white md:p-10 lg:col-span-5"
           >
             <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#FFB45C]">
               Our simple observation
@@ -172,7 +172,7 @@ export default function AboutContent() {
             <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#EE6F28]">
               Our stance
             </p>
-            <p className="mt-4 text-[clamp(1.25rem,2.4vw,1.75rem)] font-semibold leading-snug tracking-[-0.02em] text-[#0F3D37]">
+            <p className="mt-4 text-[clamp(1.25rem,2.4vw,1.75rem)] font-semibold leading-snug tracking-[-0.02em] text-[#8B3410]">
               We don&apos;t want to replace those drinks — we want fresh orange
               juice to be as effortless, so consumers have a healthier choice in
               places they already spend time.
@@ -198,7 +198,7 @@ export default function AboutContent() {
           <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
             What we are building
           </p>
-          <h2 className="mt-2 text-[clamp(1.7rem,3.4vw,2.75rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#0F3D37]">
+          <h2 className="mt-2 text-[clamp(1.7rem,3.4vw,2.75rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#8B3410]">
             Bringing fresh orange juice to everyday public spaces
           </h2>
         </div>
@@ -244,12 +244,12 @@ export default function AboutContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="rounded-[1.35rem] border border-[#0F3D37]/8 bg-white p-5"
+                className="rounded-[1.35rem] border border-[#8B3410]/8 bg-white p-5"
               >
-                <h3 className="text-[1.1rem] font-semibold text-[#0F3D37]">
+                <h3 className="text-[1.1rem] font-semibold text-[#8B3410]">
                   {space.title}
                 </h3>
-                <p className="mt-1 text-[13px] text-[#0F3D37]/65">{space.copy}</p>
+                <p className="mt-1 text-[13px] text-[#8B3410]/65">{space.copy}</p>
               </motion.div>
             ))}
           </div>
@@ -267,8 +267,8 @@ export default function AboutContent() {
               transition={{ delay: i * 0.06 }}
               className={`rounded-[1.5rem] p-6 md:p-7 ${
                 i === 1
-                  ? "bg-[#0F3D37] text-white"
-                  : "border border-[#0F3D37]/8 bg-white text-[#0F3D37]"
+                  ? "bg-[#EE6F28] text-white"
+                  : "border border-[#8B3410]/8 bg-white text-[#8B3410]"
               }`}
             >
               <p
@@ -283,7 +283,7 @@ export default function AboutContent() {
               </h3>
               <p
                 className={`mt-2 text-[14px] leading-relaxed ${
-                  i === 1 ? "text-white/75" : "text-[#0F3D37]/65"
+                  i === 1 ? "text-white/75" : "text-[#8B3410]/65"
                 }`}
               >
                 {item.copy}
@@ -298,7 +298,7 @@ export default function AboutContent() {
           initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[2rem] bg-[#0F3D37] px-7 py-12 text-white md:px-12 md:py-14"
+          className="relative overflow-hidden rounded-[2rem] bg-[#EE6F28] px-7 py-12 text-white md:px-12 md:py-14"
         >
           <OrangeSliceDecor
             className="-right-12 top-0 h-52 w-52 md:h-60 md:w-60"

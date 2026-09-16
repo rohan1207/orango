@@ -84,7 +84,7 @@ export default function VendingMachineContent() {
   const reduce = useReducedMotion();
 
   return (
-    <article className="relative overflow-hidden bg-[#F7FBFA]">
+    <article className="relative overflow-hidden bg-[#FFFAF6]">
       <LiveBlobs />
 
       <section className="relative z-10 mx-auto max-w-[1440px] px-5 pb-10 pt-[calc(var(--nav-h)+2.5rem)] md:px-8 md:pb-14">
@@ -97,10 +97,10 @@ export default function VendingMachineContent() {
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
               Vending Machine
             </p>
-            <h1 className="mt-3 max-w-xl text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#0F3D37]">
+            <h1 className="mt-3 max-w-xl text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#8B3410]">
               Fresh orange juice. Squeezed to order. Built for public floors.
             </h1>
-            <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-[#0F3D37]/70">
+            <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-[#8B3410]/70">
               OranGo is a smart juice machine engineered for hospitals, offices,
               malls, and gyms — chilled Valencia oranges, UPI pay, ozone hygiene,
               and a sealed cup guests can trust in under a minute.
@@ -114,7 +114,7 @@ export default function VendingMachineContent() {
               </Link>
               <Link
                 href="/business-opportunity"
-                className="inline-flex items-center justify-center rounded-full border border-[#0F3D37]/15 bg-white px-6 py-3 text-[14px] font-semibold text-[#0F3D37] transition-colors hover:border-[#EE6F28]/40"
+                className="inline-flex items-center justify-center rounded-full border border-[#8B3410]/15 bg-white px-6 py-3 text-[14px] font-semibold text-[#8B3410] transition-colors hover:border-[#EE6F28]/40"
               >
                 See partnership models
               </Link>
@@ -132,7 +132,7 @@ export default function VendingMachineContent() {
               opacity={0.18}
               rotate={-12}
             />
-            <div className="relative overflow-hidden rounded-[2rem] bg-[#0F3D37] px-6 pb-0 pt-8 md:px-10 md:pt-10">
+            <div className="relative overflow-hidden rounded-[2rem] bg-[#EE6F28] px-6 pb-0 pt-8 md:px-10 md:pt-10">
               <div className="mb-4 flex flex-wrap gap-2">
                 {["4°C fruit", "UPI", "Ozone", "Auto-seal"].map((tag) => (
                   <span
@@ -162,12 +162,12 @@ export default function VendingMachineContent() {
               initial={reduce ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.12 + i * 0.04 }}
-              className="rounded-[1.15rem] border border-[#0F3D37]/8 bg-white px-4 py-3.5"
+              className="rounded-[1.15rem] border border-[#8B3410]/8 bg-white px-4 py-3.5"
             >
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0F3D37]/45">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8B3410]/45">
                 {item.label}
               </p>
-              <p className="mt-1 text-[15px] font-semibold text-[#0F3D37]">
+              <p className="mt-1 text-[15px] font-semibold text-[#8B3410]">
                 {item.value}
               </p>
             </motion.div>
@@ -180,7 +180,7 @@ export default function VendingMachineContent() {
           <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
             How it works
           </p>
-          <h2 className="mt-2 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#0F3D37]">
+          <h2 className="mt-2 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#8B3410]">
             Three steps. Zero café friction.
           </h2>
         </div>
@@ -195,7 +195,7 @@ export default function VendingMachineContent() {
               className={`rounded-[1.6rem] p-7 md:p-8 ${
                 i === 1
                   ? "bg-[#EE6F28] text-white"
-                  : "border border-[#0F3D37]/8 bg-white text-[#0F3D37]"
+                  : "border border-[#8B3410]/8 bg-white text-[#8B3410]"
               }`}
             >
               <p
@@ -210,7 +210,7 @@ export default function VendingMachineContent() {
               </h3>
               <p
                 className={`mt-2 text-[14px] leading-relaxed ${
-                  i === 1 ? "text-white/85" : "text-[#0F3D37]/65"
+                  i === 1 ? "text-white/85" : "text-[#8B3410]/65"
                 }`}
               >
                 {step.copy}
@@ -225,7 +225,7 @@ export default function VendingMachineContent() {
           initial={reduce ? false : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="overflow-hidden rounded-[2rem] bg-[#0F3D37] px-7 py-10 text-white md:px-12 md:py-14"
+          className="overflow-hidden rounded-[2rem] bg-[#EE6F28] px-7 py-10 text-white md:px-12 md:py-14"
         >
           <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#FFB45C]">
             Machine stack
@@ -263,16 +263,16 @@ export default function VendingMachineContent() {
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
               Why guests come back
             </p>
-            <h2 className="mt-2 text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#0F3D37]">
+            <h2 className="mt-2 text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#8B3410]">
               A cup that earns its place next to coffee and cola.
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-[#0F3D37]/65">
+            <p className="mt-4 text-[15px] leading-relaxed text-[#8B3410]/65">
               We are not fighting caffeine culture — we are giving high-footfall
               floors a healthier default that is just as convenient.
             </p>
             <Link
               href="/shop"
-              className="mt-8 inline-flex items-center justify-center rounded-full bg-[#0F3D37] px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-[#EE6F28]"
+              className="mt-8 inline-flex items-center justify-center rounded-full bg-[#EE6F28] px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-[#EE6F28]"
             >
               Place a machine
             </Link>
@@ -285,12 +285,12 @@ export default function VendingMachineContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="rounded-[1.35rem] border border-[#0F3D37]/8 bg-white p-6"
+                className="rounded-[1.35rem] border border-[#8B3410]/8 bg-white p-6"
               >
-                <h3 className="text-[1.1rem] font-semibold text-[#0F3D37]">
+                <h3 className="text-[1.1rem] font-semibold text-[#8B3410]">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-[#0F3D37]/65">
+                <p className="mt-2 text-[14px] leading-relaxed text-[#8B3410]/65">
                   {item.copy}
                 </p>
               </motion.div>
@@ -310,10 +310,10 @@ export default function VendingMachineContent() {
             <p className="relative text-[12px] font-semibold uppercase tracking-[0.2em] text-[#EE6F28]">
               Built for operators
             </p>
-            <h2 className="relative mt-3 text-[clamp(1.5rem,2.8vw,2.2rem)] font-semibold leading-[1.12] tracking-[-0.03em] text-[#0F3D37]">
+            <h2 className="relative mt-3 text-[clamp(1.5rem,2.8vw,2.2rem)] font-semibold leading-[1.12] tracking-[-0.03em] text-[#8B3410]">
               Less café build-out. More predictable pours.
             </h2>
-            <ul className="relative mt-6 space-y-3 text-[14px] leading-relaxed text-[#0F3D37]/75">
+            <ul className="relative mt-6 space-y-3 text-[14px] leading-relaxed text-[#8B3410]/75">
               {[
                 "No wet kitchen or barista roster required",
                 "Footprint planned for circulation, not a stall",
@@ -327,7 +327,7 @@ export default function VendingMachineContent() {
               ))}
             </ul>
           </div>
-          <div className="relative flex min-h-[280px] items-end justify-center overflow-hidden rounded-[2rem] bg-[#0F3D37] px-6 pt-8">
+          <div className="relative flex min-h-[280px] items-end justify-center overflow-hidden rounded-[2rem] bg-[#EE6F28] px-6 pt-8">
             <Image
               src="/orange2.png"
               alt="Fresh sealed cup of orange juice"
@@ -340,8 +340,8 @@ export default function VendingMachineContent() {
       </section>
 
       <section className="relative z-10 mx-auto max-w-[1440px] px-5 pb-10 md:px-8">
-        <div className="rounded-[2rem] border border-[#0F3D37]/8 bg-white px-7 py-10 md:px-12 md:py-12">
-          <h2 className="text-[clamp(1.5rem,2.8vw,2.2rem)] font-semibold tracking-[-0.03em] text-[#0F3D37]">
+        <div className="rounded-[2rem] border border-[#8B3410]/8 bg-white px-7 py-10 md:px-12 md:py-12">
+          <h2 className="text-[clamp(1.5rem,2.8vw,2.2rem)] font-semibold tracking-[-0.03em] text-[#8B3410]">
             Questions operators actually ask
           </h2>
           <div className="mt-8">
@@ -375,7 +375,7 @@ export default function VendingMachineContent() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#0F3D37] px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#0a2e2a]"
+                className="inline-flex items-center justify-center rounded-full bg-[#EE6F28] px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18]"
               >
                 Talk to Orango
               </Link>

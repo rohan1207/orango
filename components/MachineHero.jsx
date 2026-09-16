@@ -163,7 +163,7 @@ export default function MachineHero() {
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <Link
               href="/shop"
-              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-[15px] font-semibold text-[#0F3D37] transition-colors duration-200 hover:bg-[#F7FBFA]"
+              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-[15px] font-semibold text-[#8B3410] transition-colors duration-200 hover:bg-[#FFFAF6]"
             >
               Place a machine
             </Link>
@@ -253,7 +253,7 @@ export default function MachineHero() {
             />
           </motion.div>
 
-          <p className="pointer-events-none absolute bottom-3 left-1/2 z-10 -translate-x-1/2 text-[10px] font-medium uppercase tracking-[0.18em] text-[#0F3D37]/35">
+          <p className="pointer-events-none absolute bottom-3 left-1/2 z-10 -translate-x-1/2 text-[10px] font-medium uppercase tracking-[0.18em] text-[#8B3410]/35">
             Drag to spin
           </p>
         </div>

@@ -25,11 +25,11 @@ export default function HomeFaq() {
           </p>
           <h2
             id="faq-heading"
-            className="mt-3 text-[clamp(1.9rem,3.6vw,3.1rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#0F3D37]"
+            className="mt-3 text-[clamp(1.9rem,3.6vw,3.1rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#8B3410]"
           >
             Frequently Asked Questions
           </h2>
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#0F3D37]/65">
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#8B3410]/65">
             Have a question about OranGo? We&apos;ve covered the most common ones
             here. Reach out if you need more.
           </p>
@@ -71,7 +71,7 @@ export default function HomeFaq() {
                   className={`overflow-hidden rounded-[1.4rem] border transition-all ${
                     active
                       ? "border-transparent bg-[#EE6F28] text-white"
-                      : "border-[#0F3D37]/8 bg-[#FFF5ED] text-[#0F3D37]"
+                      : "border-[#8B3410]/8 bg-[#FFF5ED] text-[#8B3410]"
                   }`}
                 >
                   <button

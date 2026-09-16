@@ -47,7 +47,7 @@ export default function ContactContent() {
   const reduce = useReducedMotion();
 
   return (
-    <article className="relative overflow-hidden bg-[#F7FBFA]">
+    <article className="relative overflow-hidden bg-[#FFFAF6]">
       <LiveBlobs />
 
       <section className="relative z-10 mx-auto max-w-[1440px] px-5 pb-8 pt-[calc(var(--nav-h)+2.5rem)] md:px-8 md:pb-10">
@@ -60,10 +60,10 @@ export default function ContactContent() {
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
               Contact Us
             </p>
-            <h1 className="mt-3 max-w-xl text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#0F3D37]">
+            <h1 className="mt-3 max-w-xl text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#8B3410]">
               Tell us about your floor. We will map the juice opportunity.
             </h1>
-            <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-[#0F3D37]/70">
+            <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-[#8B3410]/70">
               Share a site, a city, or a multi-location thesis. Partnerships and
               general enquiries both land with the Orango founding team in Delhi.
             </p>
@@ -78,12 +78,12 @@ export default function ContactContent() {
             {reasons.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[1.25rem] border border-[#0F3D37]/8 bg-white px-5 py-4"
+                className="rounded-[1.25rem] border border-[#8B3410]/8 bg-white px-5 py-4"
               >
-                <p className="text-[14px] font-semibold text-[#0F3D37]">
+                <p className="text-[14px] font-semibold text-[#8B3410]">
                   {item.title}
                 </p>
-                <p className="mt-1 text-[13px] leading-relaxed text-[#0F3D37]/65">
+                <p className="mt-1 text-[13px] leading-relaxed text-[#8B3410]/65">
                   {item.copy}
                 </p>
               </div>
@@ -100,7 +100,7 @@ export default function ContactContent() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex flex-col gap-4 lg:col-span-5"
           >
-            <div className="overflow-hidden rounded-[1.75rem] bg-[#0F3D37] p-7 text-white md:p-8">
+            <div className="overflow-hidden rounded-[1.75rem] bg-[#EE6F28] p-7 text-white md:p-8">
               <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#FFB45C]">
                 Direct lines
               </p>
@@ -122,14 +122,14 @@ export default function ContactContent() {
               </div>
             </div>
 
-            <div className="rounded-[1.75rem] border border-[#0F3D37]/8 bg-white p-7 md:p-8">
+            <div className="rounded-[1.75rem] border border-[#8B3410]/8 bg-white p-7 md:p-8">
               <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#EE6F28]">
                 HQ
               </p>
-              <p className="mt-3 text-[1.15rem] font-semibold leading-snug text-[#0F3D37]">
+              <p className="mt-3 text-[1.15rem] font-semibold leading-snug text-[#8B3410]">
                 {brand.address}
               </p>
-              <p className="mt-3 text-[14px] leading-relaxed text-[#0F3D37]/65">
+              <p className="mt-3 text-[14px] leading-relaxed text-[#8B3410]/65">
                 India rollout first. Early-stage partnerships welcome — location
                 hosts, operators, and strategic groups.
               </p>
@@ -164,13 +164,13 @@ export default function ContactContent() {
             initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.14 }}
-            className="rounded-[1.75rem] border border-[#0F3D37]/8 bg-white p-6 md:p-9 lg:col-span-7"
+            className="rounded-[1.75rem] border border-[#8B3410]/8 bg-white p-6 md:p-9 lg:col-span-7"
           >
             <div className="mb-6">
-              <h2 className="text-[clamp(1.4rem,2.4vw,1.85rem)] font-semibold tracking-[-0.03em] text-[#0F3D37]">
+              <h2 className="text-[clamp(1.4rem,2.4vw,1.85rem)] font-semibold tracking-[-0.03em] text-[#8B3410]">
                 Send a brief
               </h2>
-              <p className="mt-2 text-[14px] leading-relaxed text-[#0F3D37]/65">
+              <p className="mt-2 text-[14px] leading-relaxed text-[#8B3410]/65">
                 The more we know about footfall, site type, and timeline, the
                 faster we can reply with a useful next step.
               </p>
@@ -203,7 +203,7 @@ export default function ContactContent() {
           ].map((item) => (
             <div
               key={item.title}
-              className="rounded-[1.35rem] bg-[#0F3D37] px-6 py-6 text-white"
+              className="rounded-[1.35rem] bg-[#EE6F28] px-6 py-6 text-white"
             >
               <h3 className="text-[1.05rem] font-semibold">{item.title}</h3>
               <p className="mt-2 text-[13px] leading-relaxed text-white/70">

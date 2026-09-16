@@ -41,8 +41,8 @@ export default function Navbar() {
               href={link.href}
               className={`text-[16px] font-medium transition-colors ${
                 pathname === link.href
-                  ? "text-[#0F3D37]"
-                  : "text-[#0F3D37]/55 hover:text-[#0F3D37]"
+                  ? "text-[#8B3410]"
+                  : "text-[#8B3410]/55 hover:text-[#8B3410]"
               }`}
             >
               {link.label}
@@ -53,7 +53,7 @@ export default function Navbar() {
         <div className="hidden items-center lg:flex">
           <Link
             href="/contact"
-            className="rounded-full bg-[#0F3D37] px-6 py-3 text-[15px] font-medium text-white transition-colors hover:bg-[#1A524A]"
+            className="rounded-full bg-[#EE6F28] px-6 py-3 text-[15px] font-medium text-white transition-colors hover:bg-[#D45A18]"
           >
             Talk to us
           </Link>
@@ -68,12 +68,12 @@ export default function Navbar() {
           <span className="sr-only">Menu</span>
           <span className="flex w-6 flex-col gap-1.5">
             <span
-              className={`block h-0.5 bg-[#0F3D37] transition-transform duration-300 ${
+              className={`block h-0.5 bg-[#EE6F28] transition-transform duration-300 ${
                 open ? "translate-y-[4px] rotate-45" : ""
               }`}
             />
             <span
-              className={`block h-0.5 bg-[#0F3D37] transition-transform duration-300 ${
+              className={`block h-0.5 bg-[#EE6F28] transition-transform duration-300 ${
                 open ? "-translate-y-[4px] -rotate-45" : ""
               }`}
             />
@@ -96,8 +96,8 @@ export default function Navbar() {
                   href={link.href}
                   className={`rounded-lg px-3 py-3.5 text-[18px] font-medium ${
                     pathname === link.href
-                      ? "bg-black/[0.04] text-[#0F3D37]"
-                      : "text-[#0F3D37]/70"
+                      ? "bg-black/[0.04] text-[#8B3410]"
+                      : "text-[#8B3410]/70"
                   }`}
                 >
                   {link.label}
@@ -105,7 +105,7 @@ export default function Navbar() {
               ))}
               <Link
                 href="/contact"
-                className="mt-4 inline-flex items-center justify-center rounded-full bg-[#0F3D37] px-6 py-3.5 text-[16px] font-medium text-white"
+                className="mt-4 inline-flex items-center justify-center rounded-full bg-[#EE6F28] px-6 py-3.5 text-[16px] font-medium text-white"
               >
                 Talk to us
               </Link>

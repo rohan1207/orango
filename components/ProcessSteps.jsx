@@ -42,10 +42,10 @@ function PayIcon({ active }) {
           width="32"
           height="22"
           rx="4"
-          stroke="#F7FBFA"
+          stroke="#FFFAF6"
           strokeWidth="2.2"
         />
-        <path d="M8 18h32" stroke="#F7FBFA" strokeWidth="2.2" />
+        <path d="M8 18h32" stroke="#FFFAF6" strokeWidth="2.2" />
         <motion.circle
           cx="30"
           cy="28"
@@ -94,7 +94,7 @@ function SqueezeIcon({ active }) {
         transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden
       >
-        <circle cx="16" cy="16" r="12" fill="#F7FBFA" />
+        <circle cx="16" cy="16" r="12" fill="#FFFAF6" />
         <circle cx="16" cy="16" r="9" fill="#FFE0B8" />
         <circle cx="16" cy="16" r="7.5" fill="#FFD4A8" />
         <path
@@ -122,7 +122,7 @@ function ReadyIcon({ active }) {
       <svg viewBox="0 0 48 48" className="h-7 w-7" fill="none" aria-hidden>
         <path
           d="M16 14h16l-1.5 20a5 5 0 0 1-5 4.5h-3a5 5 0 0 1-5-4.5L16 14Z"
-          stroke="#F7FBFA"
+          stroke="#FFFAF6"
           strokeWidth="2.2"
           strokeLinejoin="round"
         />

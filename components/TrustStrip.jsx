@@ -38,7 +38,7 @@ export default function TrustStrip() {
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
               Why operators choose Orango
             </p>
-            <h2 className="mt-3 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#0F3D37]">
+            <h2 className="mt-3 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#8B3410]">
               Premium amenity economics â€” without a cafÃ© build-out.
             </h2>
           </div>
@@ -68,15 +68,15 @@ export default function TrustStrip() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
               whileHover={reduce ? undefined : { y: -4 }}
-              className="relative overflow-hidden rounded-[1.6rem] border border-[#0F3D37]/8 bg-[#FFF5ED] p-6"
+              className="relative overflow-hidden rounded-[1.6rem] border border-[#8B3410]/8 bg-[#FFF5ED] p-6"
             >
               <p className="text-[clamp(2rem,3vw,2.6rem)] font-semibold tracking-[-0.04em] text-[#EE6F28]">
                 {item.value}
               </p>
-              <p className="mt-2 text-[15px] font-semibold text-[#0F3D37]">
+              <p className="mt-2 text-[15px] font-semibold text-[#8B3410]">
                 {item.label}
               </p>
-              <p className="mt-1 text-[13px] text-[#0F3D37]/55">{item.detail}</p>
+              <p className="mt-1 text-[13px] text-[#8B3410]/55">{item.detail}</p>
               <OrangeSliceDecor
                 className="-bottom-5 -right-3 h-20 w-20"
                 opacity={0.16}

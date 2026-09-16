@@ -23,7 +23,7 @@ export default function ContactTeaser() {
             initial={reduce ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-[2rem] bg-[#0F3D37] p-8 text-white md:p-11 lg:col-span-7"
+            className="relative overflow-hidden rounded-[2rem] bg-[#EE6F28] p-8 text-white md:p-11 lg:col-span-7"
           >
             <OrangeSliceDecor
               className="-right-10 top-6 h-40 w-40 md:h-48 md:w-48"
@@ -92,22 +92,22 @@ export default function ContactTeaser() {
               <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-[#EE6F28]">
                 Email
               </p>
-              <p className="mt-3 break-all text-[1.05rem] font-semibold tracking-[-0.02em] text-[#0F3D37]">
+              <p className="mt-3 break-all text-[1.05rem] font-semibold tracking-[-0.02em] text-[#8B3410]">
                 {brand.partnershipsEmail}
               </p>
-              <p className="mt-1 text-[13px] text-[#0F3D37]/55">
+              <p className="mt-1 text-[13px] text-[#8B3410]/55">
                 Send your site brief today
               </p>
             </motion.a>
 
             <motion.div
               whileHover={reduce ? undefined : { y: -4 }}
-              className="rounded-[1.6rem] border border-[#0F3D37]/8 bg-white p-7 sm:col-span-2 lg:col-span-1"
+              className="rounded-[1.6rem] border border-[#8B3410]/8 bg-white p-7 sm:col-span-2 lg:col-span-1"
             >
               <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-[#EE6F28]">
                 Studio
               </p>
-              <p className="mt-3 text-[15px] leading-relaxed text-[#0F3D37]/75">
+              <p className="mt-3 text-[15px] leading-relaxed text-[#8B3410]/75">
                 {brand.address}
               </p>
             </motion.div>

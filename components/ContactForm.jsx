@@ -32,11 +32,11 @@ export default function ContactForm() {
   };
 
   const field =
-    "mt-2 w-full rounded-2xl border border-[#0F3D37]/12 bg-[#F7FBFA] px-4 py-3.5 text-sm text-[#0F3D37] outline-none transition-colors placeholder:text-[#0F3D37]/40 focus:border-[#EE6F28]/50 focus:bg-white";
+    "mt-2 w-full rounded-2xl border border-[#8B3410]/12 bg-[#FFFAF6] px-4 py-3.5 text-sm text-[#8B3410] outline-none transition-colors placeholder:text-[#8B3410]/40 focus:border-[#EE6F28]/50 focus:bg-white";
 
   return (
     <form onSubmit={onSubmit} className="grid gap-5 md:grid-cols-2">
-      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F3D37]/55">
+      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8B3410]/55">
         Name
         <input
           required
@@ -47,7 +47,7 @@ export default function ContactForm() {
           className={field}
         />
       </label>
-      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F3D37]/55">
+      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8B3410]/55">
         Email
         <input
           required
@@ -59,7 +59,7 @@ export default function ContactForm() {
           className={field}
         />
       </label>
-      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F3D37]/55">
+      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8B3410]/55">
         Phone
         <input
           required
@@ -70,7 +70,7 @@ export default function ContactForm() {
           className={field}
         />
       </label>
-      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F3D37]/55">
+      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8B3410]/55">
         Company / property
         <input
           name="company"
@@ -80,7 +80,7 @@ export default function ContactForm() {
           className={field}
         />
       </label>
-      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F3D37]/55 md:col-span-2">
+      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8B3410]/55 md:col-span-2">
         Site type
         <select
           name="site"
@@ -99,7 +99,7 @@ export default function ContactForm() {
           <option>Other</option>
         </select>
       </label>
-      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0F3D37]/55 md:col-span-2">
+      <label className="block text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8B3410]/55 md:col-span-2">
         Message
         <textarea
           required
@@ -118,7 +118,7 @@ export default function ContactForm() {
         >
           {sent ? "Opening mail…" : "Send brief"}
         </button>
-        <p className="mt-3 text-[12px] leading-relaxed text-[#0F3D37]/50">
+        <p className="mt-3 text-[12px] leading-relaxed text-[#8B3410]/50">
           Submitting opens your email client addressed to partnerships@orango.co.in.
         </p>
       </div>

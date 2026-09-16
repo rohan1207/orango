@@ -27,11 +27,11 @@ export default function HealthBenefits() {
             </p>
             <h2
               id="benefits-heading"
-              className="mt-1.5 text-[clamp(1.55rem,2.8vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#0F3D37]"
+              className="mt-1.5 text-[clamp(1.55rem,2.8vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#8B3410]"
             >
               Health Benefits
             </h2>
-            <p className="mt-1 text-[14px] text-[#0F3D37]/6">
+            <p className="mt-1 text-[14px] text-[#8B3410]/6">
               Every cup brings natural wellness.
             </p>
           </div>
@@ -59,7 +59,7 @@ export default function HealthBenefits() {
               sizes="(max-width: 768px) 100vw, 42vw"
               priority={false}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0F3D37]/92 via-[#0F3D37]/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#EE6F28]/92 via-[#EE6F28]/20 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-5">
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#FFB45C]">
                 Hero nutrient
@@ -106,10 +106,10 @@ export default function HealthBenefits() {
             className="relative overflow-hidden rounded-[1.35rem] bg-[#FFF5ED] md:col-span-4 md:row-span-2"
           >
             <div className="relative z-[1] p-4 pb-0">
-              <h3 className="text-[1.1rem] font-semibold text-[#0F3D37]">
+              <h3 className="text-[1.1rem] font-semibold text-[#8B3410]">
                 Energy Boost
               </h3>
-              <p className="mt-1 text-[12px] leading-snug text-[#0F3D37]/65">
+              <p className="mt-1 text-[12px] leading-snug text-[#8B3410]/65">
                 Clean fuel for the 4pm dip.
               </p>
             </div>
@@ -130,7 +130,7 @@ export default function HealthBenefits() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.08 }}
-            className="relative flex flex-col justify-between overflow-hidden rounded-[1.35rem] border border-[#0F3D37]/8 bg-white p-4 md:col-span-3"
+            className="relative flex flex-col justify-between overflow-hidden rounded-[1.35rem] border border-[#8B3410]/8 bg-white p-4 md:col-span-3"
           >
             <div className="flex gap-1.5">
               <span className="h-2.5 w-2.5 rounded-full bg-[#EE6F28]" />
@@ -138,10 +138,10 @@ export default function HealthBenefits() {
               <span className="h-2.5 w-2.5 rounded-full bg-[#FFD4A8]" />
             </div>
             <div>
-              <h3 className="text-[1.1rem] font-semibold text-[#0F3D37]">
+              <h3 className="text-[1.1rem] font-semibold text-[#8B3410]">
                 Heart Health
               </h3>
-              <p className="mt-1 text-[12px] leading-snug text-[#0F3D37]/65">
+              <p className="mt-1 text-[12px] leading-snug text-[#8B3410]/65">
                 Natural nutrients. Zero dilution.
               </p>
             </div>
@@ -154,7 +154,7 @@ export default function HealthBenefits() {
             initial={reduce ? false : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative flex min-h-[120px] items-center gap-4 overflow-hidden rounded-[1.35rem] bg-[#0F3D37] p-4 text-white md:min-h-[132px] md:p-5"
+            className="relative flex min-h-[120px] items-center gap-4 overflow-hidden rounded-[1.35rem] bg-[#EE6F28] p-4 text-white md:min-h-[132px] md:p-5"
           >
             <div className="relative h-20 w-20 shrink-0 md:h-24 md:w-24">
               <Image
