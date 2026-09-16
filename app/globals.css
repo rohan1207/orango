@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+:root {
+  --nav-h: 96px;
+  --background: #f7fbfa;
+  --foreground: #0f3d37;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: #0f3d37;
+  --color-ink-soft: #1a524a;
+  --color-paper: #f7fbfa;
+  --color-cream: #ffffff;
+  --color-orange: #ee6f28;
+  --color-orange-deep: #d45a18;
+  --color-pulp: #ffc89a;
+  --color-leaf: #0f3d37;
+  --color-muted: #5a736e;
+  --color-line: rgb(15 61 55 / 0.12);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-inter);
+}
+
+html {
+  background: #f7fbfa;
+  color: #0f3d37;
+}
+
+html,
+body {
+  overflow: visible;
+  max-width: 100%;
+}
+
+body {
+  min-height: 100%;
+  background: #f7fbfa;
+  color: #0f3d37;
+  font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #ee6f28;
+  color: #ffffff;
+}
+
+.font-display {
+  font-family: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.uppercase {
+  letter-spacing: 0.06em;
+}
+
+.hero-track {
+  height: 500vh;
+}
+
+@media (min-width: 1082px) {
+  .hero-track {
+    height: 1200vh;
+  }
+}
+
+.grain {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+.nav-link {
+  position: relative;
+}
+
+.marquee-track {
+  animation: marquee 36s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.faq-grid details {
+  border-bottom: 1px solid rgb(20 17 14 / 0.12);
+}
+
+.faq-grid summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-grid summary::-webkit-details-marker {
+  display: none;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  box-shadow: 0 0 0 1px #ee6f28;
+}
+
+model-viewer.machine-viewer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  background: transparent;
+  --poster-color: transparent;
+  outline: none;
+}
+
+model-viewer.machine-viewer:focus {
+  outline: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .has-cursor {
+    cursor: none;
+  }
+
+  .has-cursor a,
+  .has-cursor button,
+  .has-cursor summary,
+  .has-cursor input,
+  .has-cursor textarea,
+  .has-cursor select {
+    cursor: none;
+  }
+}

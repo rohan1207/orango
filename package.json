@@ -1,0 +1,27 @@
+{
+  "name": "organo-2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "frames": "python -u scripts/generate_frames.py"
+  },
+  "dependencies": {
+    "@google/model-viewer": "^4.3.1",
+    "framer-motion": "^13.2.0",
+    "gsap": "^3.15.0",
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "three": "^0.183.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.4",
+    "tailwindcss": "^4"
+  }
+}
