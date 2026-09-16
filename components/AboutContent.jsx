@@ -97,7 +97,7 @@ export default function AboutContent() {
               <div className="flex flex-col gap-3">
                 <div className="relative flex-1 overflow-hidden rounded-[1.5rem] bg-[#FFF5ED]">
                   <Image
-                    src="/orange2.png"
+                    src="/jar.png"
                     alt="Glass of fresh orange juice"
                     fill
                     className="object-contain object-bottom p-2"

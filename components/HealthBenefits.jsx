@@ -115,7 +115,7 @@ export default function HealthBenefits() {
             </div>
             <div className="absolute inset-x-0 bottom-0 top-14">
               <Image
-                src="/orange2.png"
+                src="/jar.png"
                 alt=""
                 fill
                 className="object-contain object-bottom p-1"

@@ -329,7 +329,7 @@ export default function VendingMachineContent() {
           </div>
           <div className="relative flex min-h-[280px] items-end justify-center overflow-hidden rounded-[2rem] bg-[#EE6F28] px-6 pt-8">
             <Image
-              src="/orange2.png"
+              src="/jar.png"
               alt="Fresh sealed cup of orange juice"
               width={280}
               height={320}

@@ -91,7 +91,7 @@ export default function SmartTech() {
               className="absolute -left-2 bottom-[18%] w-24 md:w-32"
             >
               <Image
-                src="/orange2.png"
+                src="/jar.png"
                 alt=""
                 width={200}
                 height={200}

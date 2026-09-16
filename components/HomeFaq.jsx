@@ -40,7 +40,7 @@ export default function HomeFaq() {
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             >
               <Image
-                src="/orange2.png"
+                src="/jar.png"
                 alt=""
                 width={240}
                 height={240}
