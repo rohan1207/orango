@@ -126,7 +126,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 border-t border-white/10 py-5 text-center text-[12px] tracking-wide text-white/40">
-          Copyright Â© 2026 Orango | All Rights Reserved.
+          Copyright 2026 Orango / All Rights Reserved.
         </div>
       </div>
     </footer>

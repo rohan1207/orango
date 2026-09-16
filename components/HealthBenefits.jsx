@@ -44,7 +44,7 @@ export default function HealthBenefits() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 md:grid-cols-12 md:grid-rows-[148px_148px]">
-          {/* Vitamin C â€” featured photo */}
+          {/* Vitamin C - featured photo */}
           <motion.article
             initial={reduce ? false : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -68,7 +68,7 @@ export default function HealthBenefits() {
                 Vitamin C
               </h3>
               <p className="mt-1 max-w-[16rem] text-[12px] leading-snug text-white/75">
-                Fresh Valencia oranges â€” a bright daily dose.
+                Fresh Valencia oranges - a bright daily dose.
               </p>
             </div>
           </motion.article>
@@ -97,7 +97,7 @@ export default function HealthBenefits() {
             </p>
           </motion.article>
 
-          {/* Energy â€” juice glass */}
+          {/* Energy - juice glass */}
           <motion.article
             initial={reduce ? false : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -183,7 +183,7 @@ export default function HealthBenefits() {
             <div className="min-w-0 flex-1">
               <h3 className="text-[1.15rem] font-semibold">Skin Wellness</h3>
               <p className="mt-1 text-[13px] leading-snug text-white/80">
-                Citrus antioxidants â€” not concentrate.
+                Citrus antioxidants - not concentrate.
               </p>
             </div>
             <div className="relative h-20 w-20 shrink-0 md:h-24 md:w-28">

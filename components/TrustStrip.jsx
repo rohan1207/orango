@@ -7,9 +7,9 @@ import LiveBlobs from "./LiveBlobs";
 import OrangeSliceDecor from "./OrangeSliceDecor";
 
 const proofs = [
-  { value: "100%", label: "Pure Â· no dilution", detail: "Nothing added" },
+  { value: "100%", label: "Pure / no dilution", detail: "Nothing added" },
   { value: "45s", label: "Squeezed to order", detail: "Watch it happen" },
-  { value: "4Â°C", label: "Cold-chain fruit", detail: "Always chilled" },
+  { value: "4°C", label: "Cold-chain fruit", detail: "Always chilled" },
   { value: "UPI", label: "Native payments", detail: "No cash friction" },
 ];
 
@@ -39,7 +39,7 @@ export default function TrustStrip() {
               Why operators choose Orango
             </p>
             <h2 className="mt-3 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#8B3410]">
-              Premium amenity economics â€” without a cafÃ© build-out.
+              Premium amenity economics - without a cafe build-out.
             </h2>
           </div>
           <div className="flex items-center gap-3">

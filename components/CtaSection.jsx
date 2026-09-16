@@ -20,7 +20,7 @@ const models = [
   {
     kicker: "03",
     title: "Partner at scale",
-    copy: "Multi-site rollouts for operators who want branded F&B without building cafÃ©s.",
+    copy: "Multi-site rollouts for operators who want branded F&B without building cafes.",
   },
 ];
 
@@ -67,8 +67,8 @@ export default function CtaSection() {
                 Put a juice bar on your floor without building a juice bar.
               </h2>
               <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-white/85">
-                Valencia oranges. UPI. Sealed cups. Restocked like infrastructure â€”
-                not like a cafÃ©. Turn idle wall space into a daily ritual.
+                Valencia oranges. UPI. Sealed cups. Restocked like infrastructure  - 
+                not like a cafe. Turn idle wall space into a daily ritual.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link

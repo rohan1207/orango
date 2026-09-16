@@ -6,7 +6,7 @@ import LiveBlobs from "./LiveBlobs";
 
 const features = [
   {
-    title: "Oranges stored at 4Â°C",
+    title: "Oranges stored at 4°C",
     copy: "Fresh oranges and naturally chilled juice.",
     live: "Cold chain",
   },
@@ -111,7 +111,7 @@ export default function SmartTech() {
               Built for trust and convenience
             </h2>
             <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-white/85">
-              Hygiene, payments, and cold-chain â€” engineered into every OranGo
+              Hygiene, payments, and cold-chain - engineered into every OranGo
               machine so hosts get reliability and guests get confidence.
             </p>
 

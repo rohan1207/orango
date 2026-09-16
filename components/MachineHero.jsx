@@ -65,7 +65,7 @@ export default function MachineHero() {
         />
       </div>
 
-      {/* orange1 â€” centered on the vertical wavy partition */}
+      {/* orange1 - centered on the vertical wavy partition */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-[50%] top-[58%] z-[5] w-[clamp(12.5rem,24vw,19rem)] -translate-x-1/2 -translate-y-1/2 max-lg:left-1/2 max-lg:top-[46%] max-lg:w-[clamp(9rem,38vw,13.5rem)]"
@@ -145,7 +145,7 @@ export default function MachineHero() {
 
           <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/80 md:text-[16px]">
             Automated Valencia orange juice vending for malls, offices,
-            hospitals, and campuses. Chilled, hygienic, and UPI-ready â€”
+            hospitals, and campuses. Chilled, hygienic, and UPI-ready  - 
             sealed in under a minute.
           </p>
 
@@ -188,7 +188,7 @@ export default function MachineHero() {
             rotate={-16}
           />
 
-          {/* Right section â€” top left (orange3 paused)
+          {/* Right section - top left (orange3 paused)
           <motion.div
             aria-hidden
             className="pointer-events-none absolute -left-14 top-[6%] z-[2] w-[clamp(7.25rem,14.5vw,11.5rem)] max-lg:-left-6 max-lg:top-2 max-lg:w-28"
@@ -223,7 +223,7 @@ export default function MachineHero() {
             <MachineViewer className="machine-viewer h-full w-full" />
           </div>
 
-          {/* Right section â€” bottom right: juice glass */}
+          {/* Right section - bottom right: juice glass */}
           <motion.div
             aria-hidden
             className="pointer-events-none absolute -bottom-14 -right-12 z-[2] w-[clamp(7.5rem,15vw,11.5rem)] max-lg:-bottom-4 max-lg:-right-6 max-lg:w-28"

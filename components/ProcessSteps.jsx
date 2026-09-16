@@ -11,7 +11,7 @@ const steps = [
     number: "01",
     title: "Tap & Pay",
     description:
-      "Choose your juice and pay instantly with UPI or card â€” no cash, no queues.",
+      "Choose your juice and pay instantly with UPI or card - no cash, no queues.",
     live: "Payment successful",
   },
   {
@@ -19,7 +19,7 @@ const steps = [
     number: "02",
     title: "Freshly squeezed",
     description:
-      "Watch Valencia oranges pressed to order right in front of you â€” zero dilution.",
+      "Watch Valencia oranges pressed to order right in front of you - zero dilution.",
     live: "Squeezing in progress",
   },
   {
@@ -221,7 +221,7 @@ function StepCard({ step, active, index }) {
               className="mt-2.5 rounded-xl bg-white/12 px-3 py-2"
             >
               <div className="flex items-center justify-between text-[11px]">
-                <span className="font-medium text-white/75">UPI Â· ****4821</span>
+                <span className="font-medium text-white/75">UPI / ****4821</span>
                 <span className="font-semibold text-[#A8F0C0]">â‚¹80 paid</span>
               </div>
               <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/15">
@@ -286,7 +286,7 @@ function StepCard({ step, active, index }) {
                 </div>
                 <div>
                   <p className="text-[12px] font-semibold text-white">
-                    Cup sealed Â· 4Â°C
+                    Cup sealed / 4°C
                   </p>
                   <p className="text-[11px] text-white/70">Best within 1 hour</p>
                 </div>

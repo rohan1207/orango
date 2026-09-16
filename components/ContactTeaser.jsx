@@ -41,7 +41,7 @@ export default function ContactTeaser() {
             </h2>
             <p className="relative mt-4 max-w-lg text-[15px] leading-relaxed text-white/70">
               Delhi HQ. India rollout. If you control space, operations, or
-              capital â€” start with a short brief: site type, footfall, and what a
+              capital - start with a short brief: site type, footfall, and what a
               win looks like.
             </p>
             <div className="relative mt-8 flex flex-wrap gap-3">
