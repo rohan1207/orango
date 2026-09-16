@@ -133,3 +133,11 @@ model-viewer.machine-viewer {
 model-viewer.machine-viewer:focus {
   outline: none;
 }
+
+@media (max-width: 767px) {
+  html,
+  body {
+    overflow: hidden;
+    height: 100%;
+  }
+}
