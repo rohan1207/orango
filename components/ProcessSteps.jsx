@@ -393,15 +393,15 @@ export default function ProcessSteps() {
           </p>
         </div>
 
-        <div className="mt-3 grid min-h-0 flex-1 grid-rows-[1fr_auto] items-center gap-4 lg:mt-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:grid-rows-1 lg:gap-8">
-          <div className="relative mx-auto flex w-full max-w-md items-center justify-center max-lg:max-h-[30vh] lg:mx-0 lg:max-h-[62vh] lg:max-w-none">
+        <div className="mt-3 grid min-h-0 flex-1 grid-rows-[1fr_auto] items-center gap-4 lg:mt-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:grid-rows-1 lg:gap-8">
+          <div className="relative mx-auto flex w-full max-w-lg items-center justify-center max-lg:max-h-[42vh] lg:mx-0 lg:max-h-[78vh] lg:max-w-none">
             <Image
               src="/machine.png"
               alt="Orango juice vending machine showing tap and pay, fresh squeezing, and chilled juice dispense flow"
               width={1200}
               height={1400}
-              className="h-auto max-h-[30vh] w-auto max-w-full object-contain lg:max-h-[62vh]"
-              sizes="(max-width: 1024px) 55vw, 38vw"
+              className="h-auto max-h-[42vh] w-auto max-w-full scale-[1.08] object-contain lg:max-h-[78vh] lg:scale-[1.12]"
+              sizes="(max-width: 1024px) 70vw, 48vw"
               priority
             />
           </div>

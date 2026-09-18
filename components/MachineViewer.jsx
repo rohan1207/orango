@@ -1,81 +1,64 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  adoptMachineViewer,
+  applyOrbit,
+  parkMachineViewer,
+} from "@/lib/preloadMachine";
 
 export default function MachineViewer({ className = "" }) {
-  const [ready, setReady] = useState(false);
-  const [compact, setCompact] = useState(false);
+  const hostRef = useRef(null);
+  const viewerRef = useRef(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    const host = hostRef.current;
+    if (!host) return undefined;
+
     let alive = true;
-    import("@google/model-viewer").then(() => {
-      if (alive) setReady(true);
+    const compact = window.matchMedia("(max-width: 1023px)").matches;
+
+    adoptMachineViewer(host, { className, compact }).then((el) => {
+      if (!alive) {
+        parkMachineViewer();
+        return;
+      }
+      viewerRef.current = el;
+      if (el) setMounted(true);
     });
+
+    const mq = window.matchMedia("(max-width: 1023px)");
+    const onMq = (e) => {
+      if (viewerRef.current) applyOrbit(viewerRef.current, e.matches);
+    };
+    mq.addEventListener("change", onMq);
+
     return () => {
       alive = false;
+      mq.removeEventListener("change", onMq);
+      parkMachineViewer();
     };
-  }, []);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 1023px)");
-    const update = () => setCompact(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  if (!ready) {
-    return (
-      <div className={`relative ${className}`} aria-hidden>
-        <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 opacity-25 md:h-52 md:w-52">
-          <Image
-            src="/orange-bg.png"
-            alt=""
-            fill
-            className="object-contain"
-            sizes="220px"
-          />
-        </div>
-      </div>
-    );
-  }
-
-  // Turntable orbit: horizontal spin only — fixed tilt + radius, no zoom or pan.
-  const radius = compact ? "102%" : "92%";
-  const fov = compact ? "26deg" : "20deg";
-  const polar = compact ? "80deg" : "78deg";
-  const azimuth = compact ? "18deg" : "22deg";
-  const orbit = `${azimuth} ${polar} ${radius}`;
-  const lockedOrbit = `auto ${polar} ${radius}`;
+    // Adopt once — do not re-run on compact flips (that was causing reload).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [className]);
 
   return (
-    <model-viewer
-      src="/orange_machine.glb"
-      alt="Orango fresh orange juice vending machine"
-      className={className}
-      camera-controls="true"
-      disable-zoom="true"
-      disable-pan="true"
-      auto-rotate
-      auto-rotate-delay="1200"
-      rotation-per-second="6deg"
-      interaction-prompt="none"
-      shadow-intensity="0.55"
-      shadow-softness="1"
-      exposure="1.18"
-      environment-image="neutral"
-      camera-orbit={orbit}
-      min-camera-orbit={lockedOrbit}
-      max-camera-orbit={lockedOrbit}
-      camera-target="auto"
-      field-of-view={fov}
-      min-field-of-view={fov}
-      max-field-of-view={fov}
-      touch-action="none"
-      interpolation-decay="90"
-      loading="eager"
-      reveal="auto"
-    />
+    <div ref={hostRef} className={`relative ${className}`}>
+      {!mounted ? (
+        <div className="pointer-events-none absolute inset-0" aria-hidden>
+          <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 opacity-25 md:h-52 md:w-52">
+            <Image
+              src="/orange-bg.png"
+              alt=""
+              fill
+              className="object-contain"
+              sizes="220px"
+            />
+          </div>
+        </div>
+      ) : null}
+    </div>
   );
 }

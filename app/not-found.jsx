@@ -14,7 +14,7 @@ export default function NotFound() {
         site.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <MagneticButton href="/">Home</MagneticButton>
+        <MagneticButton href="/home">Home</MagneticButton>
         <MagneticButton href="/contact" variant="ghost">
           Contact Us
         </MagneticButton>

@@ -1,5 +1,6 @@
 const routes = [
   "",
+  "/home",
   "/about",
   "/vending-machine",
   "/business-opportunity",
@@ -16,7 +17,7 @@ export default function sitemap() {
   return routes.map((path) => ({
     url: `${base}${path}`,
     lastModified: new Date("2026-09-10"),
-    changeFrequency: path === "" ? "weekly" : "monthly",
-    priority: path === "" ? 1 : 0.7,
+    changeFrequency: path === "" || path === "/home" ? "weekly" : "monthly",
+    priority: path === "" ? 1 : path === "/home" ? 0.95 : 0.7,
   }));
 }

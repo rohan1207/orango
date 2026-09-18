@@ -18,7 +18,7 @@ export default function HomeFaq() {
     >
       <LiveBlobs />
 
-      <div className="relative z-10 mx-auto grid max-w-[1440px] gap-12 px-5 md:grid-cols-12 md:px-8">
+      <div className="relative z-10 mx-auto grid max-w-[1440px] items-start gap-8 px-5 md:grid-cols-12 md:gap-10 md:px-8">
         <div className="md:col-span-5">
           <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
             FAQs
@@ -34,7 +34,7 @@ export default function HomeFaq() {
             here. Reach out if you need more.
           </p>
 
-          <div className="relative mt-10 max-w-[220px]">
+          <div className="relative mt-6 max-w-[160px] md:max-w-[180px]">
             <motion.div
               animate={reduce ? undefined : { y: [0, -8, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -42,19 +42,12 @@ export default function HomeFaq() {
               <Image
                 src="/jar.png"
                 alt=""
-                width={240}
-                height={240}
+                width={200}
+                height={200}
                 className="h-auto w-full object-contain"
               />
             </motion.div>
           </div>
-
-          <Link
-            href="/contact"
-            className="mt-8 inline-flex items-center justify-center rounded-full bg-[#EE6F28] px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18]"
-          >
-            Contact Us
-          </Link>
         </div>
 
         <div className="md:col-span-7">
@@ -110,6 +103,15 @@ export default function HomeFaq() {
                 </motion.div>
               );
             })}
+          </div>
+
+          <div className="mt-6 flex justify-end">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center rounded-full bg-[#EE6F28] px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18]"
+            >
+              Contact Us
+            </Link>
           </div>
         </div>
       </div>

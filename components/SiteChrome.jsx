@@ -4,18 +4,20 @@ import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import MobileGate from "./MobileGate";
+import EarlyModelWarmup from "./EarlyModelWarmup";
 
 export default function SiteChrome({ children }) {
   const pathname = usePathname();
-  const intro = pathname === "/intro";
+  const landing = pathname === "/";
 
   return (
     <>
+      <EarlyModelWarmup />
       <MobileGate />
       <div className="max-md:hidden">
-        {intro ? null : <Navbar />}
+        {landing ? null : <Navbar />}
         <div id="main">{children}</div>
-        {intro ? null : <Footer />}
+        {landing ? null : <Footer />}
       </div>
     </>
   );
