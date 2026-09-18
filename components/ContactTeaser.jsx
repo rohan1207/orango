@@ -13,7 +13,7 @@ export default function ContactTeaser() {
   return (
     <section
       aria-labelledby="next-step-heading"
-      className="relative overflow-hidden bg-white py-20 md:py-28"
+      className="relative overflow-hidden bg-white py-14 sm:py-20 md:py-28"
     >
       <LiveBlobs />
 
@@ -44,16 +44,16 @@ export default function ContactTeaser() {
               capital - start with a short brief: site type, footfall, and what a
               win looks like.
             </p>
-            <div className="relative mt-8 flex flex-wrap gap-3">
+            <div className="relative mt-8 flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-3">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#EE6F28] px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18]"
+                className="inline-flex w-full items-center justify-center rounded-full bg-white px-7 py-3.5 text-[14px] font-semibold text-[#8B3410] transition-colors hover:bg-[#FFF5ED] sm:w-auto"
               >
                 Get in touch
               </Link>
               <Link
                 href="/shop"
-                className="inline-flex items-center justify-center rounded-full border border-white/25 px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:border-white/50"
+                className="inline-flex w-full items-center justify-center rounded-full border border-white/45 px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:border-white/70 sm:w-auto"
               >
                 Browse machines
               </Link>

@@ -105,37 +105,37 @@ export default function BusinessOpportunityContent() {
   const reduce = useReducedMotion();
 
   return (
-    <article className="relative overflow-hidden bg-[#FFFAF6]">
+    <article className="relative w-full max-w-full overflow-x-clip bg-[#FFFAF6]">
       <LiveBlobs />
 
-      <section className="relative z-10 mx-auto max-w-[1440px] px-5 pb-10 pt-[calc(var(--nav-h)+2.5rem)] md:px-8 md:pb-14">
-        <div className="grid items-end gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+      <section className="relative z-10 mx-auto max-w-[1440px] px-4 pb-8 pt-[calc(var(--nav-h)+1.5rem)] sm:px-5 sm:pb-10 sm:pt-[calc(var(--nav-h)+2rem)] md:px-8 md:pb-14 md:pt-[calc(var(--nav-h)+2.5rem)]">
+        <div className="grid items-end gap-7 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8">
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55 }}
           >
-            <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28] sm:text-[12px]">
               Business Opportunity
             </p>
-            <h1 className="mt-3 max-w-2xl text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#8B3410]">
+            <h1 className="mt-2.5 max-w-2xl text-[clamp(1.75rem,7.2vw,3.5rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-[#8B3410] sm:mt-3">
               Turn high footfall into fresh orange juice revenue.
             </h1>
-            <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-[#8B3410]/70">
+            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#8B3410]/70 sm:mt-5 sm:text-[16px]">
               OranGo partners with location hosts, operators, and strategic
               groups to place automated fresh-juice machines where people already
               spend time — without café build-outs or wet kitchens.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex w-full flex-col gap-2.5 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-3">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#EE6F28] px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18]"
+                className="inline-flex w-full items-center justify-center rounded-full bg-[#EE6F28] px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18] sm:w-auto"
               >
                 Start a conversation
               </Link>
               <Link
                 href="/vending-machine"
-                className="inline-flex items-center justify-center rounded-full border border-[#8B3410]/15 bg-white px-6 py-3 text-[14px] font-semibold text-[#8B3410] transition-colors hover:border-[#EE6F28]/40"
+                className="inline-flex w-full items-center justify-center rounded-full border border-[#8B3410]/15 bg-white px-6 py-3 text-[14px] font-semibold text-[#8B3410] transition-colors hover:border-[#EE6F28]/40 sm:w-auto"
               >
                 See the machine
               </Link>
@@ -146,33 +146,35 @@ export default function BusinessOpportunityContent() {
             initial={reduce ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.08 }}
-            className="grid grid-cols-2 gap-3"
+            className="grid grid-cols-2 gap-2.5 sm:gap-3"
           >
             {proof.map((item) => (
               <div
                 key={item.label}
-                className="rounded-[1.35rem] bg-[#EE6F28] px-5 py-5 text-white"
+                className="rounded-[1.2rem] bg-[#EE6F28] px-4 py-4 text-white sm:rounded-[1.35rem] sm:px-5 sm:py-5"
               >
-                <p className="text-[1.75rem] font-semibold tracking-[-0.03em] text-[#FFB45C]">
+                <p className="text-[1.5rem] font-semibold tracking-[-0.03em] text-[#FFB45C] sm:text-[1.75rem]">
                   {item.value}
                 </p>
-                <p className="mt-1 text-[13px] text-white/70">{item.label}</p>
+                <p className="mt-1 text-[12px] text-white/70 sm:text-[13px]">
+                  {item.label}
+                </p>
               </div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-[1440px] px-5 py-12 md:px-8 md:py-16">
-        <div className="mb-6 max-w-2xl">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
+      <section className="relative z-10 mx-auto max-w-[1440px] px-4 py-10 sm:px-5 sm:py-12 md:px-8 md:py-16">
+        <div className="mb-5 max-w-2xl sm:mb-6">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28] sm:text-[12px]">
             Partnership models
           </p>
-          <h2 className="mt-2 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#8B3410]">
+          <h2 className="mt-2 text-[clamp(1.5rem,6vw,2.6rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#8B3410]">
             Three ways to build with Orango.
           </h2>
         </div>
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-3 sm:gap-4 lg:grid-cols-3">
           {models.map((model, i) => (
             <motion.article
               key={model.title}
@@ -180,34 +182,34 @@ export default function BusinessOpportunityContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
-              className={`flex flex-col rounded-[1.75rem] p-7 md:p-8 ${
+              className={`flex flex-col rounded-[1.5rem] p-5 sm:rounded-[1.75rem] sm:p-7 md:p-8 ${
                 i === 1
                   ? "bg-[#EE6F28] text-white"
                   : "border border-[#8B3410]/8 bg-white text-[#8B3410]"
               }`}
             >
               <p
-                className={`text-[12px] font-semibold tracking-[0.18em] ${
+                className={`text-[11px] font-semibold tracking-[0.18em] sm:text-[12px] ${
                   i === 1 ? "text-white/80" : "text-[#EE6F28]"
                 }`}
               >
                 {model.kicker}
               </p>
-              <h3 className="mt-3 text-[1.45rem] font-semibold tracking-[-0.02em]">
+              <h3 className="mt-2.5 text-[1.25rem] font-semibold tracking-[-0.02em] sm:mt-3 sm:text-[1.45rem]">
                 {model.title}
               </h3>
               <p
-                className={`mt-3 flex-1 text-[14px] leading-relaxed ${
+                className={`mt-2.5 flex-1 text-[13px] leading-relaxed sm:mt-3 sm:text-[14px] ${
                   i === 1 ? "text-white/85" : "text-[#8B3410]/65"
                 }`}
               >
                 {model.copy}
               </p>
-              <ul className="mt-5 space-y-2">
+              <ul className="mt-4 space-y-2 sm:mt-5">
                 {model.points.map((point) => (
                   <li
                     key={point}
-                    className={`flex gap-2 text-[13px] ${
+                    className={`flex gap-2 text-[12px] sm:text-[13px] ${
                       i === 1 ? "text-white/90" : "text-[#8B3410]/75"
                     }`}
                   >
@@ -222,10 +224,10 @@ export default function BusinessOpportunityContent() {
               </ul>
               <Link
                 href="/contact"
-                className={`mt-8 inline-flex items-center justify-center rounded-full px-5 py-3 text-[13px] font-semibold transition-colors ${
+                className={`mt-6 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-[13px] font-semibold transition-colors sm:mt-8 ${
                   i === 1
-                    ? "bg-[#EE6F28] text-white hover:bg-[#D45A18]"
-                    : "bg-[#EE6F28] text-white hover:bg-[#EE6F28]"
+                    ? "bg-white text-[#8B3410] hover:bg-[#FFF5ED]"
+                    : "bg-[#EE6F28] text-white hover:bg-[#D45A18]"
                 }`}
               >
                 {model.cta}
@@ -235,30 +237,32 @@ export default function BusinessOpportunityContent() {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-[1440px] px-5 py-12 md:px-8 md:py-16">
+      <section className="relative z-10 mx-auto max-w-[1440px] px-4 py-10 sm:px-5 sm:py-12 md:px-8 md:py-16">
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="overflow-hidden rounded-[2rem] bg-[#EE6F28] px-7 py-10 text-white md:px-12 md:py-14"
+          className="overflow-hidden rounded-[1.6rem] bg-[#EE6F28] px-5 py-8 text-white sm:rounded-[2rem] sm:px-7 sm:py-10 md:px-12 md:py-14"
         >
-          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#FFB45C]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#FFB45C] sm:text-[12px]">
             Commercial logic
           </p>
-          <h2 className="mt-3 max-w-3xl text-[clamp(1.6rem,3vw,2.5rem)] font-semibold leading-[1.1] tracking-[-0.03em]">
+          <h2 className="mt-2.5 max-w-3xl text-[clamp(1.4rem,5.5vw,2.5rem)] font-semibold leading-[1.12] tracking-[-0.03em] sm:mt-3">
             Why a wall can outperform a stall.
           </h2>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+          <div className="mt-7 grid gap-2.5 sm:mt-10 sm:grid-cols-2 sm:gap-4">
             {logic.map((item, i) => (
               <div
                 key={item.title}
-                className="rounded-[1.35rem] border border-white/10 bg-white/5 p-6"
+                className="rounded-[1.2rem] border border-white/10 bg-white/5 p-4 sm:rounded-[1.35rem] sm:p-6"
               >
-                <p className="text-[12px] font-semibold text-[#FFB45C]">
+                <p className="text-[11px] font-semibold text-[#FFB45C] sm:text-[12px]">
                   0{i + 1}
                 </p>
-                <h3 className="mt-2 text-[1.15rem] font-semibold">{item.title}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-white/65">
+                <h3 className="mt-1.5 text-[1.05rem] font-semibold sm:mt-2 sm:text-[1.15rem]">
+                  {item.title}
+                </h3>
+                <p className="mt-1.5 text-[13px] leading-relaxed text-white/65 sm:mt-2 sm:text-[14px]">
                   {item.copy}
                 </p>
               </div>
@@ -267,16 +271,16 @@ export default function BusinessOpportunityContent() {
         </motion.div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-[1440px] px-5 py-12 md:px-8 md:py-16">
-        <div className="mb-6 max-w-2xl">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
+      <section className="relative z-10 mx-auto max-w-[1440px] px-4 py-10 sm:px-5 sm:py-12 md:px-8 md:py-16">
+        <div className="mb-5 max-w-2xl sm:mb-6">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28] sm:text-[12px]">
             Ideal floors
           </p>
-          <h2 className="mt-2 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#8B3410]">
+          <h2 className="mt-2 text-[clamp(1.5rem,6vw,2.6rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#8B3410]">
             Where fresh juice already wants to live.
           </h2>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
           {venues.map((item, i) => (
             <motion.div
               key={item.title}
@@ -284,15 +288,15 @@ export default function BusinessOpportunityContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: (i % 3) * 0.05 }}
-              className="rounded-[1.4rem] border border-[#8B3410]/8 bg-white p-6"
+              className="rounded-[1.25rem] border border-[#8B3410]/8 bg-white p-5 sm:rounded-[1.4rem] sm:p-6"
             >
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#EE6F28]">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#EE6F28] sm:text-[11px]">
                 {item.stat}
               </p>
-              <h3 className="mt-2 text-[1.15rem] font-semibold text-[#8B3410]">
+              <h3 className="mt-1.5 text-[1.05rem] font-semibold text-[#8B3410] sm:mt-2 sm:text-[1.15rem]">
                 {item.title}
               </h3>
-              <p className="mt-2 text-[14px] leading-relaxed text-[#8B3410]/65">
+              <p className="mt-1.5 text-[13px] leading-relaxed text-[#8B3410]/65 sm:mt-2 sm:text-[14px]">
                 {item.copy}
               </p>
             </motion.div>
@@ -300,25 +304,25 @@ export default function BusinessOpportunityContent() {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-[1440px] px-5 py-12 md:px-8 md:py-16">
-        <div className="grid items-center gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="relative overflow-hidden rounded-[2rem] bg-[#FFF5ED] p-8">
+      <section className="relative z-10 mx-auto max-w-[1440px] px-4 py-10 sm:px-5 sm:py-12 md:px-8 md:py-16">
+        <div className="grid items-center gap-4 sm:gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="relative overflow-hidden rounded-[1.5rem] bg-[#FFF5ED] p-6 sm:rounded-[2rem] sm:p-8">
             <Image
               src="/machine.png"
               alt="Orango juice machine for partner sites"
               width={420}
               height={520}
-              className="mx-auto h-auto w-full max-w-[260px] object-contain"
+              className="mx-auto h-auto w-full max-w-[200px] object-contain sm:max-w-[260px]"
             />
           </div>
-          <div className="rounded-[2rem] border border-[#8B3410]/8 bg-white p-8 md:p-10">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#EE6F28]">
+          <div className="rounded-[1.5rem] border border-[#8B3410]/8 bg-white p-6 sm:rounded-[2rem] sm:p-8 md:p-10">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#EE6F28] sm:text-[12px]">
               What we look for
             </p>
-            <h2 className="mt-3 text-[clamp(1.5rem,2.8vw,2.2rem)] font-semibold leading-[1.12] tracking-[-0.03em] text-[#8B3410]">
+            <h2 className="mt-2.5 text-[clamp(1.35rem,5vw,2.2rem)] font-semibold leading-[1.14] tracking-[-0.03em] text-[#8B3410] sm:mt-3">
               Real floors. Real footfall. Partners ready to move.
             </h2>
-            <ul className="mt-6 space-y-3 text-[14px] leading-relaxed text-[#8B3410]/75">
+            <ul className="mt-5 space-y-2.5 text-[13px] leading-relaxed text-[#8B3410]/75 sm:mt-6 sm:space-y-3 sm:text-[14px]">
               {[
                 "High-visibility placement near circulation or dwell zones",
                 "Power access and a small service clear for replenishment",
@@ -331,7 +335,7 @@ export default function BusinessOpportunityContent() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-[14px] leading-relaxed text-[#8B3410]/65">
+            <p className="mt-5 text-[13px] leading-relaxed text-[#8B3410]/65 sm:mt-6 sm:text-[14px]">
               We are early-stage and India-focused — actively building the
               partnerships and operational network that will help us scale.
             </p>
@@ -339,47 +343,47 @@ export default function BusinessOpportunityContent() {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-[1440px] px-5 pb-20 md:px-8 md:pb-28">
+      <section className="relative z-10 mx-auto max-w-[1440px] px-4 pb-14 sm:px-5 sm:pb-20 md:px-8 md:pb-28">
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[2rem] bg-[#EE6F28] px-7 py-12 text-white md:px-12 md:py-14"
+          className="relative overflow-hidden rounded-[1.6rem] bg-[#EE6F28] px-5 py-10 text-white sm:rounded-[2rem] sm:px-7 sm:py-12 md:px-12 md:py-14"
         >
           <OrangeSliceDecor
-            className="-right-12 bottom-0 h-52 w-52 md:h-60 md:w-60"
+            className="-right-12 bottom-0 hidden h-52 w-52 sm:block md:h-60 md:w-60"
             opacity={0.22}
             rotate={-18}
           />
-          <div className="relative grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+          <div className="relative grid gap-6 sm:gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
-              <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-[#FFB45C]">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#FFB45C] sm:text-[12px]">
                 Next step
               </p>
-              <h2 className="mt-3 max-w-xl text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-[1.1] tracking-[-0.03em]">
+              <h2 className="mt-2.5 max-w-xl text-[clamp(1.4rem,5.5vw,2.4rem)] font-semibold leading-[1.12] tracking-[-0.03em] sm:mt-3">
                 If the floor is real, so is the discussion.
               </h2>
-              <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-white/75">
+              <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-white/75 sm:mt-4 sm:text-[15px]">
                 Share site type, city, and approximate daily footfall. We will
                 come back with placement fit, commercial options, and a clear
                 next step.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-6 flex w-full flex-col gap-2.5 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-3">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center rounded-full bg-[#EE6F28] px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18]"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-white px-7 py-3.5 text-[14px] font-semibold text-[#8B3410] transition-colors hover:bg-[#FFF5ED] sm:w-auto"
                 >
                   Contact partnerships
                 </Link>
                 <Link
                   href="/shop"
-                  className="inline-flex items-center justify-center rounded-full border border-white/25 px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:border-white/50"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-white/45 px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:border-white/70 sm:w-auto"
                 >
                   Placement options
                 </Link>
               </div>
             </div>
-            <div className="relative mx-auto w-full max-w-[200px]">
+            <div className="relative mx-auto hidden w-full max-w-[160px] sm:block sm:max-w-[200px]">
               <Image
                 src="/orange1.png"
                 alt=""

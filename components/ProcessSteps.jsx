@@ -369,7 +369,7 @@ export default function ProcessSteps() {
   return (
     <section
       aria-labelledby="process-heading"
-      className="relative flex h-[100dvh] max-h-[100dvh] flex-col overflow-hidden bg-white"
+      className="relative flex flex-col overflow-hidden bg-white max-lg:py-12 lg:h-[100dvh] lg:max-h-[100dvh] lg:py-0"
     >
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         {sliceAccents.map((blob, i) => (
@@ -377,7 +377,7 @@ export default function ProcessSteps() {
         ))}
       </div>
 
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col px-5 py-5 md:px-8 md:py-6 lg:py-7">
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-[1440px] flex-col px-5 py-0 md:px-8 lg:py-7">
         <div className="mx-auto max-w-2xl shrink-0 text-center">
           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-orange">
             How it works
@@ -393,14 +393,14 @@ export default function ProcessSteps() {
           </p>
         </div>
 
-        <div className="mt-3 grid min-h-0 flex-1 grid-rows-[1fr_auto] items-center gap-4 lg:mt-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:grid-rows-1 lg:gap-8">
-          <div className="relative mx-auto flex w-full max-w-lg items-center justify-center max-lg:max-h-[42vh] lg:mx-0 lg:max-h-[78vh] lg:max-w-none">
+        <div className="mt-5 grid min-h-0 flex-1 grid-rows-[auto_auto] items-center gap-5 lg:mt-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:grid-rows-1 lg:gap-8">
+          <div className="relative mx-auto flex w-full max-w-[260px] items-center justify-center sm:max-w-sm lg:mx-0 lg:max-h-[78vh] lg:max-w-none">
             <Image
               src="/machine.png"
               alt="Orango juice vending machine showing tap and pay, fresh squeezing, and chilled juice dispense flow"
               width={1200}
               height={1400}
-              className="h-auto max-h-[42vh] w-auto max-w-full scale-[1.08] object-contain lg:max-h-[78vh] lg:scale-[1.12]"
+              className="h-auto max-h-[36vh] w-auto max-w-full object-contain sm:max-h-[42vh] lg:max-h-[78vh] lg:scale-[1.12]"
               sizes="(max-width: 1024px) 70vw, 48vw"
               priority
             />
@@ -435,10 +435,10 @@ export default function ProcessSteps() {
           </div>
         </div>
 
-        <div className="relative z-10 mt-3 flex shrink-0 flex-wrap items-center justify-center gap-3 pb-1 text-center">
+        <div className="relative z-10 mt-5 flex shrink-0 flex-col items-center justify-center gap-3 pb-1 text-center sm:mt-3 sm:flex-row sm:flex-wrap">
           <Link
             href="/shop"
-            className="inline-flex items-center justify-center rounded-full bg-orange px-7 py-2.5 text-[14px] font-semibold text-cream transition-colors duration-200 hover:bg-orange-deep"
+            className="inline-flex w-full items-center justify-center rounded-full bg-orange px-7 py-2.5 text-[14px] font-semibold text-cream transition-colors duration-200 hover:bg-orange-deep sm:w-auto"
           >
             Place a juice machine
           </Link>

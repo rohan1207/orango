@@ -14,7 +14,7 @@ export default function Logo({ className = "", invert = false }) {
         width={180}
         height={52}
         priority
-        className={`h-10 w-auto object-contain md:h-11 lg:h-12 ${
+        className={`h-8 w-auto object-contain sm:h-10 md:h-11 lg:h-12 ${
           invert ? "brightness-0 invert" : ""
         }`}
       />

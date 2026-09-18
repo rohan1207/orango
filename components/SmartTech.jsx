@@ -43,7 +43,7 @@ export default function SmartTech() {
   return (
     <section
       aria-labelledby="tech-heading"
-      className="relative overflow-hidden bg-[#FFFAF6] py-20 md:py-28"
+      className="relative overflow-hidden bg-[#FFFAF6] py-14 sm:py-20 md:py-28"
     >
       <LiveBlobs
         items={[
@@ -63,8 +63,8 @@ export default function SmartTech() {
       />
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-5 md:px-8">
-        <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
-          <div className="relative">
+        <div className="grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+          <div className="relative order-2 lg:order-1">
             <div className="absolute inset-[8%] rounded-[2rem] bg-[#EE6F28]/8" />
             <motion.div
               animate={reduce ? undefined : { y: [0, 10, 0] }}
@@ -76,27 +76,27 @@ export default function SmartTech() {
                 alt="Orango smart juice vending machine"
                 width={900}
                 height={1100}
-                className="mx-auto h-auto w-full max-w-md object-contain drop-shadow-[0_24px_48px_rgba(238,111,40,0.18)] lg:max-w-none"
+                className="mx-auto h-auto w-full max-w-[240px] object-contain drop-shadow-[0_24px_48px_rgba(238,111,40,0.18)] sm:max-w-sm lg:max-w-none"
               />
             </motion.div>
           </div>
 
-          <div>
+          <div className="order-1 lg:order-2">
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
               Smart technology
             </p>
             <h2
               id="tech-heading"
-              className="mt-3 text-[clamp(2rem,4vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#8B3410]"
+              className="mt-3 text-[clamp(1.75rem,6vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#8B3410]"
             >
               Built for trust and convenience
             </h2>
-            <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-[#8B3410]/65">
+            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#8B3410]/65 sm:text-[16px]">
               Hygiene, payments, and cold-chain - engineered into every OranGo
               machine so hosts get reliability and guests get confidence.
             </p>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2">
               {features.map((item, i) => (
                 <motion.article
                   key={item.title}
@@ -104,7 +104,7 @@ export default function SmartTech() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.04 }}
-                  className="rounded-[1.35rem] border border-[#EE6F28]/12 bg-white p-5 transition-colors hover:border-[#EE6F28]/28"
+                  className="rounded-[1.35rem] border border-[#EE6F28]/12 bg-white p-4 sm:p-5 transition-colors hover:border-[#EE6F28]/28"
                 >
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FFF5ED] px-2.5 py-1 text-[11px] font-semibold text-[#EE6F28]">
                     <span className="relative flex h-1.5 w-1.5">

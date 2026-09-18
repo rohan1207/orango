@@ -74,8 +74,8 @@ const kickerClass = {
   white: "text-[#EE6F28]",
 };
 
-const STACK_GAP = 22;
-const ENTER_Y = 380;
+const STACK_GAP = 18;
+const ENTER_Y = 280;
 
 function BenefitCard({ item, index, total, progress, reduce }) {
   // Card 0 is already in place when sticky locks; remaining cards enter on scroll.
@@ -113,24 +113,24 @@ function BenefitCard({ item, index, total, progress, reduce }) {
   return (
     <motion.article
       style={{ y, scale, opacity, zIndex: index + 1 }}
-      className={`absolute inset-x-0 top-0 mx-auto flex min-h-[16.5rem] max-w-3xl flex-col justify-between gap-5 overflow-hidden rounded-[1.75rem] p-6 shadow-[0_18px_40px_rgba(238,111,40,0.14)] will-change-transform md:min-h-[18.5rem] md:flex-row md:items-center md:gap-10 md:rounded-[2rem] md:p-8 ${toneClass[item.tone]}`}
+      className={`absolute inset-x-0 top-0 mx-auto flex min-h-[14.5rem] max-w-3xl flex-col justify-between gap-4 overflow-hidden rounded-[1.5rem] p-5 shadow-[0_18px_40px_rgba(238,111,40,0.14)] will-change-transform sm:min-h-[16.5rem] sm:rounded-[1.75rem] sm:p-6 md:min-h-[18.5rem] md:flex-row md:items-center md:gap-10 md:rounded-[2rem] md:p-8 ${toneClass[item.tone]}`}
     >
       <div className="min-w-0 flex-1">
         <p
-          className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${kickerClass[item.tone]}`}
+          className={`text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px] ${kickerClass[item.tone]}`}
         >
           {item.kicker}
         </p>
-        <h3 className="mt-2 text-[clamp(1.55rem,3vw,2.25rem)] font-semibold tracking-[-0.03em]">
+        <h3 className="mt-1.5 text-[clamp(1.35rem,5vw,2.25rem)] font-semibold tracking-[-0.03em] sm:mt-2">
           {item.title}
         </h3>
         <p
-          className={`mt-3 max-w-lg text-[15px] leading-relaxed md:text-[16px] ${copyClass[item.tone]}`}
+          className={`mt-2 max-w-lg text-[14px] leading-relaxed sm:mt-3 sm:text-[15px] md:text-[16px] ${copyClass[item.tone]}`}
         >
           {item.copy}
         </p>
       </div>
-      <div className="relative mx-auto h-36 w-36 shrink-0 md:mx-0 md:h-44 md:w-44">
+      <div className="relative mx-auto h-28 w-28 shrink-0 sm:h-36 sm:w-36 md:mx-0 md:h-44 md:w-44">
         <Image
           src={item.image}
           alt=""
@@ -160,30 +160,30 @@ export default function HealthBenefits() {
       className="relative bg-[#FFFAF6]"
       style={{ height: `${Math.max(total, 1) * 100}vh` }}
     >
-      <div className="sticky top-[88px] flex h-[calc(100svh-88px)] flex-col overflow-hidden lg:top-[96px] lg:h-[calc(100svh-96px)]">
+      <div className="sticky top-[var(--nav-h)] flex h-[calc(100svh-var(--nav-h))] flex-col overflow-hidden">
         <OrangeSliceDecor
-          className="-left-10 top-10 h-36 w-36 md:h-44 md:w-44"
+          className="-left-10 top-10 hidden h-36 w-36 sm:block md:h-44 md:w-44"
           opacity={0.14}
           rotate={-16}
         />
         <OrangeSliceDecor
-          className="-right-12 bottom-16 h-40 w-40 md:h-48 md:w-48"
+          className="-right-12 bottom-16 hidden h-40 w-40 sm:block md:h-48 md:w-48"
           opacity={0.12}
           rotate={18}
         />
 
-        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] shrink-0 items-end justify-between gap-3 px-5 pb-3 pt-6 md:px-8 md:pt-8">
+        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] shrink-0 items-end justify-between gap-3 px-4 pb-1 pt-3 sm:px-5 sm:pb-3 sm:pt-6 md:px-8 md:pt-8">
           <div className="max-w-xl">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#EE6F28]">
               OranGo Benefits
             </p>
             <h2
               id="benefits-heading"
-              className="mt-1.5 text-[clamp(1.55rem,2.8vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#8B3410]"
+              className="mt-1.5 text-[clamp(1.45rem,5.5vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#8B3410]"
             >
               Health Benefits
             </h2>
-            <p className="mt-1 text-[14px] text-[#8B3410]/6">
+            <p className="mt-1 text-[13px] text-[#8B3410]/60 sm:text-[14px]">
               Keep scrolling — each benefit stacks on the last.
             </p>
           </div>
@@ -195,8 +195,8 @@ export default function HealthBenefits() {
           </Link>
         </div>
 
-        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 items-start px-5 pb-8 pt-2 md:px-8">
-          <div className="relative mx-auto h-[min(420px,52svh)] w-full md:h-[min(460px,56svh)]">
+        <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 items-center justify-center px-4 pb-8 pt-2 max-md:-translate-y-5 sm:px-5 md:translate-y-0 md:items-start md:justify-start md:pb-8 md:pt-2 md:px-8">
+          <div className="relative mx-auto h-[min(360px,52svh)] w-full sm:h-[min(420px,52svh)] md:h-[min(460px,56svh)]">
             {benefits.map((item, index) => (
               <BenefitCard
                 key={item.title}

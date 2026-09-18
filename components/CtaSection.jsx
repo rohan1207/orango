@@ -30,12 +30,12 @@ export default function CtaSection() {
   return (
     <section
       aria-labelledby="operators-heading"
-      className="relative overflow-hidden bg-white py-20 md:py-28"
+      className="relative overflow-hidden bg-white py-14 sm:py-20 md:py-28"
     >
       <LiveBlobs />
 
       <div className="relative z-10 mx-auto max-w-[1440px] px-5 md:px-8">
-        <div className="relative overflow-hidden rounded-[2rem] bg-[#EE6F28] px-6 py-12 text-white md:px-12 md:py-16">
+        <div className="relative overflow-hidden rounded-[1.6rem] bg-[#EE6F28] px-5 py-10 text-white sm:rounded-[2rem] sm:px-6 sm:py-12 md:px-12 md:py-16">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0"
@@ -70,16 +70,16 @@ export default function CtaSection() {
                 Valencia oranges. UPI. Sealed cups. Restocked like infrastructure  - 
                 not like a cafe. Turn idle wall space into a daily ritual.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-8 flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-3">
                 <Link
                   href="/shop"
-                  className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-[#8B3410] transition-colors hover:bg-[#FFF5ED]"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-[#8B3410] transition-colors hover:bg-[#FFF5ED] sm:w-auto"
                 >
                   Place a machine
                 </Link>
                 <Link
                   href="/business-opportunity"
-                  className="inline-flex items-center justify-center rounded-full border border-white/55 px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-white/10"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-white/55 px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-white/10 sm:w-auto"
                 >
                   Partnership models
                 </Link>

@@ -75,7 +75,7 @@ export default function ExperienceSection() {
   return (
     <section
       ref={targetRef}
-      className="relative overflow-hidden bg-white px-5 py-12 sm:px-8 sm:py-16 md:px-8"
+      className="relative w-full max-w-full overflow-x-clip bg-white px-5 py-10 sm:px-8 sm:py-16 md:px-8"
     >
       <OrangeSliceDecor
         className="-left-12 top-[12%] h-40 w-40 md:-left-10 md:h-52 md:w-52"
@@ -125,17 +125,17 @@ export default function ExperienceSection() {
             under a minute. No café build-out. No additives. Just juice.
           </p>
 
-          <div className="mt-7 flex flex-wrap items-center gap-5">
+          <div className="mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-[#EE6F28] px-7 py-3.5 text-[13px] font-bold tracking-[0.12em] text-white transition-colors hover:bg-[#D45A18]"
+              className="inline-flex w-full items-center justify-center rounded-full bg-[#EE6F28] px-7 py-3.5 text-[13px] font-bold tracking-[0.12em] text-white transition-colors hover:bg-[#D45A18] sm:w-auto"
             >
               TALK TO US
             </Link>
 
             <a
               href={brand.phoneHref}
-              className="inline-flex items-center gap-3 text-[#8B3410]"
+              className="inline-flex items-center justify-center gap-3 text-[#8B3410] sm:justify-start"
             >
               <span className="grid h-11 w-11 place-items-center rounded-full bg-[#EE6F28] text-white">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>

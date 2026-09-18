@@ -13,25 +13,42 @@ export default function Navbar() {
 
   useEffect(() => {
     const measure = () => {
-      const nav = document.getElementById("site-nav");
-      const bottom = nav ? nav.getBoundingClientRect().bottom : 96;
-      document.documentElement.style.setProperty("--nav-h", `${Math.round(bottom)}px`);
+      // Only the collapsed top bar — never include the open mobile menu,
+      // or --nav-h balloons and pushes every page layout down.
+      const bar = document.getElementById("site-nav-bar");
+      const bottom = bar ? bar.getBoundingClientRect().bottom : 72;
+      document.documentElement.style.setProperty(
+        "--nav-h",
+        `${Math.round(bottom)}px`,
+      );
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, [open]);
+  }, []);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
 
   return (
     <header
       id="site-nav"
       className="fixed inset-x-0 top-0 z-40 border-b border-black/8 bg-white shadow-[0_1px_0_rgba(0,0,0,0.04)]"
     >
-      <div className="mx-auto flex h-[88px] w-full max-w-[1280px] items-center justify-between px-5 md:px-8 lg:h-[96px]">
+      <div
+        id="site-nav-bar"
+        className="mx-auto flex h-[72px] w-full max-w-[1280px] items-center justify-between px-4 sm:h-[88px] sm:px-5 md:px-8 lg:h-[96px]"
+      >
         <Logo />
 
         <nav className="hidden items-center gap-10 lg:flex">

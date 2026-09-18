@@ -8,12 +8,12 @@ const words = ["Pure", "Fresh", "Valencia", "Hygienic", "Orango"];
 function Word({ children, outlined }) {
   return (
     <span
-      className={`mx-5 whitespace-nowrap text-5xl font-black uppercase tracking-[-0.03em] sm:mx-7 sm:text-6xl lg:mx-10 lg:text-8xl ${
+      className={`mx-4 whitespace-nowrap text-4xl font-black uppercase tracking-[-0.03em] sm:mx-7 sm:text-6xl lg:mx-10 lg:text-8xl ${
         outlined ? "text-transparent" : "text-[#EE6F28]"
       }`}
       style={
         outlined
-          ? { WebkitTextStroke: "2px #EE6F28" }
+          ? { WebkitTextStroke: "1.5px #EE6F28" }
           : undefined
       }
     >
@@ -39,7 +39,7 @@ export default function BrandRibbon() {
   return (
     <section
       aria-hidden
-      className="overflow-hidden border-y border-[#EE6F28]/10 bg-[#FFFAF6] py-8 sm:py-10 lg:py-12"
+      className="overflow-x-clip overflow-y-hidden border-b border-[#EE6F28]/10 bg-[#FFFAF6] py-8 sm:py-10 lg:py-12"
     >
       <motion.div
         className="flex w-max"

@@ -14,7 +14,7 @@ export default function HomeFaq() {
   return (
     <section
       aria-labelledby="faq-heading"
-      className="relative overflow-hidden bg-white py-20 md:py-28"
+      className="relative overflow-hidden bg-white py-14 sm:py-20 md:py-28"
     >
       <LiveBlobs />
 
@@ -34,7 +34,7 @@ export default function HomeFaq() {
             here. Reach out if you need more.
           </p>
 
-          <div className="relative mt-6 max-w-[160px] md:max-w-[180px]">
+          <div className="relative mt-6 hidden max-w-[160px] sm:block md:max-w-[180px]">
             <motion.div
               animate={reduce ? undefined : { y: [0, -8, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -70,10 +70,10 @@ export default function HomeFaq() {
                   <button
                     type="button"
                     onClick={() => setOpen(active ? -1 : i)}
-                    className="flex w-full items-start justify-between gap-4 px-5 py-4 text-left md:px-6 md:py-5"
+                    className="flex w-full items-start justify-between gap-3 px-4 py-3.5 text-left sm:gap-4 sm:px-5 sm:py-4 md:px-6 md:py-5"
                     aria-expanded={active}
                   >
-                    <span className="text-[15px] font-semibold tracking-[-0.01em] md:text-[16px]">
+                    <span className="text-[14px] font-semibold tracking-[-0.01em] sm:text-[15px] md:text-[16px]">
                       {item.q}
                     </span>
                     <span
@@ -94,7 +94,7 @@ export default function HomeFaq() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.28, ease: "easeOut" }}
                       >
-                        <p className="px-5 pb-5 text-[14px] leading-relaxed text-white/85 md:px-6">
+                        <p className="px-4 pb-4 text-[13px] leading-relaxed text-white/85 sm:px-5 sm:pb-5 sm:text-[14px] md:px-6">
                           {item.a}
                         </p>
                       </motion.div>
@@ -105,10 +105,10 @@ export default function HomeFaq() {
             })}
           </div>
 
-          <div className="mt-6 flex justify-end">
+          <div className="mt-6 flex justify-stretch sm:justify-end">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-[#EE6F28] px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18]"
+              className="inline-flex w-full items-center justify-center rounded-full bg-[#EE6F28] px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18] sm:w-auto"
             >
               Contact Us
             </Link>

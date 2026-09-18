@@ -19,7 +19,7 @@ export default function TrustStrip() {
   return (
     <section
       aria-label="Why Orango"
-      className="relative overflow-hidden bg-white py-16 md:py-20"
+      className="relative overflow-hidden bg-white py-12 sm:py-16 md:py-20"
     >
       <LiveBlobs
         items={[
@@ -42,17 +42,17 @@ export default function TrustStrip() {
               Premium amenity economics - without a cafe build-out.
             </h2>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex w-full items-center gap-3 sm:w-auto">
             <Image
               src="/orange3.png"
               alt=""
               width={72}
               height={72}
-              className="h-14 w-14 object-contain"
+              className="h-12 w-12 object-contain sm:h-14 sm:w-14"
             />
             <Link
               href="/business-opportunity"
-              className="rounded-full bg-[#EE6F28] px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18]"
+              className="inline-flex flex-1 items-center justify-center rounded-full bg-[#EE6F28] px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18] sm:flex-none"
             >
               See opportunity
             </Link>
