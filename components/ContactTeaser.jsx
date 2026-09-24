@@ -37,25 +37,24 @@ export default function ContactTeaser() {
               id="next-step-heading"
               className="relative mt-4 max-w-xl text-[clamp(1.9rem,3.5vw,3.1rem)] font-semibold leading-[1.08] tracking-[-0.03em]"
             >
-              Tell us the floor. We&apos;ll talk juice, yield, and placement.
+              Ready for a site survey?
             </h2>
             <p className="relative mt-4 max-w-lg text-[15px] leading-relaxed text-white/70">
-              Delhi HQ. India rollout. If you control space, operations, or
-              capital - start with a short brief: site type, footfall, and what a
-              win looks like.
+              Tell us your venue type, city and role. We check space, power and
+              access — then share clear next steps. Based in Delhi NCR.
             </p>
             <div className="relative mt-8 flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-3">
               <Link
-                href="/contact"
+                href="/contact?intent=survey"
                 className="inline-flex w-full items-center justify-center rounded-full bg-white px-7 py-3.5 text-[14px] font-semibold text-[#8B3410] transition-colors hover:bg-[#FFF5ED] sm:w-auto"
               >
-                Get in touch
+                Book a site survey
               </Link>
               <Link
-                href="/shop"
+                href="/find-orango"
                 className="inline-flex w-full items-center justify-center rounded-full border border-white/45 px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:border-white/70 sm:w-auto"
               >
-                Browse machines
+                Find a machine
               </Link>
             </div>
           </motion.div>
@@ -73,7 +72,7 @@ export default function ContactTeaser() {
                 {brand.phone}
               </p>
               <p className="mt-1 text-[13px] text-white/75">
-                Talk placement & partnerships
+                Fastest for site surveys
               </p>
               <motion.div
                 animate={reduce ? undefined : { y: [0, -6, 0] }}
@@ -96,7 +95,7 @@ export default function ContactTeaser() {
                 {brand.partnershipsEmail}
               </p>
               <p className="mt-1 text-[13px] text-[#8B3410]/55">
-                Send your site brief today
+                Partnerships &amp; site surveys
               </p>
             </motion.a>
 
@@ -105,10 +104,10 @@ export default function ContactTeaser() {
               className="rounded-[1.6rem] border border-[#8B3410]/8 bg-white p-7 sm:col-span-2 lg:col-span-1"
             >
               <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-[#EE6F28]">
-                Studio
+                Delhi NCR
               </p>
               <p className="mt-3 text-[15px] leading-relaxed text-[#8B3410]/75">
-                {brand.address}
+                {brand.addressFull}
               </p>
             </motion.div>
           </div>

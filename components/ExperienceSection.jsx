@@ -42,8 +42,8 @@ const features = [
     ),
   },
   {
-    title: "UPI NATIVE",
-    subtitle: "Tap, pay, pour — done",
+    title: "PAY WITH UPI",
+    subtitle: "Tap, pay, take your cup",
     icon: (
       <path
         d="M7 7h10v10H7V7Zm3 14h4M9 3h6m-1 18v-2M10 21v-2"
@@ -99,7 +99,7 @@ export default function ExperienceSection() {
         >
           <Image
             src="/orange.png"
-            alt="Fresh Orango Valencia orange"
+            alt="Fresh Valencia orange used in OranGo juice machines"
             width={720}
             height={720}
             className="h-auto w-full object-contain drop-shadow-[0_20px_40px_rgba(238,111,40,0.22)]"
@@ -114,23 +114,24 @@ export default function ExperienceSection() {
           viewport={{ once: true }}
         >
           <h2 className="max-w-xl text-[clamp(1.9rem,4vw,3.1rem)] font-black leading-[1.08] tracking-[-0.03em] text-[#8B3410]">
-            FRESH ORANGE JUICE
+            REAL JUICE.
             <br />
-            WHERE YOU ALREADY ARE.
+            RIGHT WHERE PEOPLE ARE.
           </h2>
 
           <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#8B3410]/65">
-            OranGo brings freshly squeezed Valencia orange juice to malls,
-            offices, hospitals, and gyms — hygienic, UPI-ready, and served in
-            under a minute. No café build-out. No additives. Just juice.
+            OranGo places automated machines in malls, hospitals, offices and
+            gyms. Guests see Valencia oranges squeezed to order — untouched by
+            hand — then take a sealed cup. You provide the space. We handle the
+            rest.
           </p>
 
           <div className="mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
             <Link
-              href="/contact"
+              href="/contact?intent=survey"
               className="inline-flex w-full items-center justify-center rounded-full bg-[#EE6F28] px-7 py-3.5 text-[13px] font-bold tracking-[0.12em] text-white transition-colors hover:bg-[#D45A18] sm:w-auto"
             >
-              TALK TO US
+              BOOK A SITE SURVEY
             </Link>
 
             <a

@@ -14,7 +14,7 @@ const accents = [
   { t: "22%", l: "38%", s: 8 },
 ];
 
-const tags = ["No additives", "No dilution", "Ready in 45s"];
+const tags = ["From ₹120", "45 seconds", "UPI", "Stored at 4°C"];
 
 function HeroCopy({ compact = false }) {
   return (
@@ -40,8 +40,8 @@ function HeroCopy({ compact = false }) {
             : "mt-5 text-[clamp(1.1rem,2.2vw,1.45rem)]"
         }`}
       >
-        100% pure orange juice,
-        <span className="block">freshly squeezed.</span>
+        Fresh orange juice,
+        <span className="block">squeezed in 45 seconds.</span>
       </p>
 
       <p
@@ -51,9 +51,9 @@ function HeroCopy({ compact = false }) {
             : "mt-4 text-[15px] md:text-[16px]"
         }`}
       >
-        Automated Valencia orange juice vending for malls, offices, hospitals,
-        and campuses. Chilled, hygienic, and UPI-ready — sealed in under a
-        minute.
+        100% Valencia oranges. No sugar. No preservatives. Pay by UPI, watch it
+        squeeze, take a sealed cup. Built for malls, hospitals, offices and
+        gyms.
       </p>
 
       <ul
@@ -89,16 +89,16 @@ function CtaRow({ tone = "on-orange" }) {
   return (
     <div className="flex w-full flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 lg:justify-start">
       <Link
-        href="/shop"
+        href="/contact?intent=survey"
         className={`inline-flex w-full items-center justify-center rounded-full px-8 py-3.5 text-[15px] font-semibold transition-colors duration-200 sm:w-auto ${primary}`}
       >
-        Place a machine
+        Book a site survey
       </Link>
       <Link
-        href="/business-opportunity"
+        href="/find-orango"
         className={`inline-flex w-full items-center justify-center rounded-full border px-8 py-3.5 text-[15px] font-semibold transition-colors duration-200 sm:w-auto ${secondary}`}
       >
-        Partner with us
+        Find a machine
       </Link>
     </div>
   );

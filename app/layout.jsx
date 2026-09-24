@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import SiteChrome from "@/components/SiteChrome";
-import { brand } from "@/lib/site";
+import { brand, faqs } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -12,46 +12,105 @@ const inter = Inter({
 export const metadata = {
   metadataBase: new URL("https://orango.co.in"),
   title: {
-    default: "Orango | Fresh orange juice vending for high-footfall India",
-    template: "%s | Orango",
+    default: "OranGo | Fresh Orange Juice Vending Machines in India",
+    template: "%s | OranGo",
   },
   description:
-    "Orango deploys automated Valencia orange juice machines for malls, offices, hospitals, gyms, and campuses. Squeezed to order in under a minute. UPI. Hygienic. Built for B2B partners across India.",
+    "Automated machines that squeeze Valencia oranges in 45 seconds. No sugar, no preservatives, UPI. Place OranGo in malls, hospitals, offices and gyms. Operated by INNOVERTEX LLP.",
   keywords: [
-    "orange juice vending machine",
-    "fresh juice franchise India",
-    "Valencia orange juice",
-    "UPI vending machine",
-    "healthy beverage for malls",
-    "Orango",
     "OranGo",
+    "orange juice vending machine India",
+    "fresh orange juice vending",
+    "Valencia orange juice machine",
+    "UPI juice vending machine",
+    "juice machine for malls hospitals offices",
+    "INNOVERTEX LLP",
+    "site survey juice machine",
   ],
+  authors: [{ name: "INNOVERTEX LLP" }],
+  creator: "INNOVERTEX LLP",
+  publisher: "INNOVERTEX LLP",
   openGraph: {
-    title: "Orango — fresh juice infrastructure for public spaces",
+    title: "OranGo | Fresh Orange Juice Vending Machines in India",
     description:
-      "Place a hygienic, UPI-native orange juice machine where people already spend time. Partnerships, franchise, and multi-site rollouts.",
+      "Automated machines that squeeze Valencia oranges in 45 seconds. No sugar, no preservatives, UPI. Place OranGo in malls, hospitals, offices and gyms.",
     url: "https://orango.co.in",
-    siteName: "Orango",
+    siteName: "OranGo",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/machine.png",
+        width: 1200,
+        height: 630,
+        alt: "OranGo fresh orange juice vending machine",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Orango | Fresh orange juice, commercially placed",
+    title: "OranGo | Fresh Orange Juice Vending Machines in India",
     description:
-      "Automated juice machines for Indian malls, campuses, hospitals, and workplaces.",
+      "Automated Valencia orange juice machines for Indian malls, hospitals, offices and gyms. From ₹120 · ~45 seconds · UPI.",
+    images: ["/machine.png"],
   },
-  robots: { index: true, follow: true },
-  alternates: { canonical: "https://orango.co.in" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+  alternates: {
+    canonical: "https://orango.co.in",
+    languages: { "en-IN": "https://orango.co.in" },
+  },
+  category: "business",
 };
 
-const jsonLd = {
+const organizationLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: brand.name,
+  name: "OranGo",
+  legalName: brand.legalName,
   url: brand.url,
+  logo: `${brand.url}/logo.png`,
   email: brand.email,
-  telephone: brand.phone,
+  telephone: brand.phoneTel,
+  sameAs: [brand.linkedin, brand.instagram],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Hauz Khas Enclave",
+    addressLocality: "New Delhi",
+    postalCode: "110016",
+    addressRegion: "Delhi",
+    addressCountry: "IN",
+  },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      email: brand.partnershipsEmail,
+      telephone: brand.phoneTel,
+      areaServed: "IN",
+      availableLanguage: ["en", "hi"],
+    },
+    {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: brand.supportEmail,
+      telephone: brand.phoneTel,
+      areaServed: "IN",
+    },
+  ],
+};
+
+const localBusinessLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "OranGo",
+  image: `${brand.url}/machine.png`,
+  url: brand.url,
+  telephone: brand.phoneTel,
+  email: brand.email,
   address: {
     "@type": "PostalAddress",
     streetAddress: "Hauz Khas Enclave",
@@ -59,15 +118,52 @@ const jsonLd = {
     postalCode: "110016",
     addressCountry: "IN",
   },
-  contactPoint: [
-    {
-      "@type": "ContactPoint",
-      email: brand.partnershipsEmail,
-      contactType: "sales",
-      telephone: brand.phone,
-      areaServed: "IN",
-    },
-  ],
+  areaServed: {
+    "@type": "AdministrativeArea",
+    name: "Delhi NCR",
+  },
+  priceRange: "₹₹",
+};
+
+const productLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: "OranGo Fresh Orange Juice Vending Machine",
+  description:
+    "Automated vending machine that squeezes Valencia oranges to order in about 45 seconds. UPI payments, ozone cleaning, sealed cup, fruit stored at 4°C. From ₹120.",
+  brand: { "@type": "Brand", name: "OranGo" },
+  image: `${brand.url}/machine.png`,
+  offers: {
+    "@type": "Offer",
+    priceCurrency: "INR",
+    price: "120",
+    availability: "https://schema.org/InStock",
+    url: `${brand.url}/the-machine`,
+  },
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "OranGo",
+  url: brand.url,
+  publisher: { "@type": "Organization", name: brand.legalName },
+  inLanguage: "en-IN",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${brand.url}/find-orango`,
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -79,7 +175,27 @@ export default function RootLayout({ children }) {
       <body className="min-h-full bg-paper font-sans text-ink">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationLd),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessLd),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
         />
         <a
           href="#main"

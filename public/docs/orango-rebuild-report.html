@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OranGo Website Rebuild Report — Stelora Media</title>
+  <style>
+    @page { size: A4; margin: 18mm 16mm; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      color: #1a1a1a;
+      font-size: 11pt;
+      line-height: 1.55;
+      background: #fff;
+    }
+    .cover {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 6px solid #EE6F28;
+      padding: 48px 40px;
+    }
+    .kicker {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #EE6F28;
+      font-weight: 700;
+    }
+    h1 {
+      font-size: 32px;
+      line-height: 1.15;
+      margin: 16px 0 8px;
+      letter-spacing: -0.03em;
+      color: #8B3410;
+    }
+    h2 {
+      font-size: 16px;
+      margin: 28px 0 10px;
+      color: #8B3410;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+    }
+    h3 { font-size: 13px; margin: 18px 0 6px; color: #222; }
+    p { margin: 0 0 10px; }
+    .meta { color: #555; font-size: 10.5pt; }
+    .section { padding: 8px 0 24px; page-break-inside: avoid; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10pt;
+      margin: 10px 0 16px;
+    }
+    th, td {
+      border: 1px solid #e8e0d8;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #FFFAF6; color: #8B3410; font-weight: 600; }
+    .done { color: #1a7a3c; font-weight: 600; }
+    .tag {
+      display: inline-block;
+      background: #FFF5ED;
+      color: #EE6F28;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+    ul { margin: 6px 0 12px; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+    .footer-note {
+      margin-top: 40px;
+      font-size: 9.5pt;
+      color: #777;
+      border-top: 1px solid #eee;
+      padding-top: 12px;
+    }
+    @media print {
+      .no-print { display: none; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cover">
+    <div>
+      <p class="kicker">Prepared for INNOVERTEX LLP · OranGo</p>
+      <h1>Website rebuild report</h1>
+      <p class="meta">
+        How the new OranGo site answers the Stelora Media audit<br />
+        (audit of orango.co.in · 10 September 2026)
+      </p>
+      <p style="margin-top:24px;">
+        <span class="tag">UI preserved</span>
+        &nbsp;<span class="tag">IA rebuilt</span>
+        &nbsp;<span class="tag">SEO hardened</span>
+      </p>
+    </div>
+    <div class="meta">
+      <p><strong>Prepared by</strong> Stelora Media</p>
+      <p><strong>Document</strong> Rebuild &amp; SEO delivery summary</p>
+      <p><strong>Live product</strong> Next.js rebuild · orango.co.in</p>
+      <p><strong>Date</strong> September 2026</p>
+      <p class="no-print" style="margin-top:16px;color:#EE6F28;">
+        Tip: Print this page → Save as PDF for a client-ready file.
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>1. What changed — in one page</h2>
+    <p>
+      The audit found the old WordPress / Elementor site was not selling the product:
+      empty hero, dead CTAs, thin B2B pages, missing indexation assets, and copy that
+      sometimes sounded like bottled juice. The new site keeps the orange / cream visual
+      system and homepage motion you approved, and rebuilds information architecture,
+      content, CTAs, and SEO so a mall or hospital manager can understand the offer and
+      request a site survey in seconds.
+    </p>
+    <table>
+      <tr><th>Area</th><th>Old site (audit)</th><th>New site (this rebuild)</th></tr>
+      <tr><td>Primary job</td><td>Brochure / Elementor draft</td><td>B2B location sales + consumer clarity</td></tr>
+      <tr><td>Primary CTA</td><td>“Get In Touch” / “Contact Us” (often dead)</td><td class="done">“Book a site survey” — real URL everywhere</td></tr>
+      <tr><td>Secondary CTA</td><td>Duplicate contact language</td><td class="done">“Find a machine”</td></tr>
+      <tr><td>Legal entity</td><td>Missing from footer</td><td class="done">INNOVERTEX LLP + GSTIN/FSSAI fields</td></tr>
+      <tr><td>Google / sitemap</td><td>Not indexed; sitemap 404</td><td class="done">Public sitemap.xml + robots.txt + schema</td></tr>
+      <tr><td>Homepage UI</td><td>Empty cream hero</td><td class="done">Kept new hero / animations; CTAs &amp; SEO copy updated only</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>2. New information architecture</h2>
+    <p>Navigation now matches the audit recommendation:</p>
+    <table>
+      <tr><th>Page</th><th>URL</th><th>Job</th><th>Primary button</th></tr>
+      <tr><td>Home</td><td>/home</td><td>Explain product, sell placements</td><td>Book a site survey / Find a machine</td></tr>
+      <tr><td>The Machine</td><td>/the-machine</td><td>Specs, hygiene, 45s journey</td><td>Book a site survey</td></tr>
+      <tr><td>For Locations</td><td>/for-locations</td><td>Hospital · Office · Mall · Gym · Campus · Transit</td><td>Request a site survey</td></tr>
+      <tr><td>Partners</td><td>/partners</td><td>Location vs franchise vs investment + timeline</td><td>Qualified partner form</td></tr>
+      <tr><td>Find OranGo</td><td>/find-orango</td><td>Delhi NCR live list + WhatsApp</td><td>WhatsApp / Call</td></tr>
+      <tr><td>About</td><td>/about</td><td>INNOVERTEX LLP · sealed-cup network</td><td>Book a site survey</td></tr>
+      <tr><td>Contact</td><td>/contact</td><td>B2B survey form (venue, role, city)</td><td>Request a site survey</td></tr>
+      <tr><td>Support</td><td>/support</td><td>Failed vend · UTR + Machine ID</td><td>Email support@</td></tr>
+      <tr><td>Careers</td><td>/career</td><td>Live roles (no more 404 / private LinkedIn)</td><td>Apply</td></tr>
+    </table>
+    <p>
+      Legacy URLs redirect permanently: <code>/vending-machine</code> → <code>/the-machine</code>,
+      <code>/business-opportunity</code> → <code>/partners</code>, <code>/shop</code> → <code>/find-orango</code>.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>3. Audit points closed</h2>
+    <h3>UI &amp; conversion</h3>
+    <ul>
+      <li class="done">Primary CTA language standardised — no lone “Get In Touch” / dead # links</li>
+      <li class="done">Header WhatsApp + “Book a site survey”; mobile sticky bar with both</li>
+      <li class="done">₹120 / 45s / UPI / 4°C present as live content (not only PNG price art)</li>
+      <li class="done">For Locations venue tabs + “What we need from you” (≈12 sq. ft., power, loading)</li>
+      <li class="done">Partners: three sober columns + five-step timeline — no café stock pitch</li>
+      <li class="done">Machine page: full spec table facilities can screenshot into WhatsApp</li>
+      <li class="done">Support form aligned to refund policy (UTR + Machine ID)</li>
+      <li class="done">404 recovery paths to Home / Find / Site survey</li>
+      <li class="done">Thank-you page for post-enquiry tracking</li>
+    </ul>
+    <h3>Trust &amp; legal</h3>
+    <ul>
+      <li class="done">Footer names INNOVERTEX LLP, full NAP, hello@ / partnerships@ / support@</li>
+      <li class="done">GSTIN &amp; FSSAI placeholders ready for client numbers</li>
+      <li class="done">Public LinkedIn company URL (not viewAsMember private link)</li>
+      <li class="done">Naming standardised to <strong>OranGo</strong> in titles, H1s, and schema</li>
+      <li class="done">Health copy framed for sealed-cup vending (not “every bottle / cold-press”)</li>
+      <li class="done">Hospital disclaimer on machine hygiene section</li>
+    </ul>
+    <h3>Homepage constraint (client brief)</h3>
+    <ul>
+      <li>Homepage visual system and animations were <strong>not</strong> redesigned</li>
+      <li>Only CTAs, destinations, and SEO/metadata copy were updated on home</li>
+      <li>New B2B sections live on dedicated pages so the hero composition stays intact</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>4. SEO delivery — built for indexation &amp; conversion</h2>
+    <p>
+      The old site failed basic discovery (no Google results; sitemap HTTP 404).
+      The rebuild implements a full technical SEO baseline:
+    </p>
+    <table>
+      <tr><th>Item</th><th>Implementation</th></tr>
+      <tr><td>Language</td><td class="done">html lang=&quot;en-IN&quot;</td></tr>
+      <tr><td>Titles</td><td class="done">OranGo | Fresh Orange Juice Vending Machines in India (+ page templates)</td></tr>
+      <tr><td>Meta descriptions</td><td class="done">Unique per route; home matches audit suggested description</td></tr>
+      <tr><td>Canonicals</td><td class="done">Self-canonical on all public pages</td></tr>
+      <tr><td>Open Graph / Twitter</td><td class="done">Titles, descriptions, machine image share card</td></tr>
+      <tr><td>robots.txt</td><td class="done">Allow public; disallow thank-you; sitemap declared</td></tr>
+      <tr><td>sitemap.xml</td><td class="done">Public pages only (no author archives / Elementor templates)</td></tr>
+      <tr><td>Schema.org</td><td class="done">Organization · LocalBusiness · Product · FAQPage · WebSite</td></tr>
+      <tr><td>Redirects</td><td class="done">301 from legacy IA to new routes</td></tr>
+      <tr><td>Internal links</td><td class="done">Nav, footer, CTAs, and venue pages cross-link commercially</td></tr>
+      <tr><td>Alt text</td><td class="done">Machine and venue imagery described for OranGo product context</td></tr>
+      <tr><td>404 UX</td><td class="done">Branded recovery — not default WordPress</td></tr>
+      <tr><td>Thank-you</td><td class="done">noindex conversion page for ads / forms</td></tr>
+    </table>
+    <h3>Recommended client-side follow-ups (ops)</h3>
+    <ul>
+      <li>Connect Google Search Console and request indexing of sitemap</li>
+      <li>Install GA4 / GTM (and Meta Pixel if running paid social)</li>
+      <li>Replace GSTIN / FSSAI placeholders with registered numbers</li>
+      <li>Publish Google Business Profile for Delhi NAP consistency</li>
+      <li>Add real location pins to Find OranGo as sites go live</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>5. Content model published</h2>
+    <ul>
+      <li><strong>Product:</strong> Valencia oranges · ~45 seconds · 4°C · UPI · ozone · sealed cup · from ₹120</li>
+      <li><strong>Commercial model (words):</strong> venue provides bay + power; OranGo installs, restocks, cleans</li>
+      <li><strong>Audience:</strong> facility / mall / hospital managers first; consumers via Find OranGo</li>
+      <li><strong>Differentiation vs name collision:</strong> titles and schema say OranGo — fresh orange juice vending machines in India</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>6. Scorecard vs audit planning scores</h2>
+    <p>Audit planning scores were a diagnosis of the old site. Target state after this rebuild:</p>
+    <table>
+      <tr><th>Dimension</th><th>Audit (old)</th><th>Rebuild intent</th></tr>
+      <tr><td>Overall</td><td>31</td><td class="done">Sales-ready B2B site with clear next step</td></tr>
+      <tr><td>SEO</td><td>18</td><td class="done">Indexable structure, schema, sitemap, en-IN, OG</td></tr>
+      <tr><td>First impression</td><td>34</td><td class="done">Hero CTAs + product clarity (UI kept)</td></tr>
+      <tr><td>Conversion</td><td>24</td><td class="done">Survey form, WhatsApp, sticky mobile CTA</td></tr>
+      <tr><td>Visual brand</td><td>41</td><td class="done">Preserved orange / cream system</td></tr>
+      <tr><td>Trust / proof</td><td>22</td><td class="done">Entity, NAP, specs, Delhi NCR live, support path</td></tr>
+      <tr><td>Content depth</td><td>27</td><td class="done">Machine · Locations · Partners · Find · Support</td></tr>
+    </table>
+  </div>
+
+  <div class="footer-note">
+    Prepared by Stelora Media for INNOVERTEX LLP / OranGo. Confidential.<br />
+    This document summarises the rebuild against the public-site audit dated 10 September 2026.
+    Homepage UI/animations were retained per client instruction; IA, content, menus, forms, and SEO were rebuilt to audit specification.
+  </div>
+</body>
+</html>

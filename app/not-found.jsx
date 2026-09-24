@@ -10,13 +10,16 @@ export default function NotFound() {
         This floor doesn&apos;t have a machine yet.
       </h1>
       <p className="mt-4 max-w-md text-muted">
-        The page is missing. The juice still exists — start from home or brief a
-        site.
+        The page is missing. Start from home, find a live machine, or book a
+        site survey for your venue.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <MagneticButton href="/home">Home</MagneticButton>
-        <MagneticButton href="/contact" variant="ghost">
-          Contact Us
+        <MagneticButton href="/find-orango" variant="ghost">
+          Find OranGo
+        </MagneticButton>
+        <MagneticButton href="/contact?intent=survey" variant="ghost">
+          Book a site survey
         </MagneticButton>
       </div>
     </section>

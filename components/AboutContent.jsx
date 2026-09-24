@@ -63,28 +63,29 @@ export default function AboutContent() {
             transition={{ duration: 0.55 }}
           >
             <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28] sm:text-[12px]">
-              About Us
+              About OranGo · INNOVERTEX LLP
             </p>
             <h1 className="mt-2.5 max-w-xl text-[clamp(1.75rem,7.5vw,3.6rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-[#8B3410] sm:mt-3">
-              Bringing Fresh Orange Juice Closer to Everyday Life
+              Fresh orange juice vending machines for India&apos;s public spaces
             </h1>
             <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-[#8B3410]/70 sm:mt-5 sm:text-[16px]">
-              Fresh orange juice has always existed — convenient access to it has
-              not. OranGo makes the healthier pour as effortless as the drinks
-              that already own India&apos;s public spaces.
+              OranGo is not a juice café and not a bottled D2C brand. Operated by
+              INNOVERTEX LLP, we place automated machines that squeeze Valencia
+              oranges in about 45 seconds — sealed cup, UPI, stored at 4°C —
+              for malls, hospitals, offices, and gyms.
             </p>
             <div className="mt-6 flex w-full flex-col gap-2.5 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-3">
               <Link
-                href="/contact"
+                href="/contact?intent=survey"
                 className="inline-flex w-full items-center justify-center rounded-full bg-[#EE6F28] px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18] sm:w-auto"
               >
-                Contact us
+                Book a site survey
               </Link>
               <Link
-                href="/business-opportunity"
+                href="/partners"
                 className="inline-flex w-full items-center justify-center rounded-full border border-[#8B3410]/15 bg-white px-6 py-3 text-[14px] font-semibold text-[#8B3410] transition-colors hover:border-[#EE6F28]/40 sm:w-auto"
               >
-                Partner with us
+                Partners
               </Link>
             </div>
           </motion.div>
@@ -104,7 +105,7 @@ export default function AboutContent() {
               <div className="relative aspect-[3/4] overflow-hidden rounded-[1.25rem] border border-[#EE6F28]/12 bg-[#FFF5ED] sm:rounded-[1.5rem]">
                 <Image
                   src="/machine.png"
-                  alt="Orango automated juice vending machine"
+                  alt="OranGo automated orange juice vending machine"
                   fill
                   className="object-contain object-bottom p-2 sm:p-3"
                   sizes="(max-width: 640px) 45vw, 240px"
@@ -231,7 +232,7 @@ export default function AboutContent() {
           >
             <Image
               src="/machine.png"
-              alt="Orango automated juice vending machine"
+              alt="OranGo automated orange juice vending machine"
               fill
               className="object-contain object-bottom p-3 sm:p-4 md:p-6"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -360,16 +361,16 @@ export default function AboutContent() {
               </p>
               <div className="mt-6 flex w-full flex-col gap-2.5 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-3">
                 <Link
-                  href="/contact"
+                  href="/contact?intent=survey"
                   className="inline-flex w-full items-center justify-center rounded-full bg-white px-7 py-3.5 text-[14px] font-semibold text-[#8B3410] transition-colors hover:bg-[#FFF5ED] sm:w-auto"
                 >
-                  Contact us for more information
+                  Book a site survey
                 </Link>
                 <Link
-                  href="/shop"
+                  href="/for-locations"
                   className="inline-flex w-full items-center justify-center rounded-full border border-white/45 px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:border-white/70 sm:w-auto"
                 >
-                  Place a machine
+                  For Locations
                 </Link>
               </div>
             </div>

@@ -6,11 +6,11 @@ export default function Logo({ className = "", invert = false }) {
     <Link
       href="/home"
       className={`inline-flex items-center ${className}`}
-      aria-label="Orango home"
+      aria-label="OranGo home"
     >
       <Image
         src="/logo.png"
-        alt="Orango"
+        alt="OranGo"
         width={180}
         height={52}
         priority

@@ -1,21 +1,20 @@
 import ContactContent from "@/components/ContactContent";
 
 export const metadata = {
-  title: "Contact Us | Place a Machine or Partner with Orango",
+  title: "Book a Site Survey | Contact OranGo",
   description:
-    "Contact Orango for machine placement, franchise operations, or strategic partnerships. Delhi HQ. Phone +91 9599038388. Email partnerships@orango.co.in.",
+    "Request an OranGo site survey for your mall, hospital, office or gym. INNOVERTEX LLP · Delhi. Phone +91 95990 38388 · partnerships@orango.co.in · WhatsApp.",
   keywords: [
-    "contact Orango",
-    "orange juice machine placement",
-    "juice vending partnership India",
-    "Orango Delhi",
-    "fresh juice franchise contact",
+    "OranGo site survey",
+    "contact OranGo",
+    "juice machine placement India",
+    "INNOVERTEX LLP contact",
   ],
   alternates: { canonical: "https://orango.co.in/contact" },
   openGraph: {
-    title: "Contact Orango — site placement & partnerships",
+    title: "Book an OranGo site survey",
     description:
-      "Tell us about your floor. We map placement fit, commercial options, and next steps for fresh juice machines in India.",
+      "Venue type, city, and role — we assess bay, power, and loading access.",
     url: "https://orango.co.in/contact",
     type: "website",
   },

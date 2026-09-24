@@ -9,25 +9,25 @@ const steps = [
   {
     id: "pay",
     number: "01",
-    title: "Tap & Pay",
+    title: "Tap & pay",
     description:
-      "Choose your juice and pay instantly with UPI or card - no cash, no queues.",
+      "Pay with UPI on the screen. No tokens, no cashier, no waiting for change.",
     live: "Payment successful",
   },
   {
     id: "squeeze",
     number: "02",
-    title: "Freshly squeezed",
+    title: "Watch it squeeze",
     description:
-      "Watch Valencia oranges pressed to order right in front of you - zero dilution.",
+      "A chilled Valencia orange is squeezed in front of you — untouched by hand.",
     live: "Squeezing in progress",
   },
   {
     id: "enjoy",
     number: "03",
-    title: "Enjoy chilled",
+    title: "Take a sealed cup",
     description:
-      "Your sealed cup of chilled orange juice is ready in under a minute.",
+      "In about 45 seconds, your cold juice is sealed and ready to go.",
     live: "Juice ready",
   },
 ];
@@ -386,10 +386,10 @@ export default function ProcessSteps() {
             id="process-heading"
             className="mt-1.5 text-[clamp(1.45rem,2.8vw,2.35rem)] font-semibold leading-[1.12] tracking-[-0.03em] text-ink"
           >
-            Fresh Orange Juice, Made Convenient
+            Three steps. About 45 seconds.
           </h2>
           <p className="mt-1.5 text-[14px] leading-snug text-muted md:text-[15px]">
-            Seamless fully automated experience.
+            Tap &amp; pay → watch it squeeze → take a sealed cup.
           </p>
         </div>
 
@@ -397,7 +397,7 @@ export default function ProcessSteps() {
           <div className="relative mx-auto flex w-full max-w-[260px] items-center justify-center sm:max-w-sm lg:mx-0 lg:max-h-[78vh] lg:max-w-none">
             <Image
               src="/machine.png"
-              alt="Orango juice vending machine showing tap and pay, fresh squeezing, and chilled juice dispense flow"
+              alt="OranGo orange juice vending machine — pay, squeeze, sealed cup"
               width={1200}
               height={1400}
               className="h-auto max-h-[36vh] w-auto max-w-full object-contain sm:max-h-[42vh] lg:max-h-[78vh] lg:scale-[1.12]"
@@ -437,13 +437,13 @@ export default function ProcessSteps() {
 
         <div className="relative z-10 mt-5 flex shrink-0 flex-col items-center justify-center gap-3 pb-1 text-center sm:mt-3 sm:flex-row sm:flex-wrap">
           <Link
-            href="/shop"
+            href="/contact?intent=survey"
             className="inline-flex w-full items-center justify-center rounded-full bg-orange px-7 py-2.5 text-[14px] font-semibold text-cream transition-colors duration-200 hover:bg-orange-deep sm:w-auto"
           >
-            Place a juice machine
+            Book a site survey
           </Link>
           <Link
-            href="/vending-machine"
+            href="/the-machine"
             className="text-[13px] font-medium text-ink/70 underline-offset-4 transition-colors hover:text-ink hover:underline"
           >
             See the machine in detail

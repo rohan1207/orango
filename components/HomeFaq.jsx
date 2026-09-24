@@ -27,11 +27,11 @@ export default function HomeFaq() {
             id="faq-heading"
             className="mt-3 text-[clamp(1.9rem,3.6vw,3.1rem)] font-semibold leading-[1.08] tracking-[-0.03em] text-[#8B3410]"
           >
-            Frequently Asked Questions
+            Questions, answered simply
           </h2>
           <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#8B3410]/65">
-            Have a question about OranGo? We&apos;ve covered the most common ones
-            here. Reach out if you need more.
+            Price, hygiene, payments, placement and more — in plain language. Still
+            stuck? Book a site survey or WhatsApp us.
           </p>
 
           <div className="relative mt-6 hidden max-w-[160px] sm:block md:max-w-[180px]">
@@ -107,10 +107,10 @@ export default function HomeFaq() {
 
           <div className="mt-6 flex justify-stretch sm:justify-end">
             <Link
-              href="/contact"
+              href="/contact?intent=survey"
               className="inline-flex w-full items-center justify-center rounded-full bg-[#EE6F28] px-7 py-3.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18] sm:w-auto"
             >
-              Contact Us
+              Book a site survey
             </Link>
           </div>
         </div>

@@ -7,10 +7,10 @@ import LiveBlobs from "./LiveBlobs";
 import OrangeSliceDecor from "./OrangeSliceDecor";
 
 const proofs = [
-  { value: "100%", label: "Pure / no dilution", detail: "Nothing added" },
-  { value: "45s", label: "Squeezed to order", detail: "Watch it happen" },
-  { value: "4°C", label: "Cold-chain fruit", detail: "Always chilled" },
-  { value: "UPI", label: "Native payments", detail: "No cash friction" },
+  { value: "100%", label: "Pure juice", detail: "No sugar added" },
+  { value: "45s", label: "Squeezed to order", detail: "You see it happen" },
+  { value: "4°C", label: "Fruit kept cold", detail: "Always chilled" },
+  { value: "UPI", label: "Easy payments", detail: "No cash needed" },
 ];
 
 export default function TrustStrip() {
@@ -18,7 +18,7 @@ export default function TrustStrip() {
 
   return (
     <section
-      aria-label="Why Orango"
+      aria-label="Why OranGo"
       className="relative overflow-hidden bg-white py-12 sm:py-16 md:py-20"
     >
       <LiveBlobs
@@ -36,10 +36,10 @@ export default function TrustStrip() {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-lg">
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
-              Why operators choose Orango
+              Why venues choose OranGo
             </p>
             <h2 className="mt-3 text-[clamp(1.7rem,3.2vw,2.6rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#8B3410]">
-              Premium amenity economics - without a cafe build-out.
+              A healthier option on your floor — without opening a café.
             </h2>
           </div>
           <div className="flex w-full items-center gap-3 sm:w-auto">
@@ -51,10 +51,10 @@ export default function TrustStrip() {
               className="h-12 w-12 object-contain sm:h-14 sm:w-14"
             />
             <Link
-              href="/business-opportunity"
+              href="/partners"
               className="inline-flex flex-1 items-center justify-center rounded-full bg-[#EE6F28] px-6 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-[#D45A18] sm:flex-none"
             >
-              See opportunity
+              See partner models
             </Link>
           </div>
         </div>

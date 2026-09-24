@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
-const words = ["Pure", "Fresh", "Valencia", "Hygienic", "Orango"];
+const words = ["Pure", "Fresh", "Valencia", "Hygienic", "OranGo"];
 
 function Word({ children, outlined }) {
   return (

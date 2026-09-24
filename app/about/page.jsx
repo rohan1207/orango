@@ -1,21 +1,19 @@
 import AboutContent from "@/components/AboutContent";
 
 export const metadata = {
-  title: "About Us | Fresh orange juice for everyday public spaces",
+  title: "About OranGo | INNOVERTEX LLP",
   description:
-    "OranGo brings freshly squeezed Valencia orange juice to hospitals, offices, malls, and gyms across India — pure, hygienic, and as convenient as the drinks already in public space.",
+    "OranGo by INNOVERTEX LLP places automated Valencia orange juice vending machines across Indian malls, hospitals, offices and gyms. Fresh juice. Automated. Sealed cup — not bottled D2C.",
   keywords: [
-    "Orango about",
-    "OranGo company",
-    "fresh orange juice India",
-    "healthy beverage public spaces",
-    "orange juice vending network",
+    "About OranGo",
+    "INNOVERTEX LLP",
+    "orange juice vending India",
   ],
   alternates: { canonical: "https://orango.co.in/about" },
   openGraph: {
-    title: "About Orango — fresh juice closer to everyday life",
+    title: "About OranGo — INNOVERTEX LLP",
     description:
-      "We make pure orange juice as effortless as caffeinated and sugary drinks in India's high-footfall spaces.",
+      "A location-based automated beverage network — not a juice café.",
     url: "https://orango.co.in/about",
     type: "website",
   },

@@ -10,26 +10,25 @@ import HomeFaq from "@/components/HomeFaq";
 import ContactTeaser from "@/components/ContactTeaser";
 
 export const metadata = {
-  title: "Fresh orange juice vending machines for Indian public spaces",
+  title: "OranGo | Fresh Orange Juice Vending Machines in India",
   description:
-    "OranGo serves 100% pure Valencia orange juice — freshly squeezed to order in under a minute. No additives, UPI payments, ozone sterilisation. Built for malls, offices, hospitals, and partners across India.",
+    "Automated machines that squeeze Valencia oranges in 45 seconds. No sugar, no preservatives, UPI. Place OranGo in malls, hospitals, offices and gyms. From ₹120. Book a site survey.",
   keywords: [
     "orange juice vending machine India",
     "freshly squeezed orange juice",
     "Valencia orange juice machine",
     "UPI juice vending",
-    "healthy beverage for malls",
-    "orange juice franchise India",
-    "Orango",
     "OranGo",
+    "book site survey juice machine",
   ],
   alternates: { canonical: "https://orango.co.in/home" },
   openGraph: {
-    title: "Orango | Fresh orange juice vending for India",
+    title: "OranGo | Fresh Orange Juice Vending Machines in India",
     description:
-      "100% pure Valencia orange juice, freshly squeezed to order. Place hygienic, UPI-native machines in high-footfall spaces.",
+      "100% Valencia oranges. ~45 seconds. UPI. Sealed cup. Built for malls, hospitals, offices and gyms.",
     url: "https://orango.co.in/home",
     type: "website",
+    images: [{ url: "/machine.png", alt: "OranGo vending machine" }],
   },
 };
 

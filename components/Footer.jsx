@@ -2,7 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import Logo from "./Logo";
 import OrangeSliceDecor from "./OrangeSliceDecor";
-import { brand, footerLegal, footerQuickLinks } from "@/lib/site";
+import {
+  brand,
+  footerLegal,
+  footerQuickLinks,
+  primaryCta,
+} from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -22,9 +27,12 @@ export default function Footer() {
         <div className="grid gap-4 sm:gap-5 lg:grid-cols-12">
           <div className="relative overflow-hidden rounded-[1.6rem] border border-[#EE6F28]/12 bg-white p-6 sm:rounded-[2rem] sm:p-8 md:p-10 lg:col-span-5">
             <Logo />
-            <p className="mt-5 max-w-sm text-[14px] leading-relaxed text-[#8B3410]/70 sm:text-[15px]">
-              Automated Valencia orange juice for India&apos;s high-footfall
-              floors. Host it, operate it, or build a city network with us.
+            <p className="mt-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#EE6F28]">
+              {brand.legalName}
+            </p>
+            <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-[#8B3410]/70 sm:text-[15px]">
+              Automated Valencia orange juice vending machines for Indian malls,
+              hospitals, offices, and gyms. Fresh juice. Automated.
             </p>
             <a
               href={brand.phoneHref}
@@ -45,7 +53,26 @@ export default function Footer() {
               >
                 {brand.partnershipsEmail}
               </a>
+              <a
+                className="block w-fit transition-colors hover:text-[#EE6F28]"
+                href={`mailto:${brand.supportEmail}`}
+              >
+                {brand.supportEmail}
+              </a>
+              <a
+                className="block w-fit transition-colors hover:text-[#EE6F28]"
+                href={brand.whatsapp}
+                target="_blank"
+                rel="noreferrer"
+              >
+                WhatsApp
+              </a>
             </div>
+            <p className="mt-5 text-[12px] leading-relaxed text-[#8B3410]/55">
+              {brand.addressFull}
+              <br />
+              GSTIN: {brand.gstin} · FSSAI: {brand.fssai}
+            </p>
             <div className="mt-6 flex flex-wrap gap-3 sm:mt-7">
               <a
                 href={brand.linkedin}
@@ -114,29 +141,32 @@ export default function Footer() {
                     href="/contact"
                     className="text-[13px] font-medium text-[#8B3410]/80 transition-colors hover:text-[#EE6F28] md:text-[14px]"
                   >
-                    Contact Us
+                    Contact
                   </Link>
                 </li>
               </ul>
               <Link
-                href="/contact"
+                href={primaryCta.href}
                 className="mt-5 hidden items-center justify-center rounded-full bg-[#EE6F28] px-5 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-[#D45A18] md:mt-8 md:inline-flex"
               >
-                Talk to us
+                {primaryCta.label}
               </Link>
             </div>
 
             <Link
-              href="/contact"
+              href={primaryCta.href}
               className="col-span-2 inline-flex w-full items-center justify-center rounded-full bg-[#EE6F28] px-5 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-[#D45A18] md:hidden"
             >
-              Talk to us
+              {primaryCta.label}
             </Link>
           </div>
         </div>
 
         <div className="mt-8 space-y-2 border-t border-[#EE6F28]/12 py-5 text-center text-[12px] tracking-wide text-[#8B3410]/50">
-          <p>Copyright 2026 Orango / All Rights Reserved.</p>
+          <p>
+            Copyright 2026 {brand.legalName} / {brand.name}. All Rights
+            Reserved.
+          </p>
           <p>
             Designed &amp; developed by{" "}
             <span className="font-medium text-[#8B3410]/70">Stelora Media</span>

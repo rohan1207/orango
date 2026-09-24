@@ -15,35 +15,35 @@ const benefits = [
   {
     kicker: "Hero nutrient",
     title: "Vitamin C",
-    copy: "Fresh Valencia oranges — a bright daily dose of vitamin C in every sealed cup.",
+    copy: "Fresh Valencia oranges give you a natural vitamin C boost in every sealed cup.",
     tone: "orange",
     image: "/benefits/benefit-vitamin-c.png",
   },
   {
     kicker: "Daily",
-    title: "Immunity support",
-    copy: "Pure juice with naturally occurring antioxidants. No syrup. No shortcuts.",
+    title: "Feel fresher",
+    copy: "Pure juice with natural antioxidants. No syrup. No shortcuts.",
     tone: "cream",
     image: "/benefits/benefit-immunity.png",
   },
   {
     kicker: "Afternoon",
-    title: "Energy boost",
-    copy: "Clean fruit fuel for the 4pm dip — without the crash of sugary sodas.",
+    title: "Steady energy",
+    copy: "Fruit fuel for the 4pm dip — without the crash of sugary soft drinks.",
     tone: "white",
     image: "/benefits/benefit-energy.png",
   },
   {
     kicker: "Everyday",
-    title: "Heart-wise hydration",
-    copy: "Potassium-forward electrolytes and chilled pours that support daily wellness.",
+    title: "Better hydration",
+    copy: "Oranges bring natural potassium and a cold pour that hits the spot.",
     tone: "orange",
     image: "/benefits/benefit-heart.png",
   },
   {
     kicker: "Freshness",
-    title: "Skin wellness",
-    copy: "Citrus antioxidants and hydration — not reconstituted concentrate.",
+    title: "Skin-friendly habit",
+    copy: "Citrus antioxidants and real juice — not reconstituted concentrate.",
     tone: "cream",
     image: "/benefits/benefit-skin.png",
   },
@@ -175,20 +175,20 @@ export default function HealthBenefits() {
         <div className="relative z-10 mx-auto flex w-full max-w-[1440px] shrink-0 items-end justify-between gap-3 px-4 pb-1 pt-3 sm:px-5 sm:pb-3 sm:pt-6 md:px-8 md:pt-8">
           <div className="max-w-xl">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#EE6F28]">
-              OranGo Benefits
+              Why it feels good
             </p>
             <h2
               id="benefits-heading"
               className="mt-1.5 text-[clamp(1.45rem,5.5vw,2.25rem)] font-semibold leading-[1.1] tracking-[-0.03em] text-[#8B3410]"
             >
-              Health Benefits
+              Real fruit. Real benefits.
             </h2>
             <p className="mt-1 text-[13px] text-[#8B3410]/60 sm:text-[14px]">
-              Keep scrolling — each benefit stacks on the last.
+              Scroll to see each one. Not a medical claim — just honest juice.
             </p>
           </div>
           <Link
-            href="/vending-machine"
+            href="/the-machine"
             className="hidden items-center justify-center rounded-full bg-[#EE6F28] px-5 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-[#D45A18] sm:inline-flex"
           >
             Explore the machine

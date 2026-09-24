@@ -10,17 +10,17 @@ const models = [
   {
     kicker: "01",
     title: "Host a machine",
-    copy: "You have the floor. We bring juice infrastructure for malls, hospitals, offices, and clubs.",
+    copy: "You give us floor space and power. We install, restock and clean.",
   },
   {
     kicker: "02",
-    title: "Operate a cluster",
-    copy: "Run a city pocket of machines with replenishment support and shared economics.",
+    title: "Run a city route",
+    copy: "Operate several machines across malls, offices or campuses with our support.",
   },
   {
     kicker: "03",
-    title: "Partner at scale",
-    copy: "Multi-site rollouts for operators who want branded F&B without building cafes.",
+    title: "Grow with us",
+    copy: "Multi-site or investment talks for groups ready to scale the network.",
   },
 ];
 
@@ -58,30 +58,31 @@ export default function CtaSection() {
           <div className="relative grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
             <div>
               <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#FFE0B8]">
-                For operators & hosts
+                For malls, hospitals, offices &amp; gyms
               </p>
               <h2
                 id="operators-heading"
                 className="mt-4 max-w-2xl text-[clamp(2rem,4.2vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.035em]"
               >
-                Put a juice bar on your floor without building a juice bar.
+                Bring OranGo to your venue.
               </h2>
               <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-white/85">
-                Valencia oranges. UPI. Sealed cups. Restocked like infrastructure  - 
-                not like a cafe. Turn idle wall space into a daily ritual.
+                You provide the bay and power. OranGo installs the machine,
+                restocks fruit and cups, and keeps it clean. Visitors get fresh
+                juice in about 45 seconds.
               </p>
               <div className="mt-8 flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-3">
                 <Link
-                  href="/shop"
+                  href="/contact?intent=survey"
                   className="inline-flex w-full items-center justify-center rounded-full bg-white px-7 py-3.5 text-[15px] font-semibold text-[#8B3410] transition-colors hover:bg-[#FFF5ED] sm:w-auto"
                 >
-                  Place a machine
+                  Book a site survey
                 </Link>
                 <Link
-                  href="/business-opportunity"
+                  href="/partners"
                   className="inline-flex w-full items-center justify-center rounded-full border border-white/55 px-7 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-white/10 sm:w-auto"
                 >
-                  Partnership models
+                  Partners
                 </Link>
               </div>
             </div>

@@ -7,32 +7,32 @@ import LiveBlobs from "./LiveBlobs";
 const features = [
   {
     title: "Oranges stored at 4°C",
-    copy: "Fresh oranges and naturally chilled juice.",
+    copy: "Whole fruit stays cold so every cup starts fresh.",
     live: "Cold chain",
   },
   {
-    title: "UPI enabled payments",
-    copy: "Seamless tap-and-pay experience.",
+    title: "UPI payments",
+    copy: "Scan, pay, done — the way India already pays.",
     live: "Instant",
   },
   {
     title: "Scheduled self-cleaning",
-    copy: "Regular cleaning intervals, automated.",
+    copy: "The machine cleans on a set cycle. Less work for your team.",
     live: "Auto cycle",
   },
   {
-    title: "Ozone sterilization",
-    copy: "Enhanced hygiene for public floors.",
+    title: "Ozone sterilisation",
+    copy: "Extra hygiene for public spaces like malls and hospitals.",
     live: "Sanitised",
   },
   {
-    title: "Sealed for maximum benefits",
-    copy: "Preserves nutrients and freshness.",
+    title: "Sealed cup",
+    copy: "Closed at dispense — clean to carry, clean to drink.",
     live: "Sealed cup",
   },
   {
-    title: "Daily tracking",
-    copy: "For regular replenishment and uptime.",
+    title: "Live tracking",
+    copy: "We watch stock and uptime so the machine stays ready.",
     live: "Live ops",
   },
 ];
@@ -73,7 +73,7 @@ export default function SmartTech() {
             >
               <Image
                 src="/machine.png"
-                alt="Orango smart juice vending machine"
+                alt="OranGo smart orange juice vending machine"
                 width={900}
                 height={1100}
                 className="mx-auto h-auto w-full max-w-[240px] object-contain drop-shadow-[0_24px_48px_rgba(238,111,40,0.18)] sm:max-w-sm lg:max-w-none"
@@ -83,17 +83,17 @@ export default function SmartTech() {
 
           <div className="order-1 lg:order-2">
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
-              Smart technology
+              Inside the machine
             </p>
             <h2
               id="tech-heading"
               className="mt-3 text-[clamp(1.75rem,6vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-[#8B3410]"
             >
-              Built for trust and convenience
+              Built clean. Built for busy floors.
             </h2>
             <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[#8B3410]/65 sm:text-[16px]">
-              Hygiene, payments, and cold-chain - engineered into every OranGo
-              machine so hosts get reliability and guests get confidence.
+              Cold storage, UPI, ozone cleaning and sealed cups — so guests trust
+              the juice and hosts trust the machine.
             </p>
 
             <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2">
