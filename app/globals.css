@@ -90,6 +90,8 @@ body {
   }
 }
 
+/* New3dScrollHero uses GSAP pin — no fixed track height needed */
+
 .grain {
   pointer-events: none;
   position: absolute;

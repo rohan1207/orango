@@ -4,12 +4,18 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { preloadMachineAssets } from "@/lib/preloadMachine";
 
-/** Starts model warmup as soon as `/` hydrates (even before video mounts). */
+/**
+ * Warm the 3D model only when the 3D hero is actually used.
+ * MachineHero is currently commented out — skip heavy GLB on landing/home.
+ */
 export default function EarlyModelWarmup() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname === "/") {
+    // Re-enable when MachineHero is restored on /home
+    const use3dHero = false;
+    if (!use3dHero) return;
+    if (pathname === "/" || pathname === "/home") {
       preloadMachineAssets();
     }
   }, [pathname]);

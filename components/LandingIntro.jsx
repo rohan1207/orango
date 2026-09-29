@@ -3,19 +3,27 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { preloadMachineAssets } from "@/lib/preloadMachine";
+import {
+  PRIORITY_COUNT,
+  folderFromWidth,
+  injectFramePreloadLinks,
+  warmupFramesFromLanding,
+} from "@/lib/frames";
 
+/**
+ * Landing intro.
+ * - Redirect as soon as the video ends (never waits on frames).
+ * - While the video plays, aggressively preload + Cache API the device
+ *   frame set so /home scroll hero is already warm.
+ */
 export default function LandingIntro() {
   const router = useRouter();
   const videoRef = useRef(null);
   const doneRef = useRef(false);
-  const videoEndedRef = useRef(false);
-  const modelReadyRef = useRef(false);
   const [progress, setProgress] = useState(0);
 
-  const tryGoHome = () => {
+  const goHome = () => {
     if (doneRef.current) return;
-    if (!videoEndedRef.current || !modelReadyRef.current) return;
     doneRef.current = true;
     router.push("/home");
   };
@@ -30,28 +38,24 @@ export default function LandingIntro() {
   useEffect(() => {
     router.prefetch("/home");
 
-    let cancelled = false;
-    preloadMachineAssets()
-      .then(() => {
-        if (cancelled) return;
-        modelReadyRef.current = true;
-        tryGoHome();
-      })
-      .catch(() => {
-        if (cancelled) return;
-        modelReadyRef.current = true;
-        tryGoHome();
-      });
+    const folder = folderFromWidth(window.innerWidth);
 
-    const failSafe = window.setTimeout(() => {
-      if (cancelled) return;
-      modelReadyRef.current = true;
-      tryGoHome();
-    }, 25000);
+    // 1) Browser preload hints for the first chunk
+    const removeLinks = injectFramePreloadLinks(
+      folder,
+      Math.min(32, PRIORITY_COUNT),
+    );
+
+    // 2) Continuous aggressive decode + Cache API fill (does not block goHome)
+    warmupFramesFromLanding();
+
+    // Absolute escape hatch (video blocked / never ends)
+    const failSafe = window.setTimeout(goHome, 12000);
 
     return () => {
-      cancelled = true;
       window.clearTimeout(failSafe);
+      removeLinks();
+      // Do NOT abort frame sessions — they keep filling after redirect
     };
   }, [router]);
 
@@ -61,15 +65,10 @@ export default function LandingIntro() {
 
     const tryPlay = async () => {
       try {
-        video.muted = false;
+        video.muted = true;
         await video.play();
       } catch {
-        try {
-          video.muted = true;
-          await video.play();
-        } catch {
-          /* autoplay may be blocked */
-        }
+        /* failSafe still navigates */
       }
     };
 
@@ -86,15 +85,16 @@ export default function LandingIntro() {
           src="/video.mp4"
           className="block h-auto max-h-[70vh] w-auto max-w-full scale-[1.01] border-0 object-contain outline-none [transform:translateZ(0)]"
           playsInline
+          muted
           autoPlay
           preload="auto"
           onTimeUpdate={syncProgress}
           onLoadedMetadata={syncProgress}
           onEnded={() => {
             setProgress(100);
-            videoEndedRef.current = true;
-            tryGoHome();
+            goHome();
           }}
+          onError={goHome}
           style={{
             border: "none",
             outline: "none",

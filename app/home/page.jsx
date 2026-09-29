@@ -1,4 +1,5 @@
-import MachineHero from "@/components/MachineHero";
+import New3dScrollHero from "@/components/New3dScrollHero";
+// import MachineHero from "@/components/MachineHero"; // kept for later — 3D / UI hero
 import BrandRibbon from "@/components/BrandRibbon";
 import ExperienceSection from "@/components/ExperienceSection";
 import ProcessSteps from "@/components/ProcessSteps";
@@ -35,7 +36,8 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
-      <MachineHero />
+      <New3dScrollHero />
+      {/* <MachineHero /> — previous hero (3D / orange UI). Restore when needed. */}
       <BrandRibbon />
       <ExperienceSection />
       <ProcessSteps />

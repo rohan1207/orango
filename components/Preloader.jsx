@@ -13,7 +13,7 @@ export default function Preloader({ progress = 0, ready = false }) {
     >
       <div className="flex w-[min(88vw,360px)] flex-col items-center">
         <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-muted">
-          Orango
+          OranGo
         </p>
         <div className="relative mt-6 h-px w-full bg-ink/10">
           <div
@@ -22,7 +22,7 @@ export default function Preloader({ progress = 0, ready = false }) {
           />
         </div>
         <div className="mt-4 flex w-full items-center justify-between text-[11px] uppercase tracking-[0.22em] text-muted">
-          <span>Loading juice sequence</span>
+          <span>Loading sequence</span>
           <span>{pct}%</span>
         </div>
       </div>

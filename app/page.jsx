@@ -9,15 +9,5 @@ export const metadata = {
 };
 
 export default function LandingPage() {
-  return (
-    <>
-      <link
-        rel="preload"
-        href="/orange_machine.glb"
-        as="fetch"
-        crossOrigin="anonymous"
-      />
-      <LandingIntro />
-    </>
-  );
+  return <LandingIntro />;
 }

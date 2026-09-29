@@ -1,6 +1,6 @@
 "use client";
 
-// Kept in the codebase for the frames-based pinned hero. Not mounted on the home page.
+// Kept for reference. Active hero is New3dScrollHero.
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,7 +10,6 @@ import {
   SCRUB,
   TOTAL_FRAMES,
   drawFrame,
-  folderFromWidth,
   nearestLoaded,
   preloadFrames,
 } from "@/lib/frames";
@@ -23,7 +22,6 @@ export default function PinnedHero() {
   const trackRef = useRef(null);
   const heroRef = useRef(null);
   const canvasRef = useRef(null);
-  const folderRef = useRef(null);
   const framesRef = useRef([]);
   const targetRef = useRef(0);
   const displayedRef = useRef(0);
@@ -40,9 +38,11 @@ export default function PinnedHero() {
     window.history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
 
-    const folder = folderFromWidth(window.innerWidth);
-    folderRef.current = folder;
-    const session = preloadFrames(folder);
+    const session = preloadFrames(
+      typeof window !== "undefined" && window.innerWidth < 768
+        ? "mobile"
+        : "desktop",
+    );
     framesRef.current = session.frames;
 
     const unsub = session.subscribe(({ ratio, ready: isReady }) => {
@@ -90,8 +90,7 @@ export default function PinnedHero() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     const { w, h } = sizeRef.current;
-    const folder = folderRef.current || "desktop";
-    const mode = folder === "mobile" ? "contain" : "cover";
+    const mode = window.innerWidth < 768 ? "contain" : "cover";
     const img = nearestLoaded(framesRef.current, frameIndex);
     drawFrame(ctx, img, w, h, mode);
     lastPaintedRef.current = Math.round(frameIndex);

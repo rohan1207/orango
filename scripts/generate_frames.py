@@ -8,7 +8,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
-TOTAL = 250
+TOTAL = 230
 
 
 def lerp(a, b, t):
@@ -216,20 +216,20 @@ def render_frame(w, h, index, mobile, bg):
 
 
 def save_sequence(folder, size, mobile):
-    dest = ROOT / "public" / folder
+    dest = ROOT / "public" / "frames"
     dest.mkdir(parents=True, exist_ok=True)
     bg = make_backgrounds(size, mobile)
     print(f"Generating {TOTAL} frames -> {dest} ({size[0]}x{size[1]})", flush=True)
     for i in range(1, TOTAL + 1):
         img = render_frame(size[0], size[1], i, mobile, bg)
-        img.save(dest / f"ezgif-frame-{i:03d}.png", "PNG", compress_level=1)
+        img.save(dest / f"frame-{i:03d}.png", "PNG", compress_level=1)
         if i == 1 or i % 25 == 0:
-            print(f"  {folder} {i}/{TOTAL}", flush=True)
+            print(f"  frames {i}/{TOTAL}", flush=True)
 
 
 def main():
-    save_sequence("desktop", (960, 540), mobile=False)
-    save_sequence("mobile", (540, 960), mobile=True)
+    # Single sequence into public/frames (desktop size)
+    save_sequence("frames", (960, 540), mobile=False)
     print("Done.", flush=True)
 
 
