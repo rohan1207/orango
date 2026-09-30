@@ -37,26 +37,40 @@ export default function Navbar() {
       return undefined;
     }
 
-    const sync = () => {
+    let last = null;
+    let ticking = false;
+
+    const compute = () => {
+      ticking = false;
       const hero = document.getElementById("home-scroll-hero");
       if (!hero) {
-        setOverHero(true);
+        if (last !== true) {
+          last = true;
+          setOverHero(true);
+        }
         return;
       }
       const rect = hero.getBoundingClientRect();
-      // Solid once the hero has mostly scrolled away
-      setOverHero(rect.bottom > window.innerHeight * 0.45);
+      const next = rect.bottom > window.innerHeight * 0.45;
+      if (next !== last) {
+        last = next;
+        setOverHero(next);
+      }
     };
 
-    sync();
+    const sync = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(compute);
+    };
+
+    compute();
     window.addEventListener("scroll", sync, { passive: true });
-    window.addEventListener("resize", sync);
-    const t = window.setInterval(sync, 400); // keep in sync during GSAP pin
+    window.addEventListener("resize", sync, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", sync);
       window.removeEventListener("resize", sync);
-      window.clearInterval(t);
     };
   }, [pathname]);
 

@@ -1,10 +1,8 @@
 "use client";
 
 /**
- * Scroll-locked GSAP frame-sequence hero.
- * Desktop: public/frames/desktop/…
- * Phone:   public/frames/mobile/…
- * Visual only — no overlay copy or buttons.
+ * Scroll-scrubbed frame hero — sticky track (no GSAP pin) for Vercel-stable fling scroll.
+ * Desktop: /frames/desktop · Phone: /frames/mobile
  */
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -13,6 +11,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Preloader from "./Preloader";
 import {
   FRAME_LERP,
+  MAX_FRAME_STEP,
   MOBILE_BREAKPOINT,
   SCRUB,
   TOTAL_FRAMES,
@@ -27,7 +26,8 @@ if (typeof window !== "undefined") {
 }
 
 export default function New3dScrollHero() {
-  const pinRef = useRef(null);
+  const trackRef = useRef(null);
+  const stageRef = useRef(null);
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
   const framesRef = useRef([]);
@@ -38,42 +38,58 @@ export default function New3dScrollHero() {
   const sizeRef = useRef({ w: 1, h: 1 });
   const lastPaintedRef = useRef(-1);
   const dirtyRef = useRef(true);
-  const triggerRef = useRef(null);
   const modeRef = useRef("cover");
+  const unlockedRef = useRef(false);
+  const triggerRef = useRef(null);
 
-  const [progress, setProgress] = useState(0);
+  const [loadRatio, setLoadRatio] = useState(0);
   const [ready, setReady] = useState(false);
+  /** Once true, preloader never comes back (fixes micro-flash on fast scroll). */
+  const [loaderGone, setLoaderGone] = useState(false);
+
+  const unlock = () => {
+    if (unlockedRef.current) return;
+    unlockedRef.current = true;
+    setReady(true);
+    // Fade out then unmount loader
+    window.setTimeout(() => setLoaderGone(true), 500);
+  };
 
   const bindSession = (folder) => {
     folderRef.current = folder;
-    // Reuse landing session if already warm — no second download
     const session = preloadFrames(folder, { aggressive: false });
     framesRef.current = session.frames;
     if (unsubRef.current) unsubRef.current();
+
+    let progressT = 0;
     unsubRef.current = session.subscribe(({ ratio, ready: isReady }) => {
-      setProgress(ratio);
-      if (isReady) setReady(true);
       dirtyRef.current = true;
+      if (isReady || session.loaded >= 8) unlock();
+      // Throttle React progress updates — never on every decode during scrub
+      if (!unlockedRef.current) {
+        window.clearTimeout(progressT);
+        progressT = window.setTimeout(() => setLoadRatio(ratio), 80);
+      }
     });
-    // Instant unlock when landing already filled enough frames
-    if (session.ready || session.loaded >= 8) setReady(true);
+
+    if (session.ready || session.loaded >= 8) unlock();
   };
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
-    window.history.scrollRestoration = "manual";
+    try {
+      window.history.scrollRestoration = "manual";
+    } catch {
+      /* ignore */
+    }
     window.scrollTo(0, 0);
-
     bindSession(folderFromWidth(window.innerWidth));
 
+    const failSafe = window.setTimeout(unlock, 3500);
     return () => {
+      window.clearTimeout(failSafe);
       if (unsubRef.current) unsubRef.current();
     };
-  }, []);
-
-  useEffect(() => {
-    const t = window.setTimeout(() => setReady(true), 4000);
-    return () => window.clearTimeout(t);
   }, []);
 
   useEffect(() => {
@@ -91,123 +107,180 @@ export default function New3dScrollHero() {
   }, [ready]);
 
   const sizeCanvas = () => {
-    const canvas = canvasRef.current;
-    const pin = pinRef.current;
-    if (!canvas || !pin) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    const w = pin.clientWidth || window.innerWidth;
-    const h = pin.clientHeight || window.innerHeight;
-    sizeRef.current = { w, h };
-    modeRef.current = w < MOBILE_BREAKPOINT ? "contain" : "cover";
-    canvas.width = Math.max(1, Math.round(w * dpr));
-    canvas.height = Math.max(1, Math.round(h * dpr));
-    canvas.style.width = `${w}px`;
-    canvas.style.height = `${h}px`;
-    const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
-    if (ctx) {
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = "medium";
-      ctxRef.current = ctx;
+    try {
+      const canvas = canvasRef.current;
+      const stage = stageRef.current;
+      if (!canvas || !stage || !canvas.isConnected) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      const w = Math.max(1, stage.clientWidth || window.innerWidth);
+      const h = Math.max(1, stage.clientHeight || window.innerHeight);
+      sizeRef.current = { w, h };
+      modeRef.current = w < MOBILE_BREAKPOINT ? "contain" : "cover";
+      const tw = Math.round(w * dpr);
+      const th = Math.round(h * dpr);
+      if (canvas.width !== tw || canvas.height !== th) {
+        canvas.width = tw;
+        canvas.height = th;
+        canvas.style.width = `${w}px`;
+        canvas.style.height = `${h}px`;
+        const ctx = canvas.getContext("2d", {
+          alpha: false,
+          desynchronized: true,
+        });
+        if (ctx) {
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "low";
+          ctxRef.current = ctx;
+        }
+      }
+      dirtyRef.current = true;
+    } catch {
+      /* never crash scroll path */
     }
-    dirtyRef.current = true;
   };
 
   const paint = (frameIndex) => {
-    const ctx = ctxRef.current;
-    if (!ctx) return;
-    const { w, h } = sizeRef.current;
-    const img = nearestLoaded(framesRef.current, frameIndex);
-    drawFrame(ctx, img, w, h, modeRef.current);
-    lastPaintedRef.current = Math.round(frameIndex);
-    dirtyRef.current = false;
+    try {
+      const canvas = canvasRef.current;
+      const ctx = ctxRef.current;
+      if (!canvas?.isConnected || !ctx) return;
+      const { w, h } = sizeRef.current;
+      if (w < 2 || h < 2) return;
+      const img = nearestLoaded(framesRef.current, frameIndex);
+      drawFrame(ctx, img, w, h, modeRef.current);
+      lastPaintedRef.current = Math.round(frameIndex);
+      dirtyRef.current = false;
+    } catch {
+      /* swallow draw errors — never trip Next error boundary */
+    }
   };
 
   useLayoutEffect(() => {
     if (!ready) return;
     sizeCanvas();
-    paint(0);
+    paint(displayedRef.current);
   }, [ready]);
 
+  // Single rAF loop: capped step so fast flings play through elegantly
   useEffect(() => {
     let raf = 0;
+    let alive = true;
+
     const tick = () => {
-      const target = targetRef.current;
-      const current = displayedRef.current;
-      const delta = target - current;
-      const next =
-        Math.abs(delta) < 0.08 ? target : current + delta * FRAME_LERP;
-      displayedRef.current = next;
-      const rounded = Math.round(next);
-      if (dirtyRef.current || rounded !== lastPaintedRef.current) {
-        paint(next);
+      if (!alive) return;
+      try {
+        const target = targetRef.current;
+        let current = displayedRef.current;
+        const delta = target - current;
+
+        if (Math.abs(delta) >= MAX_FRAME_STEP) {
+          // Fast scroll: advance a few frames per tick (play-through, no hang)
+          current += Math.sign(delta) * MAX_FRAME_STEP;
+        } else if (Math.abs(delta) > 0.05) {
+          current += delta * FRAME_LERP;
+        } else {
+          current = target;
+        }
+
+        displayedRef.current = current;
+        const rounded = Math.round(current);
+        if (dirtyRef.current || rounded !== lastPaintedRef.current) {
+          paint(current);
+        }
+      } catch {
+        /* ignore */
       }
       raf = requestAnimationFrame(tick);
     };
+
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      alive = false;
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
+  // Sticky track + soft scrub (NO pin) — stable under wheel fling on Vercel
   useLayoutEffect(() => {
-    if (!ready || !pinRef.current) return undefined;
+    if (!ready || !trackRef.current) return undefined;
 
-    const isDesktop = window.innerWidth >= MOBILE_BREAKPOINT;
-    const scrollLength = window.innerHeight * (isDesktop ? 4.2 : 3.2);
+    let trigger;
+    try {
+      trigger = ScrollTrigger.create({
+        trigger: trackRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: SCRUB,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          // Only write a number — never paint / setState here
+          targetRef.current = self.progress * (TOTAL_FRAMES - 1);
+        },
+      });
+      triggerRef.current = trigger;
+    } catch {
+      return undefined;
+    }
 
-    const trigger = ScrollTrigger.create({
-      trigger: pinRef.current,
-      start: "top top",
-      end: `+=${scrollLength}`,
-      pin: true,
-      scrub: SCRUB,
-      anticipatePin: 1,
-      fastScrollEnd: true,
-      preventOverlaps: true,
-      onUpdate: (self) => {
-        targetRef.current = self.progress * (TOTAL_FRAMES - 1);
-      },
+    requestAnimationFrame(() => {
+      try {
+        ScrollTrigger.refresh();
+      } catch {
+        /* ignore */
+      }
     });
-    triggerRef.current = trigger;
-    requestAnimationFrame(() => ScrollTrigger.refresh());
 
     let resizeTimer = 0;
     const onResize = () => {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(() => {
-        const nextFolder = folderFromWidth(window.innerWidth);
-        if (nextFolder !== folderRef.current) {
-          bindSession(nextFolder);
+        try {
+          const nextFolder = folderFromWidth(window.innerWidth);
+          if (nextFolder !== folderRef.current) {
+            bindSession(nextFolder);
+          }
+          sizeCanvas();
+          paint(displayedRef.current);
+          ScrollTrigger.refresh();
+        } catch {
+          /* ignore */
         }
-        sizeCanvas();
-        paint(displayedRef.current);
-        ScrollTrigger.refresh();
-      }, 120);
+      }, 180);
     };
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", onResize, { passive: true });
 
     return () => {
       window.removeEventListener("resize", onResize);
       window.clearTimeout(resizeTimer);
-      trigger.kill();
+      try {
+        trigger?.kill();
+      } catch {
+        /* ignore */
+      }
       triggerRef.current = null;
     };
   }, [ready]);
 
   return (
     <>
-      <Preloader progress={progress} ready={ready} />
+      {!loaderGone ? (
+        <Preloader progress={loadRatio} ready={ready} />
+      ) : null}
+
       <section
-        className="relative w-full bg-[#FFFAF6]"
+        ref={trackRef}
+        className="hero-frame-track relative w-full bg-[#FFFAF6]"
         aria-label="OranGo product sequence"
       >
         <div
-          ref={pinRef}
+          ref={stageRef}
           id="home-scroll-hero"
-          className="relative h-dvh w-full overflow-hidden bg-[#FFFAF6]"
+          className="sticky top-0 h-dvh w-full overflow-hidden bg-[#FFFAF6]"
         >
           <canvas
             ref={canvasRef}
-            className="absolute inset-0 block h-full w-full"
+            className="absolute inset-0 block h-full w-full touch-none"
             aria-hidden
           />
         </div>

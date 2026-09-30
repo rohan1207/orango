@@ -90,7 +90,18 @@ body {
   }
 }
 
-/* New3dScrollHero uses GSAP pin — no fixed track height needed */
+/* Sticky frame-sequence hero — tall track = smooth progress under fast scroll */
+.hero-frame-track {
+  height: 380vh;
+}
+
+@media (min-width: 768px) {
+  .hero-frame-track {
+    height: 520vh;
+  }
+}
+
+/* New3dScrollHero uses GSAP scrub on sticky track — no pin spacer */
 
 .grain {
   pointer-events: none;
