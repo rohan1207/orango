@@ -308,7 +308,7 @@ export default function BusinessOpportunityContent() {
         <div className="grid items-center gap-4 sm:gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="relative overflow-hidden rounded-[1.5rem] bg-[#FFF5ED] p-6 sm:rounded-[2rem] sm:p-8">
             <Image
-              src="/machine.png"
+              src="/machine_orange.png"
               alt="Orango juice machine for partner sites"
               width={420}
               height={520}

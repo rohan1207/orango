@@ -104,7 +104,7 @@ export default function AboutContent() {
             <div className="relative grid grid-cols-2 gap-2.5 sm:gap-3">
               <div className="relative aspect-[3/4] overflow-hidden rounded-[1.25rem] border border-[#EE6F28]/12 bg-[#FFF5ED] sm:rounded-[1.5rem]">
                 <Image
-                  src="/machine.png"
+                  src="/machine_orange.png"
                   alt="OranGo automated orange juice vending machine"
                   fill
                   className="object-contain object-bottom p-2 sm:p-3"
@@ -231,7 +231,7 @@ export default function AboutContent() {
             className="relative col-span-2 min-h-[200px] overflow-hidden rounded-[1.25rem] bg-[#EE6F28] sm:min-h-[240px] sm:rounded-[1.5rem] md:row-span-2 md:min-h-0 md:rounded-[1.75rem]"
           >
             <Image
-              src="/machine.png"
+              src="/machine_orange.png"
               alt="OranGo automated orange juice vending machine"
               fill
               className="object-contain object-bottom p-3 sm:p-4 md:p-6"

@@ -145,7 +145,7 @@ export default function VendingMachineContent() {
                 ))}
               </div>
               <Image
-                src="/machine.png"
+                src="/machine_orange.png"
                 alt="Orango automated fresh orange juice vending machine"
                 width={520}
                 height={640}

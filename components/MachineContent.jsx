@@ -104,7 +104,7 @@ export default function MachineContent() {
             />
             <div className="relative overflow-hidden rounded-[1.75rem] border border-[#8B3410]/8 bg-white p-4 shadow-[0_20px_50px_-28px_rgba(139,52,16,0.35)] sm:rounded-[2rem] sm:p-6">
               <Image
-                src="/machine.png"
+                src="/machine_orange.png"
                 alt="OranGo automated orange juice vending machine cabinet"
                 width={900}
                 height={1100}

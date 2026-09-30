@@ -396,7 +396,7 @@ export default function ProcessSteps() {
         <div className="mt-5 grid min-h-0 flex-1 grid-rows-[auto_auto] items-center gap-5 lg:mt-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:grid-rows-1 lg:gap-8">
           <div className="relative mx-auto flex w-full max-w-[260px] items-center justify-center sm:max-w-sm lg:mx-0 lg:max-h-[78vh] lg:max-w-none">
             <Image
-              src="/machine.png"
+              src="/machine_orange.png"
               alt="OranGo orange juice vending machine — pay, squeeze, sealed cup"
               width={1200}
               height={1400}

@@ -29,7 +29,7 @@ export const metadata = {
       "100% Valencia oranges. ~45 seconds. UPI. Sealed cup. Built for malls, hospitals, offices and gyms.",
     url: "https://orango.co.in/home",
     type: "website",
-    images: [{ url: "/machine.png", alt: "OranGo vending machine" }],
+    images: [{ url: "/machine_orange.png", alt: "OranGo vending machine" }],
   },
 };
 

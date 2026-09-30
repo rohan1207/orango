@@ -40,7 +40,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/machine.png",
+        url: "/machine_orange.png",
         width: 1200,
         height: 630,
         alt: "OranGo fresh orange juice vending machine",
@@ -52,7 +52,7 @@ export const metadata = {
     title: "OranGo | Fresh Orange Juice Vending Machines in India",
     description:
       "Automated Valencia orange juice machines for Indian malls, hospitals, offices and gyms. From ₹120 · ~45 seconds · UPI.",
-    images: ["/machine.png"],
+    images: ["/machine_orange.png"],
   },
   robots: {
     index: true,
@@ -107,7 +107,7 @@ const localBusinessLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "OranGo",
-  image: `${brand.url}/machine.png`,
+  image: `${brand.url}/machine_orange.png`,
   url: brand.url,
   telephone: brand.phoneTel,
   email: brand.email,
@@ -132,7 +132,7 @@ const productLd = {
   description:
     "Automated vending machine that squeezes Valencia oranges to order in about 45 seconds. UPI payments, ozone cleaning, sealed cup, fruit stored at 4°C. From ₹120.",
   brand: { "@type": "Brand", name: "OranGo" },
-  image: `${brand.url}/machine.png`,
+  image: `${brand.url}/machine_orange.png`,
   offers: {
     "@type": "Offer",
     priceCurrency: "INR",

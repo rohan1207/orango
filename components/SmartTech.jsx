@@ -72,7 +72,7 @@ export default function SmartTech() {
               className="relative"
             >
               <Image
-                src="/machine.png"
+                src="/machine_orange.png"
                 alt="OranGo smart orange juice vending machine"
                 width={900}
                 height={1100}
