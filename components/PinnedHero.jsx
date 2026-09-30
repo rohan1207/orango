@@ -6,10 +6,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Preloader from "./Preloader";
 import {
-  FRAME_LERP,
   SCRUB,
   TOTAL_FRAMES,
   drawFrame,
+  folderFromWidth,
   nearestLoaded,
   preloadFrames,
 } from "@/lib/frames";
@@ -17,6 +17,8 @@ import {
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
+
+const FRAME_LERP = 0.28;
 
 export default function PinnedHero() {
   const trackRef = useRef(null);
@@ -38,11 +40,7 @@ export default function PinnedHero() {
     window.history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
 
-    const session = preloadFrames(
-      typeof window !== "undefined" && window.innerWidth < 768
-        ? "mobile"
-        : "desktop",
-    );
+    const session = preloadFrames(folderFromWidth(window.innerWidth));
     framesRef.current = session.frames;
 
     const unsub = session.subscribe(({ ratio, ready: isReady }) => {

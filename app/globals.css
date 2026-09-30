@@ -90,14 +90,15 @@ body {
   }
 }
 
-/* Sticky frame-sequence hero — tall track = smooth progress under fast scroll */
+/* Sticky frame-sequence hero — tall track = fine-grained scrub (200 frames) */
 .hero-frame-track {
-  height: 380vh;
+  /* Mobile: enough travel that progress maps across the full sticky stage */
+  height: 520vh;
 }
 
 @media (min-width: 768px) {
   .hero-frame-track {
-    height: 520vh;
+    height: 650vh;
   }
 }
 

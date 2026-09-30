@@ -419,7 +419,7 @@ export default function ProcessSteps() {
               </button>
             ))}
 
-            <div className="mt-1 flex items-center justify-center gap-2 lg:justify-start">
+            <div className="mt-1 flex items-center justify-center gap-2">
               {steps.map((step, index) => (
                 <button
                   key={step.id}
@@ -432,22 +432,22 @@ export default function ProcessSteps() {
                 />
               ))}
             </div>
-          </div>
-        </div>
 
-        <div className="relative z-10 mt-5 flex shrink-0 flex-col items-center justify-center gap-3 pb-1 text-center sm:mt-3 sm:flex-row sm:flex-wrap">
-          <Link
-            href="/contact?intent=survey"
-            className="inline-flex w-full items-center justify-center rounded-full bg-orange px-7 py-2.5 text-[14px] font-semibold text-cream transition-colors duration-200 hover:bg-orange-deep sm:w-auto"
-          >
-            Book a site survey
-          </Link>
-          <Link
-            href="/the-machine"
-            className="text-[13px] font-medium text-ink/70 underline-offset-4 transition-colors hover:text-ink hover:underline"
-          >
-            See the machine in detail
-          </Link>
+            <div className="mt-4 flex flex-col items-center justify-center gap-3 text-center sm:flex-row sm:flex-wrap">
+              <Link
+                href="/contact?intent=survey"
+                className="inline-flex w-full items-center justify-center rounded-full bg-orange px-7 py-2.5 text-[14px] font-semibold text-cream transition-colors duration-200 hover:bg-orange-deep sm:w-auto"
+              >
+                Book a site survey
+              </Link>
+              <Link
+                href="/the-machine"
+                className="text-[13px] font-medium text-ink/70 underline-offset-4 transition-colors hover:text-ink hover:underline"
+              >
+                See the machine in detail
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,19 +1,22 @@
 "use client";
 
 /**
- * Scroll-scrubbed frame hero — sticky track (no GSAP pin) for Vercel-stable fling scroll.
- * Desktop: /frames/desktop · Phone: /frames/mobile
+ * Scroll-scrubbed frame hero — sticky track (no GSAP pin).
+ * Desktop: /frames/desktop_frames · Phone: /frames/mobile_frames (200 frames)
+ *
+ * Progress is driven by raw scroll math (reliable mid-track on iOS).
+ * Displayed frame uses delta-time exponential smooth — butter on slow scroll,
+ * capped catch-up on fling (no hang / no jump-cut).
+ *
+ * Phone: canvas uses touch-pan-y so the sticky stage scrolls the track
+ * (touch-action:none previously trapped touch → frames only at edges).
  */
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Preloader from "./Preloader";
 import {
-  FRAME_LERP,
-  MAX_FRAME_STEP,
+  FOLDER_DESKTOP,
   MOBILE_BREAKPOINT,
-  SCRUB,
   TOTAL_FRAMES,
   drawFrame,
   folderFromWidth,
@@ -21,8 +24,19 @@ import {
   preloadFrames,
 } from "@/lib/frames";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+/** Exponential smooth toward target — butter on slow scroll, catches up on fling */
+function smoothToward(current, target, dt, lambdaSlow, lambdaFast) {
+  const delta = target - current;
+  const abs = Math.abs(delta);
+  if (abs < 0.02) return target;
+  const lambda = abs > 12 ? lambdaFast : lambdaSlow;
+  const t = 1 - Math.exp(-lambda * dt);
+  const maxStep = abs > 40 ? 10 : abs > 20 ? 7 : abs > 8 ? 4 : Infinity;
+  const step = delta * t;
+  if (Math.abs(step) > maxStep) {
+    return current + Math.sign(delta) * maxStep;
+  }
+  return current + step;
 }
 
 export default function New3dScrollHero() {
@@ -31,7 +45,7 @@ export default function New3dScrollHero() {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
   const framesRef = useRef([]);
-  const folderRef = useRef("desktop");
+  const folderRef = useRef(FOLDER_DESKTOP);
   const unsubRef = useRef(null);
   const targetRef = useRef(0);
   const displayedRef = useRef(0);
@@ -40,7 +54,8 @@ export default function New3dScrollHero() {
   const dirtyRef = useRef(true);
   const modeRef = useRef("cover");
   const unlockedRef = useRef(false);
-  const triggerRef = useRef(null);
+  const lastTsRef = useRef(0);
+  const isMobileRef = useRef(false);
 
   const [loadRatio, setLoadRatio] = useState(0);
   const [ready, setReady] = useState(false);
@@ -51,28 +66,26 @@ export default function New3dScrollHero() {
     if (unlockedRef.current) return;
     unlockedRef.current = true;
     setReady(true);
-    // Fade out then unmount loader
-    window.setTimeout(() => setLoaderGone(true), 500);
+    window.setTimeout(() => setLoaderGone(true), 480);
   };
 
   const bindSession = (folder) => {
     folderRef.current = folder;
-    const session = preloadFrames(folder, { aggressive: false });
+    const session = preloadFrames(folder, { aggressive: true });
     framesRef.current = session.frames;
     if (unsubRef.current) unsubRef.current();
 
     let progressT = 0;
     unsubRef.current = session.subscribe(({ ratio, ready: isReady }) => {
       dirtyRef.current = true;
-      if (isReady || session.loaded >= 8) unlock();
-      // Throttle React progress updates — never on every decode during scrub
+      if (isReady || session.loaded >= 12) unlock();
       if (!unlockedRef.current) {
         window.clearTimeout(progressT);
         progressT = window.setTimeout(() => setLoadRatio(ratio), 80);
       }
     });
 
-    if (session.ready || session.loaded >= 8) unlock();
+    if (session.ready || session.loaded >= 12) unlock();
   };
 
   useEffect(() => {
@@ -83,9 +96,10 @@ export default function New3dScrollHero() {
       /* ignore */
     }
     window.scrollTo(0, 0);
+    isMobileRef.current = window.innerWidth < MOBILE_BREAKPOINT;
     bindSession(folderFromWidth(window.innerWidth));
 
-    const failSafe = window.setTimeout(unlock, 3500);
+    const failSafe = window.setTimeout(unlock, 3200);
     return () => {
       window.clearTimeout(failSafe);
       if (unsubRef.current) unsubRef.current();
@@ -111,11 +125,12 @@ export default function New3dScrollHero() {
       const canvas = canvasRef.current;
       const stage = stageRef.current;
       if (!canvas || !stage || !canvas.isConnected) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const w = Math.max(1, stage.clientWidth || window.innerWidth);
       const h = Math.max(1, stage.clientHeight || window.innerHeight);
       sizeRef.current = { w, h };
-      modeRef.current = w < MOBILE_BREAKPOINT ? "contain" : "cover";
+      isMobileRef.current = w < MOBILE_BREAKPOINT;
+      modeRef.current = isMobileRef.current ? "contain" : "cover";
       const tw = Math.round(w * dpr);
       const th = Math.round(h * dpr);
       if (canvas.width !== tw || canvas.height !== th) {
@@ -130,7 +145,7 @@ export default function New3dScrollHero() {
         if (ctx) {
           ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
           ctx.imageSmoothingEnabled = true;
-          ctx.imageSmoothingQuality = "low";
+          ctx.imageSmoothingQuality = "medium";
           ctxRef.current = ctx;
         }
       }
@@ -162,31 +177,29 @@ export default function New3dScrollHero() {
     paint(displayedRef.current);
   }, [ready]);
 
-  // Single rAF loop: capped step so fast flings play through elegantly
+  // rAF loop: delta-time exponential smooth — clean on slow + fast scroll
   useEffect(() => {
     let raf = 0;
     let alive = true;
+    lastTsRef.current = 0;
 
-    const tick = () => {
+    const tick = (ts) => {
       if (!alive) return;
       try {
+        const last = lastTsRef.current || ts;
+        const dt = Math.min(0.048, Math.max(0.001, (ts - last) / 1000));
+        lastTsRef.current = ts;
+
         const target = targetRef.current;
-        let current = displayedRef.current;
-        const delta = target - current;
+        const current = displayedRef.current;
+        const slow = isMobileRef.current ? 14 : 11;
+        const fast = isMobileRef.current ? 22 : 18;
+        const next = smoothToward(current, target, dt, slow, fast);
+        displayedRef.current = next;
 
-        if (Math.abs(delta) >= MAX_FRAME_STEP) {
-          // Fast scroll: advance a few frames per tick (play-through, no hang)
-          current += Math.sign(delta) * MAX_FRAME_STEP;
-        } else if (Math.abs(delta) > 0.05) {
-          current += delta * FRAME_LERP;
-        } else {
-          current = target;
-        }
-
-        displayedRef.current = current;
-        const rounded = Math.round(current);
+        const rounded = Math.round(next);
         if (dirtyRef.current || rounded !== lastPaintedRef.current) {
-          paint(current);
+          paint(next);
         }
       } catch {
         /* ignore */
@@ -201,35 +214,26 @@ export default function New3dScrollHero() {
     };
   }, []);
 
-  // Sticky track + soft scrub (NO pin) — stable under wheel fling on Vercel
+  // Sticky track progress — continuous across full hero height on phone + desktop
   useLayoutEffect(() => {
     if (!ready || !trackRef.current) return undefined;
 
-    let trigger;
-    try {
-      trigger = ScrollTrigger.create({
-        trigger: trackRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: SCRUB,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          // Only write a number — never paint / setState here
-          targetRef.current = self.progress * (TOTAL_FRAMES - 1);
-        },
-      });
-      triggerRef.current = trigger;
-    } catch {
-      return undefined;
-    }
+    const track = trackRef.current;
 
-    requestAnimationFrame(() => {
+    const syncFromScroll = () => {
       try {
-        ScrollTrigger.refresh();
+        const total = Math.max(1, track.offsetHeight - window.innerHeight);
+        const top = track.getBoundingClientRect().top;
+        const scrolled = Math.min(total, Math.max(0, -top));
+        const p = scrolled / total;
+        targetRef.current = p * (TOTAL_FRAMES - 1);
       } catch {
         /* ignore */
       }
-    });
+    };
+
+    window.addEventListener("scroll", syncFromScroll, { passive: true });
+    syncFromScroll();
 
     let resizeTimer = 0;
     const onResize = () => {
@@ -242,23 +246,22 @@ export default function New3dScrollHero() {
           }
           sizeCanvas();
           paint(displayedRef.current);
-          ScrollTrigger.refresh();
+          syncFromScroll();
         } catch {
           /* ignore */
         }
-      }, 180);
+      }, 160);
     };
     window.addEventListener("resize", onResize, { passive: true });
+    window.visualViewport?.addEventListener("resize", onResize, {
+      passive: true,
+    });
 
     return () => {
+      window.removeEventListener("scroll", syncFromScroll);
       window.removeEventListener("resize", onResize);
+      window.visualViewport?.removeEventListener("resize", onResize);
       window.clearTimeout(resizeTimer);
-      try {
-        trigger?.kill();
-      } catch {
-        /* ignore */
-      }
-      triggerRef.current = null;
     };
   }, [ready]);
 
@@ -280,7 +283,7 @@ export default function New3dScrollHero() {
         >
           <canvas
             ref={canvasRef}
-            className="absolute inset-0 block h-full w-full touch-none"
+            className="absolute inset-0 block h-full w-full touch-pan-y"
             aria-hidden
           />
         </div>

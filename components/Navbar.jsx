@@ -100,7 +100,13 @@ export default function Navbar() {
       >
         <Logo />
 
-        <nav className="hidden items-center gap-1 lg:flex xl:gap-1.5">
+        {/* Desktop menus: hidden over transparent hero, instant show when solid */}
+        <nav
+          className={`items-center gap-1 xl:gap-1.5 ${
+            transparent ? "hidden" : "hidden lg:flex"
+          }`}
+          aria-hidden={transparent || undefined}
+        >
           {navLinks.map((link) => {
             const active = pathname === link.href;
             return (
