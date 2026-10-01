@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import EarlyModelWarmup from "./EarlyModelWarmup";
 import MobileStickyBar from "./MobileStickyBar";
+import MobileDesktopLock from "./MobileDesktopLock";
 import { usePathname } from "next/navigation";
 
 export default function SiteChrome({ children }) {
@@ -13,6 +14,7 @@ export default function SiteChrome({ children }) {
   return (
     <>
       <EarlyModelWarmup />
+      <MobileDesktopLock />
       <div className="w-full max-w-full overflow-x-clip">
         {landing ? null : <Navbar />}
         <div
