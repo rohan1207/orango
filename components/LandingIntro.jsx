@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
-  LANDING_MIN_FRAME_RATIO,
   folderFromWidth,
   injectFramePreloadLinks,
   probeCacheCoverage,
@@ -13,194 +13,137 @@ import {
 } from "@/lib/frames";
 
 const HOME_FRAME_SET = "home4";
-/** Extra wait after video if frames are still under 50% */
-const FRAME_GATE_EXTRA_MS = 4500;
-/** Absolute failsafe so users are never stuck on landing */
-const ABSOLUTE_FAILSAFE_MS = 16000;
+/** Must have every frame before entering the homepage hero */
+const REQUIRED_RATIO = 1;
+/** Absolute failsafe — only if network is badly broken */
+const ABSOLUTE_FAILSAFE_MS = 120000;
 
 /**
- * Landing intro video.
- * While it plays, aggressively preloads final_frames_desktop (or mobile set).
- * Aims for ≥50% before handing off; Cache API makes return visits much faster.
+ * Landing: big OranGo logo while all scroll frames preload (132 desktop).
+ * Only then hand off to the homepage so the hero animation is complete.
  */
 export default function LandingIntro({ onComplete }) {
-  const videoRef = useRef(null);
+  const reduce = useReducedMotion();
   const doneRef = useRef(false);
-  const videoEndedRef = useRef(false);
   const frameRatioRef = useRef(0);
   const sessionUnsubRef = useRef(null);
-  const gateTimerRef = useRef(null);
 
-  const [progress, setProgress] = useState(0);
   const [framePct, setFramePct] = useState(0);
-  const [waitingFrames, setWaitingFrames] = useState(false);
 
   const finish = () => {
     if (doneRef.current) return;
     doneRef.current = true;
-    if (gateTimerRef.current) {
-      window.clearTimeout(gateTimerRef.current);
-      gateTimerRef.current = null;
-    }
     onComplete?.();
-  };
-
-  const tryFinish = () => {
-    if (doneRef.current) return;
-    if (!videoEndedRef.current) return;
-
-    if (frameRatioRef.current >= LANDING_MIN_FRAME_RATIO) {
-      setWaitingFrames(false);
-      finish();
-      return;
-    }
-
-    setWaitingFrames(true);
-    if (gateTimerRef.current) return;
-    gateTimerRef.current = window.setTimeout(() => {
-      finish();
-    }, FRAME_GATE_EXTRA_MS);
-  };
-
-  const syncProgress = () => {
-    const video = videoRef.current;
-    if (!video || !video.duration || Number.isNaN(video.duration)) return;
-    const pct = (video.currentTime / video.duration) * 100;
-    setProgress(Math.min(100, Math.max(0, pct)));
   };
 
   useEffect(() => {
     const folder = folderFromWidth(window.innerWidth, HOME_FRAME_SET);
+    const total = totalForFolder(folder);
 
-    // Instant hint from last visit (localStorage) while Cache API probe runs
     const persisted = readPersistedCoverage(folder);
     if (persisted?.ratio) {
       frameRatioRef.current = Math.max(frameRatioRef.current, persisted.ratio);
-      setFramePct(Math.round(persisted.ratio * 100));
+      setFramePct(Math.round(Math.min(1, persisted.ratio) * 100));
+      if (persisted.ratio >= REQUIRED_RATIO && persisted.loaded >= total) {
+        // Still kick warmup so in-memory session is hot, then finish shortly
+      }
     }
 
-    const removeLinks = injectFramePreloadLinks(
-      folder,
-      totalForFolder(folder),
-    );
+    const removeLinks = injectFramePreloadLinks(folder, total);
 
-    // Confirm Cache API coverage — return visits often already ≥50%
-    probeCacheCoverage(folder).then(({ ratio }) => {
+    probeCacheCoverage(folder).then(({ ratio, hits }) => {
       if (doneRef.current) return;
       frameRatioRef.current = Math.max(frameRatioRef.current, ratio);
       setFramePct(Math.round(frameRatioRef.current * 100));
-      if (
-        videoEndedRef.current &&
-        frameRatioRef.current >= LANDING_MIN_FRAME_RATIO
-      ) {
-        finish();
+      if (hits >= total && ratio >= REQUIRED_RATIO) {
+        // Cache is full — warmup will hydrate instantly; finish when session confirms
       }
     });
 
+    // Load ALL frames (no 50% early exit)
     const session = warmupFramesFromLanding(HOME_FRAME_SET);
     if (session?.subscribe) {
-      sessionUnsubRef.current = session.subscribe(({ ratio }) => {
-        const r = Math.min(1, Math.max(0, ratio || 0));
-        frameRatioRef.current = Math.max(frameRatioRef.current, r);
-        setFramePct(Math.round(frameRatioRef.current * 100));
-        if (
-          videoEndedRef.current &&
-          frameRatioRef.current >= LANDING_MIN_FRAME_RATIO &&
-          !doneRef.current
-        ) {
-          finish();
-        }
-      });
+      sessionUnsubRef.current = session.subscribe(
+        ({ ratio, loaded, total: t }) => {
+          const r = Math.min(1, Math.max(0, ratio || 0));
+          frameRatioRef.current = Math.max(frameRatioRef.current, r);
+          setFramePct(Math.round(frameRatioRef.current * 100));
+          // Only enter homepage when every frame is in memory
+          if (!doneRef.current && t > 0 && loaded >= t) {
+            finish();
+          }
+        },
+      );
+      if (session.loaded >= session.total && session.total > 0) {
+        finish();
+      }
     }
 
     const failSafe = window.setTimeout(finish, ABSOLUTE_FAILSAFE_MS);
 
     return () => {
       window.clearTimeout(failSafe);
-      if (gateTimerRef.current) window.clearTimeout(gateTimerRef.current);
       if (sessionUnsubRef.current) sessionUnsubRef.current();
       removeLinks();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-once intro
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return undefined;
-
-    const tryPlay = async () => {
-      try {
-        video.muted = true;
-        await video.play();
-      } catch {
-        /* failSafe / ended handlers still finish */
-      }
-    };
-
-    tryPlay();
-  }, []);
-
-  const onVideoDone = () => {
-    setProgress(100);
-    videoEndedRef.current = true;
-    tryFinish();
-  };
-
-  const pct = Math.round(progress);
-  const showFrameHint = framePct > 0 || waitingFrames;
 
   return (
-    <main className="flex h-dvh flex-col items-center justify-center gap-8 overflow-hidden bg-white px-5">
-      <div className="relative max-h-[70vh] max-w-[min(920px,92vw)] overflow-hidden bg-white [clip-path:inset(0)]">
-        <video
-          ref={videoRef}
-          src="/video.mp4"
-          className="block h-auto max-h-[70vh] w-auto max-w-full scale-[1.01] border-0 object-contain outline-none [transform:translateZ(0)]"
-          playsInline
-          muted
-          autoPlay
-          preload="auto"
-          onTimeUpdate={syncProgress}
-          onLoadedMetadata={syncProgress}
-          onEnded={onVideoDone}
-          onError={onVideoDone}
-          style={{
-            border: "none",
-            outline: "none",
-            boxShadow: "none",
-            background: "#fff",
-          }}
-        />
-      </div>
+    <main className="relative flex h-dvh flex-col items-center justify-center overflow-hidden bg-[#FFFAF6] px-5">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 55% at 50% 42%, rgba(238,111,40,0.14), transparent 60%)",
+        }}
+      />
 
-      <div className="w-full max-w-[min(420px,88vw)]">
-        <div className="relative h-1.5 rounded-full bg-[#EE6F28]/15">
-          <div
-            className="absolute inset-y-0 left-0 rounded-full bg-[#EE6F28] transition-[width] duration-150 ease-linear"
-            style={{ width: `${progress}%` }}
+      <motion.div
+        className="relative z-10 flex flex-col items-center"
+        initial={reduce ? false : { opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <motion.div
+          animate={
+            reduce
+              ? undefined
+              : {
+                  y: [0, -6, 0],
+                }
+          }
+          transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <Image
+            src="/logo.png"
+            alt="OranGo"
+            width={420}
+            height={120}
+            priority
+            className="h-auto w-[min(72vw,380px)] object-contain drop-shadow-[0_12px_40px_rgba(238,111,40,0.18)]"
           />
-          <div
-            className="pointer-events-none absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transition-[left] duration-150 ease-linear"
-            style={{ left: `${progress}%` }}
-          >
-            <Image
-              src="/orange1.png"
-              alt=""
-              width={36}
-              height={36}
-              className="h-8 w-8 drop-shadow-[0_2px_6px_rgba(238,111,40,0.35)]"
-              priority
-            />
-          </div>
-        </div>
-        <p className="mt-4 text-center text-[12px] font-semibold tracking-[0.2em] text-[#8B3410]/55">
-          {waitingFrames ? "Preparing experience…" : `${pct}%`}
+        </motion.div>
+
+        <p className="mt-8 text-[12px] font-semibold uppercase tracking-[0.28em] text-[#EE6F28]">
+          Fresh juice. Automated.
         </p>
-        {showFrameHint ? (
-          <p className="mt-1.5 text-center text-[11px] tracking-wide text-[#8B3410]/35">
-            Experience ready {Math.min(framePct, 100)}%
-          </p>
-        ) : null}
+      </motion.div>
+
+      <div className="relative z-10 mt-14 w-full max-w-[min(360px,86vw)]">
+        <div className="relative h-1.5 overflow-hidden rounded-full bg-[#EE6F28]/15">
+          <motion.div
+            className="absolute inset-y-0 left-0 rounded-full bg-[#EE6F28]"
+            initial={false}
+            animate={{ width: `${framePct}%` }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          />
+        </div>
+        <div className="mt-3 flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-[#8B3410]/45">
+          <span>Loading experience</span>
+          <span>{framePct}%</span>
+        </div>
       </div>
     </main>
   );

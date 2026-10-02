@@ -137,10 +137,7 @@ export default function New3dScrollHero({
     );
 
     if (canUnlock(session)) unlock(true);
-    else if (skipPreloaderRef.current) {
-      // Landing already gated — enter hero; remaining frames keep filling
-      unlock(true);
-    }
+    // Do not force-unlock when skipPreloader — wait until all frames are ready
   };
 
   useEffect(() => {

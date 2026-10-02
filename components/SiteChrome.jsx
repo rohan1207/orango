@@ -7,8 +7,6 @@ import EarlyModelWarmup from "./EarlyModelWarmup";
 import MobileStickyBar from "./MobileStickyBar";
 import { usePathname } from "next/navigation";
 
-const INTRO_KEY = "orango-intro-seen";
-
 export default function SiteChrome({ children }) {
   const pathname = usePathname();
   const [hideChrome, setHideChrome] = useState(pathname === "/");
@@ -19,17 +17,11 @@ export default function SiteChrome({ children }) {
       return undefined;
     }
 
-    const sync = () => {
-      try {
-        setHideChrome(sessionStorage.getItem(INTRO_KEY) !== "1");
-      } catch {
-        setHideChrome(true);
-      }
-    };
-
-    sync();
-    window.addEventListener("orango-intro-done", sync);
-    return () => window.removeEventListener("orango-intro-done", sync);
+    // Logo landing on `/` — hide nav/footer until frames are ready
+    setHideChrome(true);
+    const onDone = () => setHideChrome(false);
+    window.addEventListener("orango-intro-done", onDone);
+    return () => window.removeEventListener("orango-intro-done", onDone);
   }, [pathname]);
 
   return (
