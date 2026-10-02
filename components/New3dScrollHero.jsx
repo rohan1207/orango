@@ -267,12 +267,18 @@ export default function New3dScrollHero({
         const dt = Math.min(0.048, Math.max(0.001, (ts - last) / 1000));
         lastTsRef.current = ts;
 
-        const scrubMax = Math.max(
-          scrubMaxRef.current,
-          scrubMaxIndex(sessionRef.current),
-        );
-        scrubMaxRef.current = scrubMax;
-        const cappedTarget = Math.min(targetRef.current, scrubMax);
+        // Always scrub within 0 .. total-1; when ready, never cap below last frame
+        const last = Math.max(0, (totalRef.current || 1) - 1);
+        const session = sessionRef.current;
+        const maxIdx =
+          session &&
+          (session.ready ||
+            session.loaded >= session.total ||
+            session.frames?.every?.(Boolean))
+            ? last
+            : Math.min(last, Math.max(0, scrubMaxIndex(session)));
+        scrubMaxRef.current = maxIdx;
+        const cappedTarget = Math.min(targetRef.current, maxIdx);
 
         const current = displayedRef.current;
         const slow = isMobileRef.current ? 16 : 13;
@@ -317,22 +323,19 @@ export default function New3dScrollHero({
         const scrolled = Math.min(totalScroll, Math.max(0, -top));
         const p = scrolled / totalScroll;
         const frames = Math.max(1, totalRef.current);
-        const desired = p * (frames - 1);
-        const scrubMax = Math.max(
-          scrubMaxRef.current,
-          scrubMaxIndex(sessionRef.current),
-          Math.max(0, maxContigRef.current),
-        );
-        // When fully loaded, always allow the last frame (never stall mid-sequence)
+        const last = frames - 1;
+        const desired = p * last;
         const session = sessionRef.current;
-        const fullMax =
+        // Full sequence once loaded — never freeze mid-way on contig holes
+        const maxIdx =
           session &&
-          (session.ready || session.loaded >= session.total) &&
-          session.total > 0
-            ? session.total - 1
-            : scrubMax;
-        scrubMaxRef.current = fullMax;
-        targetRef.current = Math.min(desired, fullMax);
+          (session.ready ||
+            session.loaded >= session.total ||
+            session.frames?.every?.(Boolean))
+            ? last
+            : Math.min(last, scrubMaxIndex(session));
+        scrubMaxRef.current = maxIdx;
+        targetRef.current = Math.min(desired, maxIdx);
         sessionRef.current?.boostAround?.(desired, 40);
       } catch {
         /* ignore */

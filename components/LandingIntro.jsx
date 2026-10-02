@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   folderFromWidth,
   injectFramePreloadLinks,
+  invalidateFrameSessionsForSet,
   probeCacheCoverage,
   readPersistedCoverage,
   totalForFolder,
@@ -51,6 +52,9 @@ export default function LandingIntro({ onComplete }) {
   };
 
   useEffect(() => {
+    // Drop any stale in-memory session (old counts / held frames)
+    invalidateFrameSessionsForSet(HOME_FRAME_SET);
+
     const folder = folderFromWidth(window.innerWidth, HOME_FRAME_SET);
     const total = totalForFolder(folder);
 
@@ -62,25 +66,42 @@ export default function LandingIntro({ onComplete }) {
     if (session?.subscribe) {
       sessionUnsubRef.current = session.subscribe(
         ({ loaded, total: t }) => {
+          if (t > 0) {
+            setSliderPct((prev) =>
+              videoEndedRef.current
+                ? Math.round((loaded / t) * 100)
+                : prev,
+            );
+          }
           if (t > 0 && loaded >= t) {
             framesReadyRef.current = true;
             setFramesReady(true);
-            // If video already finished, slider can show 100% / leave
             if (videoEndedRef.current) {
               setSliderPct(100);
               tryFinish();
             }
-          } else if (videoEndedRef.current && t > 0) {
-            // Video done — single slider switches to frame progress
-            setSliderPct(Math.round((loaded / t) * 100));
           }
         },
       );
+    }
+
+    // Authoritative: wait for preload promise to fully finish (incl. retries)
+    session?.promise?.then?.(() => {
+      if (doneRef.current) return;
       if (session.total > 0 && session.loaded >= session.total) {
         framesReadyRef.current = true;
         setFramesReady(true);
-        if (videoEndedRef.current) tryFinish();
+        if (videoEndedRef.current) {
+          setSliderPct(100);
+          tryFinish();
+        }
       }
+    });
+
+    if (session?.total > 0 && session.loaded >= session.total) {
+      framesReadyRef.current = true;
+      setFramesReady(true);
+      if (videoEndedRef.current) tryFinish();
     }
 
     const failSafe = window.setTimeout(() => {
