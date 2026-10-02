@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import EarlyModelWarmup from "./EarlyModelWarmup";
 import MobileStickyBar from "./MobileStickyBar";
-import MobileDesktopLock from "./MobileDesktopLock";
+// import MobileDesktopLock from "./MobileDesktopLock"; // frames lock — off while Hero3 is active
 import { usePathname } from "next/navigation";
 
 export default function SiteChrome({ children }) {
@@ -14,7 +14,7 @@ export default function SiteChrome({ children }) {
   return (
     <>
       <EarlyModelWarmup />
-      <MobileDesktopLock />
+      {/* <MobileDesktopLock /> — re-enable if phone frames gate is needed again */}
       <div className="w-full max-w-full overflow-x-clip">
         {landing ? null : <Navbar />}
         <div

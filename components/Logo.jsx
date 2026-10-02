@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Logo({ className = "", invert = false }) {
   return (
     <Link
-      href="/home"
+      href="/home1"
       className={`inline-flex items-center ${className}`}
       aria-label="OranGo home"
     >

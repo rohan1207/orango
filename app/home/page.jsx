@@ -1,14 +1,7 @@
-import New3dScrollHero from "@/components/New3dScrollHero";
-// import MachineHero from "@/components/MachineHero"; // kept for later — 3D / UI hero
-import BrandRibbon from "@/components/BrandRibbon";
-import ExperienceSection from "@/components/ExperienceSection";
-import ProcessSteps from "@/components/ProcessSteps";
-import HealthBenefits from "@/components/HealthBenefits";
-import SmartTech from "@/components/SmartTech";
-import TrustStrip from "@/components/TrustStrip";
-import CtaSection from "@/components/CtaSection";
-import HomeFaq from "@/components/HomeFaq";
-import ContactTeaser from "@/components/ContactTeaser";
+// import New3dScrollHero from "@/components/New3dScrollHero"; // see /home1 & /home3
+import Hero3 from "@/components/Hero3";
+// import MachineHero from "@/components/MachineHero"; // see /home2
+import HomePageRest from "@/components/HomePageRest";
 
 export const metadata = {
   title: "OranGo | Fresh Orange Juice Vending Machines in India",
@@ -36,17 +29,9 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
-      <New3dScrollHero />
-      {/* <MachineHero /> — previous hero (3D / orange UI). Restore when needed. */}
-      <BrandRibbon />
-      <ExperienceSection />
-      <ProcessSteps />
-      <HealthBenefits />
-      <SmartTech />
-      <TrustStrip />
-      <CtaSection />
-      <HomeFaq />
-      <ContactTeaser />
+      {/* Default /home keeps the 5-step locked hero. Variants: /home1 /home2 /home3 */}
+      <Hero3 />
+      <HomePageRest />
     </>
   );
 }

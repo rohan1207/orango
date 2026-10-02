@@ -14,7 +14,7 @@ export default function NotFound() {
         site survey for your venue.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <MagneticButton href="/home">Home</MagneticButton>
+        <MagneticButton href="/home1">Home</MagneticButton>
         <MagneticButton href="/find-orango" variant="ghost">
           Find OranGo
         </MagneticButton>

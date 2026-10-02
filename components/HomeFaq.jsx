@@ -18,8 +18,8 @@ export default function HomeFaq() {
     >
       <LiveBlobs />
 
-      <div className="relative z-10 mx-auto grid max-w-[1440px] items-start gap-8 px-5 md:grid-cols-12 md:gap-10 md:px-8">
-        <div className="md:col-span-5">
+      <div className="relative z-10 mx-auto grid max-w-[1440px] items-stretch gap-8 px-5 md:grid-cols-12 md:gap-10 md:px-8">
+        <div className="flex flex-col md:col-span-5 md:h-full">
           <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#EE6F28]">
             FAQs
           </p>
@@ -34,17 +34,19 @@ export default function HomeFaq() {
             stuck? Book a site survey or WhatsApp us.
           </p>
 
-          <div className="relative mt-6 hidden max-w-[160px] sm:block md:max-w-[180px]">
+          <div className="relative mx-auto mt-8 flex w-full max-w-[320px] flex-1 items-center justify-center sm:max-w-[380px] md:mt-0 md:max-w-none lg:max-w-[440px]">
             <motion.div
               animate={reduce ? undefined : { y: [0, -8, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-full"
             >
               <Image
-                src="/jar.png"
-                alt=""
-                width={200}
-                height={200}
-                className="h-auto w-full object-contain"
+                src="/faq.png"
+                alt="OranGo fresh orange juice vending machine"
+                width={880}
+                height={1100}
+                className="mx-auto h-auto w-full rounded-3xl object-contain drop-shadow-[0_20px_40px_rgba(238,111,40,0.14)]"
+                sizes="(max-width: 768px) 320px, (max-width: 1024px) 380px, 440px"
               />
             </motion.div>
           </div>

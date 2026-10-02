@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  PRIORITY_COUNT,
+  TOTAL_FRAMES,
   folderFromWidth,
   injectFramePreloadLinks,
   warmupFramesFromLanding,
@@ -13,8 +13,8 @@ import {
 /**
  * Landing intro.
  * - Redirect as soon as the video ends (never waits on frames).
- * - While the video plays, aggressively preload + Cache API the device
- *   frame set so /home scroll hero is already warm.
+ * - While the video plays, max-aggressive preload + Cache API the device
+ *   frame set so /home1 scroll hero is already warm.
  */
 export default function LandingIntro() {
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function LandingIntro() {
   const goHome = () => {
     if (doneRef.current) return;
     doneRef.current = true;
-    router.push("/home");
+    router.push("/home1");
   };
 
   const syncProgress = () => {
@@ -36,26 +36,21 @@ export default function LandingIntro() {
   };
 
   useEffect(() => {
-    router.prefetch("/home");
+    router.prefetch("/home1");
 
     const folder = folderFromWidth(window.innerWidth);
 
-    // 1) Browser preload hints for the first chunk
-    const removeLinks = injectFramePreloadLinks(
-      folder,
-      Math.min(32, PRIORITY_COUNT),
-    );
+    // Browser preload hints for the FULL sequence (chunked insert)
+    const removeLinks = injectFramePreloadLinks(folder, TOTAL_FRAMES);
 
-    // 2) Continuous aggressive decode + Cache API fill (does not block goHome)
+    // Continuous max-concurrency decode + Cache API fill
     warmupFramesFromLanding();
 
-    // Absolute escape hatch (video blocked / never ends)
     const failSafe = window.setTimeout(goHome, 12000);
 
     return () => {
       window.clearTimeout(failSafe);
       removeLinks();
-      // Do NOT abort frame sessions — they keep filling after redirect
     };
   }, [router]);
 

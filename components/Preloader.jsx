@@ -1,6 +1,10 @@
 "use client";
 
-export default function Preloader({ progress = 0, ready = false }) {
+export default function Preloader({
+  progress = 0,
+  ready = false,
+  message = "Preparing a smooth scroll experience…",
+}) {
   const pct = Math.min(100, Math.round(progress * 100));
 
   return (
@@ -25,6 +29,9 @@ export default function Preloader({ progress = 0, ready = false }) {
           <span>Loading sequence</span>
           <span>{pct}%</span>
         </div>
+        <p className="mt-3 text-center text-[11px] leading-relaxed tracking-normal text-muted/80 normal-case">
+          {message}
+        </p>
       </div>
     </div>
   );

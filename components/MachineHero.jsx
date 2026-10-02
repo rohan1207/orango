@@ -160,7 +160,7 @@ export default function MachineHero() {
   }, []);
 
   return (
-    <section className="relative isolate bg-white">
+    <section id="home-scroll-hero" className="relative isolate bg-white">
       {/* ─── Mobile / tablet ─── */}
       {!isDesktop ? (
         <div className="relative">

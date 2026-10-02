@@ -5,17 +5,13 @@ import { usePathname } from "next/navigation";
 import { preloadMachineAssets } from "@/lib/preloadMachine";
 
 /**
- * Warm the 3D model only when the 3D hero is actually used.
- * MachineHero is currently commented out — skip heavy GLB on landing/home.
+ * Warm the 3D model only when the 3D hero is actually used (/home2).
  */
 export default function EarlyModelWarmup() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Re-enable when MachineHero is restored on /home
-    const use3dHero = false;
-    if (!use3dHero) return;
-    if (pathname === "/" || pathname === "/home") {
+    if (pathname === "/home2") {
       preloadMachineAssets();
     }
   }, [pathname]);
