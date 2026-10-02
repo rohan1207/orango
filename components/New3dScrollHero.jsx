@@ -37,6 +37,8 @@ export default function New3dScrollHero({
   frameSet = DEFAULT_FRAME_SET,
   /** When true (or set.requireAll), page stays on preloader until 100% frames load */
   waitForAllFrames,
+  /** Landing already warmed frames — no second full-screen preloader */
+  skipPreloader = false,
 }) {
   const set = getFrameSet(frameSet);
   const totalFrames = set.total;
@@ -64,30 +66,49 @@ export default function New3dScrollHero({
   const totalRef = useRef(totalFrames);
   const setIdRef = useRef(frameSet);
   const waitAllRef = useRef(waitForAll);
+  const skipPreloaderRef = useRef(skipPreloader);
 
   const [loadRatio, setLoadRatio] = useState(0);
   const [ready, setReady] = useState(false);
-  const [loaderGone, setLoaderGone] = useState(false);
+  const [loaderGone, setLoaderGone] = useState(skipPreloader);
 
   totalRef.current = totalFrames;
   setIdRef.current = frameSet;
   waitAllRef.current = waitForAll;
+  skipPreloaderRef.current = skipPreloader;
 
-  const unlock = () => {
+  const unlock = (instant = false) => {
     if (unlockedRef.current) return;
     unlockedRef.current = true;
     setReady(true);
-    window.setTimeout(() => setLoaderGone(true), 420);
+    if (instant || skipPreloaderRef.current) {
+      setLoaderGone(true);
+    } else {
+      window.setTimeout(() => setLoaderGone(true), 420);
+    }
   };
 
   const canUnlock = (session) => {
     if (!session) return false;
     const total = session.total || totalRef.current;
-    const full =
-      session.loaded >= total &&
-      (session.maxContiguous ?? -1) >= total - 1;
-    if (waitAllRef.current) return full || session.loaded >= total;
-    return session.ready || session.loaded >= total;
+    const loaded = session.loaded || 0;
+    const contig = session.maxContiguous ?? -1;
+    const ratio = total ? loaded / total : 0;
+    const readyRatio = session.readyRatio ?? 0.5;
+
+    if (waitAllRef.current) {
+      return (
+        (loaded >= total && contig >= total - 1) || loaded >= total
+      );
+    }
+
+    // Smooth entry: unlock once ~50% is contiguous / ready; rest keeps loading
+    return (
+      session.ready ||
+      ratio >= readyRatio ||
+      contig >= Math.floor(total * readyRatio) - 1 ||
+      loaded >= total
+    );
   };
 
   const bindSession = (folder) => {
@@ -95,6 +116,7 @@ export default function New3dScrollHero({
     const session = preloadFrames(folder, { aggressive: true });
     sessionRef.current = session;
     framesRef.current = session.frames;
+    if (session.total) totalRef.current = session.total;
     maxContigRef.current = Math.max(0, session.maxContiguous ?? 0);
     if (unsubRef.current) unsubRef.current();
 
@@ -110,11 +132,15 @@ export default function New3dScrollHero({
           );
         }
         setLoadRatio(ratio);
-        if (canUnlock(session)) unlock();
+        if (canUnlock(session)) unlock(skipPreloaderRef.current);
       },
     );
 
-    if (canUnlock(session)) unlock();
+    if (canUnlock(session)) unlock(true);
+    else if (skipPreloaderRef.current) {
+      // Landing already gated — enter hero; remaining frames keep filling
+      unlock(true);
+    }
   };
 
   useEffect(() => {
@@ -128,7 +154,7 @@ export default function New3dScrollHero({
     isMobileRef.current = window.innerWidth < MOBILE_BREAKPOINT;
     unlockedRef.current = false;
     setReady(false);
-    setLoaderGone(false);
+    setLoaderGone(skipPreloader);
     setLoadRatio(0);
     bindSession(folderFromWidth(window.innerWidth, frameSet));
 
@@ -142,11 +168,11 @@ export default function New3dScrollHero({
           session &&
           session.loaded >= Math.floor(session.total * 0.92)
         ) {
-          unlock();
+          unlock(skipPreloaderRef.current);
         }
         return;
       }
-      unlock();
+      unlock(skipPreloaderRef.current);
     }, failMs);
 
     return () => {
@@ -155,7 +181,7 @@ export default function New3dScrollHero({
     };
     // frameSet is fixed per page mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [frameSet, waitForAll]);
+  }, [frameSet, waitForAll, skipPreloader]);
 
   useEffect(() => {
     if (typeof document === "undefined") return undefined;
@@ -334,7 +360,7 @@ export default function New3dScrollHero({
 
   return (
     <>
-      {!loaderGone ? (
+      {!skipPreloader && !loaderGone ? (
         <Preloader
           progress={loadRatio}
           ready={ready}

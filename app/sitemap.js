@@ -1,6 +1,5 @@
 const routes = [
   { path: "", priority: 1, changeFrequency: "weekly" },
-  { path: "/home1", priority: 0.95, changeFrequency: "weekly" },
   { path: "/the-machine", priority: 0.9, changeFrequency: "monthly" },
   { path: "/for-locations", priority: 0.9, changeFrequency: "monthly" },
   { path: "/partners", priority: 0.9, changeFrequency: "monthly" },

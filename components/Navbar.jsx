@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "./Logo";
 import { brand, navLinks, primaryCta } from "@/lib/site";
 
+/** Paths where the transparent-over-hero navbar behavior applies */
 const HOME_PATHS = new Set([
+  "/",
   "/home",
   "/home1",
   "/home2",
@@ -15,42 +17,10 @@ const HOME_PATHS = new Set([
   "/home4",
 ]);
 
-/** Temporary client-preview options — remove when one home is chosen */
-const HOME_VARIANTS = [
-  {
-    href: "/home1",
-    label: "Home 1",
-    note: "Scroll frames (set 1)",
-  },
-  {
-    href: "/home2",
-    label: "Home 2",
-    note: "3D + steps",
-  },
-  {
-    href: "/home3",
-    label: "Home 3",
-    note: "Scroll frames (set 3)",
-  },
-  {
-    href: "/home4",
-    label: "Home 4",
-    note: "Scroll frames (set 4)",
-  },
-];
-
-function currentHomeLabel(pathname) {
-  const match = HOME_VARIANTS.find((v) => v.href === pathname);
-  return match?.label ?? "Home";
-}
-
 export default function Navbar() {
   const pathname = usePathname();
-  const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [homeOpen, setHomeOpen] = useState(false);
   const [overHero, setOverHero] = useState(HOME_PATHS.has(pathname));
-  const homeMenuRef = useRef(null);
 
   useEffect(() => {
     const measure = () => {
@@ -68,24 +38,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setOpen(false);
-    setHomeOpen(false);
   }, [pathname]);
-
-  useEffect(() => {
-    if (!homeOpen) return undefined;
-    const onPointer = (e) => {
-      if (!homeMenuRef.current?.contains(e.target)) setHomeOpen(false);
-    };
-    const onKey = (e) => {
-      if (e.key === "Escape") setHomeOpen(false);
-    };
-    document.addEventListener("mousedown", onPointer);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onPointer);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [homeOpen]);
 
   // Transparent only while the home scroll-hero is still covering the viewport
   useEffect(() => {
@@ -141,8 +94,6 @@ export default function Navbar() {
   }, [open]);
 
   const transparent = overHero && !open;
-  const homeActive = HOME_PATHS.has(pathname);
-  const selectValue = HOME_PATHS.has(pathname) ? pathname : "/home1";
 
   return (
     <header
@@ -159,141 +110,33 @@ export default function Navbar() {
       >
         <Logo />
 
-        {/* Desktop menus: hidden over transparent hero, instant show when solid */}
         <nav
           className={`items-center gap-1 xl:gap-1.5 ${
             transparent ? "hidden" : "hidden lg:flex"
           }`}
           aria-hidden={transparent || undefined}
         >
-          {/* Temporary home-variant picker for client review */}
-          <div ref={homeMenuRef} className="relative">
-            <button
-              type="button"
-              aria-expanded={homeOpen}
-              aria-haspopup="listbox"
-              onClick={() => setHomeOpen((v) => !v)}
-              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors xl:px-4 ${
-                homeActive
-                  ? "bg-[#FFF0E6] text-[#EE6F28]"
-                  : "text-[#8B3410] hover:bg-[#8B3410]/[0.05] hover:text-[#EE6F28]"
-              }`}
-            >
-              {currentHomeLabel(pathname)}
-              <svg
-                viewBox="0 0 12 12"
-                className={`h-3 w-3 transition-transform ${homeOpen ? "rotate-180" : ""}`}
-                aria-hidden
+          {navLinks.map((link) => {
+            const active =
+              pathname === link.href ||
+              (link.href === "/" && HOME_PATHS.has(pathname));
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors xl:px-4 ${
+                  active
+                    ? "bg-[#FFF0E6] text-[#EE6F28]"
+                    : "text-[#8B3410] hover:bg-[#8B3410]/[0.05] hover:text-[#EE6F28]"
+                }`}
               >
-                <path
-                  d="M2.5 4.5L6 8l3.5-3.5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-
-            <AnimatePresence>
-              {homeOpen ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6 }}
-                  transition={{ duration: 0.16 }}
-                  role="listbox"
-                  aria-label="Home page variants"
-                  className="absolute left-0 top-[calc(100%+0.5rem)] z-50 w-[240px] overflow-hidden rounded-2xl border border-[#EE6F28]/15 bg-white py-2 shadow-[0_12px_40px_rgba(139,52,16,0.12)]"
-                >
-                  <p className="px-4 pb-1.5 pt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#EE6F28]/80">
-                    Preview homes
-                  </p>
-                  {HOME_VARIANTS.map((variant) => {
-                    const active = pathname === variant.href;
-                    return (
-                      <Link
-                        key={variant.href}
-                        href={variant.href}
-                        role="option"
-                        aria-selected={active}
-                        onClick={() => setHomeOpen(false)}
-                        className={`mx-1.5 flex flex-col rounded-xl px-3 py-2.5 transition-colors ${
-                          active
-                            ? "bg-[#FFF0E6] text-[#EE6F28]"
-                            : "text-[#8B3410] hover:bg-[#8B3410]/[0.04]"
-                        }`}
-                      >
-                        <span className="text-[14px] font-semibold">
-                          {variant.label}
-                        </span>
-                        <span
-                          className={`text-[12px] ${
-                            active ? "text-[#EE6F28]/75" : "text-[#8B3410]/55"
-                          }`}
-                        >
-                          {variant.note}
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-          </div>
-
-          {navLinks
-            .filter((link) => link.href !== "/home1")
-            .map((link) => {
-              const active = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors xl:px-4 ${
-                    active
-                      ? "bg-[#FFF0E6] text-[#EE6F28]"
-                      : "text-[#8B3410] hover:bg-[#8B3410]/[0.05] hover:text-[#EE6F28]"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Always visible so client can switch even over the hero */}
-          <label className="relative inline-flex">
-            <span className="sr-only">Choose home variant</span>
-            <select
-              aria-label="Choose home variant to preview"
-              value={selectValue}
-              onChange={(e) => {
-                const href = e.target.value;
-                if (href && href !== pathname) router.push(href);
-              }}
-              className={`h-9 cursor-pointer appearance-none rounded-full border py-0 pl-3 pr-7 text-[12px] font-semibold outline-none transition-colors sm:h-10 sm:pl-3.5 sm:pr-8 sm:text-[13px] ${
-                transparent
-                  ? "border-white/45 bg-white/25 text-[#8B3410] backdrop-blur-sm"
-                  : "border-[#EE6F28]/25 bg-white text-[#8B3410]"
-              }`}
-            >
-              {HOME_VARIANTS.map((v) => (
-                <option key={v.href} value={v.href}>
-                  {v.label}
-                </option>
-              ))}
-            </select>
-            <span
-              aria-hidden
-              className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-[#EE6F28] sm:right-3"
-            >
-              ▾
-            </span>
-          </label>
-
           <a
             href={brand.whatsapp}
             target="_blank"
@@ -348,49 +191,24 @@ export default function Navbar() {
             className="overflow-hidden border-t border-black/6 bg-white lg:hidden"
           >
             <nav className="flex flex-col gap-1 px-5 py-6">
-              <p className="px-4 pb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#EE6F28]">
-                Preview homes
-              </p>
-              {HOME_VARIANTS.map((variant) => {
-                const active = pathname === variant.href;
+              {navLinks.map((link) => {
+                const active =
+                  pathname === link.href ||
+                  (link.href === "/" && HOME_PATHS.has(pathname));
                 return (
                   <Link
-                    key={variant.href}
-                    href={variant.href}
-                    className={`rounded-full px-4 py-3 text-[16px] font-medium transition-colors ${
+                    key={link.href}
+                    href={link.href}
+                    className={`rounded-full px-4 py-3.5 text-[17px] font-medium transition-colors ${
                       active
                         ? "bg-[#FFF0E6] text-[#EE6F28]"
                         : "text-[#8B3410] hover:bg-[#8B3410]/[0.05]"
                     }`}
                   >
-                    {variant.label}
-                    <span className="ml-2 text-[12px] font-normal opacity-60">
-                      {variant.note}
-                    </span>
+                    {link.label}
                   </Link>
                 );
               })}
-
-              <div className="my-3 h-px bg-black/6" />
-
-              {navLinks
-                .filter((link) => link.href !== "/home1")
-                .map((link) => {
-                  const active = pathname === link.href;
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={`rounded-full px-4 py-3.5 text-[17px] font-medium transition-colors ${
-                        active
-                          ? "bg-[#FFF0E6] text-[#EE6F28]"
-                          : "text-[#8B3410] hover:bg-[#8B3410]/[0.05]"
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  );
-                })}
               <a
                 href={brand.whatsapp}
                 target="_blank"

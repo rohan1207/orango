@@ -2,30 +2,64 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import {
-  TOTAL_FRAMES,
+  LANDING_MIN_FRAME_RATIO,
   folderFromWidth,
   injectFramePreloadLinks,
+  probeCacheCoverage,
+  readPersistedCoverage,
+  totalForFolder,
   warmupFramesFromLanding,
 } from "@/lib/frames";
 
+const HOME_FRAME_SET = "home4";
+/** Extra wait after video if frames are still under 50% */
+const FRAME_GATE_EXTRA_MS = 4500;
+/** Absolute failsafe so users are never stuck on landing */
+const ABSOLUTE_FAILSAFE_MS = 16000;
+
 /**
- * Landing intro.
- * - Redirect as soon as the video ends (never waits on frames).
- * - While the video plays, max-aggressive preload + Cache API the device
- *   frame set so /home1 scroll hero is already warm.
+ * Landing intro video.
+ * While it plays, aggressively preloads final_frames_desktop (or mobile set).
+ * Aims for ≥50% before handing off; Cache API makes return visits much faster.
  */
-export default function LandingIntro() {
-  const router = useRouter();
+export default function LandingIntro({ onComplete }) {
   const videoRef = useRef(null);
   const doneRef = useRef(false);
-  const [progress, setProgress] = useState(0);
+  const videoEndedRef = useRef(false);
+  const frameRatioRef = useRef(0);
+  const sessionUnsubRef = useRef(null);
+  const gateTimerRef = useRef(null);
 
-  const goHome = () => {
+  const [progress, setProgress] = useState(0);
+  const [framePct, setFramePct] = useState(0);
+  const [waitingFrames, setWaitingFrames] = useState(false);
+
+  const finish = () => {
     if (doneRef.current) return;
     doneRef.current = true;
-    router.push("/home1");
+    if (gateTimerRef.current) {
+      window.clearTimeout(gateTimerRef.current);
+      gateTimerRef.current = null;
+    }
+    onComplete?.();
+  };
+
+  const tryFinish = () => {
+    if (doneRef.current) return;
+    if (!videoEndedRef.current) return;
+
+    if (frameRatioRef.current >= LANDING_MIN_FRAME_RATIO) {
+      setWaitingFrames(false);
+      finish();
+      return;
+    }
+
+    setWaitingFrames(true);
+    if (gateTimerRef.current) return;
+    gateTimerRef.current = window.setTimeout(() => {
+      finish();
+    }, FRAME_GATE_EXTRA_MS);
   };
 
   const syncProgress = () => {
@@ -36,23 +70,59 @@ export default function LandingIntro() {
   };
 
   useEffect(() => {
-    router.prefetch("/home1");
+    const folder = folderFromWidth(window.innerWidth, HOME_FRAME_SET);
 
-    const folder = folderFromWidth(window.innerWidth);
+    // Instant hint from last visit (localStorage) while Cache API probe runs
+    const persisted = readPersistedCoverage(folder);
+    if (persisted?.ratio) {
+      frameRatioRef.current = Math.max(frameRatioRef.current, persisted.ratio);
+      setFramePct(Math.round(persisted.ratio * 100));
+    }
 
-    // Browser preload hints for the FULL sequence (chunked insert)
-    const removeLinks = injectFramePreloadLinks(folder, TOTAL_FRAMES);
+    const removeLinks = injectFramePreloadLinks(
+      folder,
+      totalForFolder(folder),
+    );
 
-    // Continuous max-concurrency decode + Cache API fill
-    warmupFramesFromLanding();
+    // Confirm Cache API coverage — return visits often already ≥50%
+    probeCacheCoverage(folder).then(({ ratio }) => {
+      if (doneRef.current) return;
+      frameRatioRef.current = Math.max(frameRatioRef.current, ratio);
+      setFramePct(Math.round(frameRatioRef.current * 100));
+      if (
+        videoEndedRef.current &&
+        frameRatioRef.current >= LANDING_MIN_FRAME_RATIO
+      ) {
+        finish();
+      }
+    });
 
-    const failSafe = window.setTimeout(goHome, 12000);
+    const session = warmupFramesFromLanding(HOME_FRAME_SET);
+    if (session?.subscribe) {
+      sessionUnsubRef.current = session.subscribe(({ ratio }) => {
+        const r = Math.min(1, Math.max(0, ratio || 0));
+        frameRatioRef.current = Math.max(frameRatioRef.current, r);
+        setFramePct(Math.round(frameRatioRef.current * 100));
+        if (
+          videoEndedRef.current &&
+          frameRatioRef.current >= LANDING_MIN_FRAME_RATIO &&
+          !doneRef.current
+        ) {
+          finish();
+        }
+      });
+    }
+
+    const failSafe = window.setTimeout(finish, ABSOLUTE_FAILSAFE_MS);
 
     return () => {
       window.clearTimeout(failSafe);
+      if (gateTimerRef.current) window.clearTimeout(gateTimerRef.current);
+      if (sessionUnsubRef.current) sessionUnsubRef.current();
       removeLinks();
     };
-  }, [router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-once intro
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -63,14 +133,21 @@ export default function LandingIntro() {
         video.muted = true;
         await video.play();
       } catch {
-        /* failSafe still navigates */
+        /* failSafe / ended handlers still finish */
       }
     };
 
     tryPlay();
   }, []);
 
+  const onVideoDone = () => {
+    setProgress(100);
+    videoEndedRef.current = true;
+    tryFinish();
+  };
+
   const pct = Math.round(progress);
+  const showFrameHint = framePct > 0 || waitingFrames;
 
   return (
     <main className="flex h-dvh flex-col items-center justify-center gap-8 overflow-hidden bg-white px-5">
@@ -85,11 +162,8 @@ export default function LandingIntro() {
           preload="auto"
           onTimeUpdate={syncProgress}
           onLoadedMetadata={syncProgress}
-          onEnded={() => {
-            setProgress(100);
-            goHome();
-          }}
-          onError={goHome}
+          onEnded={onVideoDone}
+          onError={onVideoDone}
           style={{
             border: "none",
             outline: "none",
@@ -120,8 +194,13 @@ export default function LandingIntro() {
           </div>
         </div>
         <p className="mt-4 text-center text-[12px] font-semibold tracking-[0.2em] text-[#8B3410]/55">
-          {pct}%
+          {waitingFrames ? "Preparing experience…" : `${pct}%`}
         </p>
+        {showFrameHint ? (
+          <p className="mt-1.5 text-center text-[11px] tracking-wide text-[#8B3410]/35">
+            Experience ready {Math.min(framePct, 100)}%
+          </p>
+        ) : null}
       </div>
     </main>
   );

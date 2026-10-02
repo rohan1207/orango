@@ -1,30 +1,50 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import EarlyModelWarmup from "./EarlyModelWarmup";
 import MobileStickyBar from "./MobileStickyBar";
-// import MobileDesktopLock from "./MobileDesktopLock"; // frames lock — off while Hero3 is active
 import { usePathname } from "next/navigation";
+
+const INTRO_KEY = "orango-intro-seen";
 
 export default function SiteChrome({ children }) {
   const pathname = usePathname();
-  const landing = pathname === "/";
+  const [hideChrome, setHideChrome] = useState(pathname === "/");
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      setHideChrome(false);
+      return undefined;
+    }
+
+    const sync = () => {
+      try {
+        setHideChrome(sessionStorage.getItem(INTRO_KEY) !== "1");
+      } catch {
+        setHideChrome(true);
+      }
+    };
+
+    sync();
+    window.addEventListener("orango-intro-done", sync);
+    return () => window.removeEventListener("orango-intro-done", sync);
+  }, [pathname]);
 
   return (
     <>
       <EarlyModelWarmup />
-      {/* <MobileDesktopLock /> — re-enable if phone frames gate is needed again */}
       <div className="w-full max-w-full overflow-x-clip">
-        {landing ? null : <Navbar />}
+        {hideChrome ? null : <Navbar />}
         <div
           id="main"
-          className={`w-full max-w-full ${landing ? "" : "pb-20 lg:pb-0"}`}
+          className={`w-full max-w-full ${hideChrome ? "" : "pb-20 lg:pb-0"}`}
         >
           {children}
         </div>
-        {landing ? null : <Footer />}
-        {landing ? null : <MobileStickyBar />}
+        {hideChrome ? null : <Footer />}
+        {hideChrome ? null : <MobileStickyBar />}
       </div>
     </>
   );
