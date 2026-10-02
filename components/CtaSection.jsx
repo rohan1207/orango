@@ -93,7 +93,7 @@ export default function CtaSection() {
                 transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
               >
                 <Image
-                  src="/orange1.png"
+                  src="/orango_cup.png"
                   alt=""
                   width={380}
                   height={380}
