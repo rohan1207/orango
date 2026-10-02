@@ -16,7 +16,6 @@ import {
   maxContiguousLoaded,
   nearestLoaded,
   preloadFrames,
-  scrubMaxIndex,
 } from "@/lib/frames";
 
 /** Exponential smooth toward target — butter on slow scroll, catches up on fling */
@@ -64,7 +63,6 @@ export default function New3dScrollHero({
   const lastTsRef = useRef(0);
   const isMobileRef = useRef(false);
   const maxContigRef = useRef(0);
-  const scrubMaxRef = useRef(0);
   const totalRef = useRef(totalFrames);
   const setIdRef = useRef(frameSet);
   const waitAllRef = useRef(waitForAll);
@@ -120,7 +118,6 @@ export default function New3dScrollHero({
     framesRef.current = session.frames;
     if (session.total) totalRef.current = session.total;
     maxContigRef.current = Math.max(0, session.maxContiguous ?? 0);
-    scrubMaxRef.current = scrubMaxIndex(session);
     if (unsubRef.current) unsubRef.current();
 
     unsubRef.current = session.subscribe(
@@ -134,7 +131,8 @@ export default function New3dScrollHero({
             maxContiguousLoaded(session.frames),
           );
         }
-        scrubMaxRef.current = scrubMaxIndex(session);
+        // Keep total in sync with the live session (112)
+        if (session.total) totalRef.current = session.total;
         setLoadRatio(ratio);
         if (canUnlock(session)) unlock(skipPreloaderRef.current);
       },
@@ -263,22 +261,16 @@ export default function New3dScrollHero({
     const tick = (ts) => {
       if (!alive) return;
       try {
-        const last = lastTsRef.current || ts;
-        const dt = Math.min(0.048, Math.max(0.001, (ts - last) / 1000));
+        const prevTs = lastTsRef.current || ts;
+        const dt = Math.min(0.048, Math.max(0.001, (ts - prevTs) / 1000));
         lastTsRef.current = ts;
 
-        // Always scrub within 0 .. total-1; when ready, never cap below last frame
-        const last = Math.max(0, (totalRef.current || 1) - 1);
-        const session = sessionRef.current;
-        const maxIdx =
-          session &&
-          (session.ready ||
-            session.loaded >= session.total ||
-            session.frames?.every?.(Boolean))
-            ? last
-            : Math.min(last, Math.max(0, scrubMaxIndex(session)));
-        scrubMaxRef.current = maxIdx;
-        const cappedTarget = Math.min(targetRef.current, maxIdx);
+        // Full range 0 .. total-1 — never freeze mid-sequence on contig holes
+        const lastFrame = Math.max(0, (totalRef.current || 1) - 1);
+        const cappedTarget = Math.min(
+          Math.max(0, targetRef.current),
+          lastFrame,
+        );
 
         const current = displayedRef.current;
         const slow = isMobileRef.current ? 16 : 13;
@@ -321,22 +313,12 @@ export default function New3dScrollHero({
         );
         const top = track.getBoundingClientRect().top;
         const scrolled = Math.min(totalScroll, Math.max(0, -top));
-        const p = scrolled / totalScroll;
-        const frames = Math.max(1, totalRef.current);
-        const last = frames - 1;
-        const desired = p * last;
-        const session = sessionRef.current;
-        // Full sequence once loaded — never freeze mid-way on contig holes
-        const maxIdx =
-          session &&
-          (session.ready ||
-            session.loaded >= session.total ||
-            session.frames?.every?.(Boolean))
-            ? last
-            : Math.min(last, scrubMaxIndex(session));
-        scrubMaxRef.current = maxIdx;
-        targetRef.current = Math.min(desired, maxIdx);
-        sessionRef.current?.boostAround?.(desired, 40);
+        const p = Math.min(1, Math.max(0, scrolled / totalScroll));
+        const frameCount = Math.max(1, totalRef.current);
+        // Map scroll 0→1 across ALL frames (0 .. frameCount-1)
+        targetRef.current = p * (frameCount - 1);
+        sessionRef.current?.boostAround?.(targetRef.current, 40);
+        dirtyRef.current = true;
       } catch {
         /* ignore */
       }
