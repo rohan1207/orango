@@ -16,6 +16,7 @@ import {
   maxContiguousLoaded,
   nearestLoaded,
   preloadFrames,
+  scrubMaxIndex,
 } from "@/lib/frames";
 
 /** Exponential smooth toward target — butter on slow scroll, catches up on fling */
@@ -63,6 +64,7 @@ export default function New3dScrollHero({
   const lastTsRef = useRef(0);
   const isMobileRef = useRef(false);
   const maxContigRef = useRef(0);
+  const scrubMaxRef = useRef(0);
   const totalRef = useRef(totalFrames);
   const setIdRef = useRef(frameSet);
   const waitAllRef = useRef(waitForAll);
@@ -118,6 +120,7 @@ export default function New3dScrollHero({
     framesRef.current = session.frames;
     if (session.total) totalRef.current = session.total;
     maxContigRef.current = Math.max(0, session.maxContiguous ?? 0);
+    scrubMaxRef.current = scrubMaxIndex(session);
     if (unsubRef.current) unsubRef.current();
 
     unsubRef.current = session.subscribe(
@@ -131,13 +134,13 @@ export default function New3dScrollHero({
             maxContiguousLoaded(session.frames),
           );
         }
+        scrubMaxRef.current = scrubMaxIndex(session);
         setLoadRatio(ratio);
         if (canUnlock(session)) unlock(skipPreloaderRef.current);
       },
     );
 
     if (canUnlock(session)) unlock(true);
-    // Do not force-unlock when skipPreloader — wait until all frames are ready
   };
 
   useEffect(() => {
@@ -264,8 +267,12 @@ export default function New3dScrollHero({
         const dt = Math.min(0.048, Math.max(0.001, (ts - last) / 1000));
         lastTsRef.current = ts;
 
-        const contig = Math.max(0, maxContigRef.current);
-        const cappedTarget = Math.min(targetRef.current, contig);
+        const scrubMax = Math.max(
+          scrubMaxRef.current,
+          scrubMaxIndex(sessionRef.current),
+        );
+        scrubMaxRef.current = scrubMax;
+        const cappedTarget = Math.min(targetRef.current, scrubMax);
 
         const current = displayedRef.current;
         const slow = isMobileRef.current ? 16 : 13;
@@ -311,8 +318,21 @@ export default function New3dScrollHero({
         const p = scrolled / totalScroll;
         const frames = Math.max(1, totalRef.current);
         const desired = p * (frames - 1);
-        const contig = Math.max(0, maxContigRef.current);
-        targetRef.current = Math.min(desired, contig);
+        const scrubMax = Math.max(
+          scrubMaxRef.current,
+          scrubMaxIndex(sessionRef.current),
+          Math.max(0, maxContigRef.current),
+        );
+        // When fully loaded, always allow the last frame (never stall mid-sequence)
+        const session = sessionRef.current;
+        const fullMax =
+          session &&
+          (session.ready || session.loaded >= session.total) &&
+          session.total > 0
+            ? session.total - 1
+            : scrubMax;
+        scrubMaxRef.current = fullMax;
+        targetRef.current = Math.min(desired, fullMax);
         sessionRef.current?.boostAround?.(desired, 40);
       } catch {
         /* ignore */
