@@ -1,8 +1,8 @@
 "use client";
 
 /**
- * Scroll-scrubbed frame hero — sticky track (no GSAP pin).
- * Pass frameSet="home1" | "home3" | "home4" for separate folder sets (no conflict).
+ * Scroll-scrubbed frame hero — sticky track.
+ * Smooth 1:1 scroll → frame mapping (no bounce / reverse jitter).
  */
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -13,31 +13,26 @@ import {
   drawFrame,
   folderFromWidth,
   getFrameSet,
-  maxContiguousLoaded,
   nearestLoaded,
   preloadFrames,
 } from "@/lib/frames";
 
-/** Exponential smooth toward target — butter on slow scroll, catches up on fling */
-function smoothToward(current, target, dt, lambdaSlow, lambdaFast) {
+/**
+ * Critically-damped-ish follow: tracks scroll tightly, no max-step
+ * clamping (that was causing forward→back→forward glitches).
+ */
+function smoothToward(current, target, dt) {
   const delta = target - current;
-  const abs = Math.abs(delta);
-  if (abs < 0.02) return target;
-  const lambda = abs > 12 ? lambdaFast : lambdaSlow;
+  if (Math.abs(delta) < 0.001) return target;
+  // Higher lambda = snappier follow; still soft enough to feel elegant
+  const lambda = 22;
   const t = 1 - Math.exp(-lambda * dt);
-  const maxStep = abs > 40 ? 14 : abs > 20 ? 9 : abs > 8 ? 5 : Infinity;
-  const step = delta * t;
-  if (Math.abs(step) > maxStep) {
-    return current + Math.sign(delta) * maxStep;
-  }
-  return current + step;
+  return current + delta * t;
 }
 
 export default function New3dScrollHero({
   frameSet = DEFAULT_FRAME_SET,
-  /** When true (or set.requireAll), page stays on preloader until 100% frames load */
   waitForAllFrames,
-  /** Landing already warmed frames — no second full-screen preloader */
   skipPreloader = false,
 }) {
   const set = getFrameSet(frameSet);
@@ -62,11 +57,13 @@ export default function New3dScrollHero({
   const unlockedRef = useRef(false);
   const lastTsRef = useRef(0);
   const isMobileRef = useRef(false);
-  const maxContigRef = useRef(0);
   const totalRef = useRef(totalFrames);
   const setIdRef = useRef(frameSet);
   const waitAllRef = useRef(waitForAll);
   const skipPreloaderRef = useRef(skipPreloader);
+  const trackTopDocRef = useRef(0);
+  const scrollRafRef = useRef(0);
+  const allLoadedRef = useRef(false);
 
   const [loadRatio, setLoadRatio] = useState(0);
   const [ready, setReady] = useState(false);
@@ -92,23 +89,12 @@ export default function New3dScrollHero({
     if (!session) return false;
     const total = session.total || totalRef.current;
     const loaded = session.loaded || 0;
-    const contig = session.maxContiguous ?? -1;
+    if (waitAllRef.current) {
+      return loaded >= total;
+    }
     const ratio = total ? loaded / total : 0;
     const readyRatio = session.readyRatio ?? 0.5;
-
-    if (waitAllRef.current) {
-      return (
-        (loaded >= total && contig >= total - 1) || loaded >= total
-      );
-    }
-
-    // Smooth entry: unlock once ~50% is contiguous / ready; rest keeps loading
-    return (
-      session.ready ||
-      ratio >= readyRatio ||
-      contig >= Math.floor(total * readyRatio) - 1 ||
-      loaded >= total
-    );
+    return session.ready || ratio >= readyRatio || loaded >= total;
   };
 
   const bindSession = (folder) => {
@@ -117,26 +103,17 @@ export default function New3dScrollHero({
     sessionRef.current = session;
     framesRef.current = session.frames;
     if (session.total) totalRef.current = session.total;
-    maxContigRef.current = Math.max(0, session.maxContiguous ?? 0);
+    allLoadedRef.current =
+      session.loaded >= session.total && session.total > 0;
     if (unsubRef.current) unsubRef.current();
 
-    unsubRef.current = session.subscribe(
-      ({ ratio, maxContiguous }) => {
-        dirtyRef.current = true;
-        if (typeof maxContiguous === "number" && maxContiguous >= 0) {
-          maxContigRef.current = maxContiguous;
-        } else {
-          maxContigRef.current = Math.max(
-            0,
-            maxContiguousLoaded(session.frames),
-          );
-        }
-        // Keep total in sync with the live session (112)
-        if (session.total) totalRef.current = session.total;
-        setLoadRatio(ratio);
-        if (canUnlock(session)) unlock(skipPreloaderRef.current);
-      },
-    );
+    unsubRef.current = session.subscribe(({ ratio, loaded, total }) => {
+      dirtyRef.current = true;
+      if (session.total) totalRef.current = session.total;
+      allLoadedRef.current = total > 0 && loaded >= total;
+      setLoadRatio(ratio);
+      if (canUnlock(session)) unlock(skipPreloaderRef.current);
+    });
 
     if (canUnlock(session)) unlock(true);
   };
@@ -156,16 +133,11 @@ export default function New3dScrollHero({
     setLoadRatio(0);
     bindSession(folderFromWidth(window.innerWidth, frameSet));
 
-    // Full-load pages: long failsafe only if still incomplete (broken network)
     const failMs = waitForAll ? 90000 : 14000;
     const failSafe = window.setTimeout(() => {
       const session = sessionRef.current;
       if (waitAllRef.current) {
-        // Only bail if we already have a usable contiguous run
-        if (
-          session &&
-          session.loaded >= Math.floor(session.total * 0.92)
-        ) {
+        if (session && session.loaded >= Math.floor(session.total * 0.98)) {
           unlock(skipPreloaderRef.current);
         }
         return;
@@ -176,8 +148,8 @@ export default function New3dScrollHero({
     return () => {
       window.clearTimeout(failSafe);
       if (unsubRef.current) unsubRef.current();
+      if (scrollRafRef.current) cancelAnimationFrame(scrollRafRef.current);
     };
-    // frameSet is fixed per page mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frameSet, waitForAll, skipPreloader]);
 
@@ -220,7 +192,7 @@ export default function New3dScrollHero({
         if (ctx) {
           ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
           ctx.imageSmoothingEnabled = true;
-          ctx.imageSmoothingQuality = "medium";
+          ctx.imageSmoothingQuality = "high";
           ctxRef.current = ctx;
         }
       }
@@ -237,9 +209,16 @@ export default function New3dScrollHero({
       if (!canvas?.isConnected || !ctx) return;
       const { w, h } = sizeRef.current;
       if (w < 2 || h < 2) return;
-      const img = nearestLoaded(framesRef.current, frameIndex);
+      const frames = framesRef.current;
+      const idx = Math.round(
+        Math.min(Math.max(0, frameIndex), Math.max(0, frames.length - 1)),
+      );
+      // Prefer exact frame when fully loaded — avoids nearestLoaded jumps
+      const img =
+        (allLoadedRef.current && frames[idx]) ||
+        nearestLoaded(frames, frameIndex);
       drawFrame(ctx, img, w, h, modeRef.current);
-      lastPaintedRef.current = Math.round(frameIndex);
+      lastPaintedRef.current = idx;
       dirtyRef.current = false;
     } catch {
       /* swallow */
@@ -256,36 +235,22 @@ export default function New3dScrollHero({
     let raf = 0;
     let alive = true;
     lastTsRef.current = 0;
-    let boostTick = 0;
 
     const tick = (ts) => {
       if (!alive) return;
       try {
         const prevTs = lastTsRef.current || ts;
-        const dt = Math.min(0.048, Math.max(0.001, (ts - prevTs) / 1000));
+        const dt = Math.min(0.05, Math.max(0.001, (ts - prevTs) / 1000));
         lastTsRef.current = ts;
 
-        // Full range 0 .. total-1 — never freeze mid-sequence on contig holes
         const lastFrame = Math.max(0, (totalRef.current || 1) - 1);
-        const cappedTarget = Math.min(
-          Math.max(0, targetRef.current),
-          lastFrame,
-        );
-
-        const current = displayedRef.current;
-        const slow = isMobileRef.current ? 16 : 13;
-        const fast = isMobileRef.current ? 26 : 22;
-        const next = smoothToward(current, cappedTarget, dt, slow, fast);
+        const target = Math.min(Math.max(0, targetRef.current), lastFrame);
+        const next = smoothToward(displayedRef.current, target, dt);
         displayedRef.current = next;
 
         const rounded = Math.round(next);
         if (dirtyRef.current || rounded !== lastPaintedRef.current) {
           paint(next);
-        }
-
-        boostTick += 1;
-        if (boostTick % 8 === 0) {
-          sessionRef.current?.boostAround?.(next, 32);
         }
       } catch {
         /* ignore */
@@ -305,27 +270,42 @@ export default function New3dScrollHero({
 
     const track = trackRef.current;
 
-    const syncFromScroll = () => {
-      try {
-        const totalScroll = Math.max(
-          1,
-          track.offsetHeight - window.innerHeight,
-        );
-        const top = track.getBoundingClientRect().top;
-        const scrolled = Math.min(totalScroll, Math.max(0, -top));
-        const p = Math.min(1, Math.max(0, scrolled / totalScroll));
-        const frameCount = Math.max(1, totalRef.current);
-        // Map scroll 0→1 across ALL frames (0 .. frameCount-1)
-        targetRef.current = p * (frameCount - 1);
-        sessionRef.current?.boostAround?.(targetRef.current, 40);
-        dirtyRef.current = true;
-      } catch {
-        /* ignore */
-      }
+    const measureTrack = () => {
+      // Document Y of track top — stable vs sticky getBoundingClientRect jitter
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      trackTopDocRef.current = track.getBoundingClientRect().top + scrollY;
     };
 
-    window.addEventListener("scroll", syncFromScroll, { passive: true });
+    const computeProgress = () => {
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      const vh = window.innerHeight || 1;
+      const totalScroll = Math.max(1, track.offsetHeight - vh);
+      const scrolled = Math.min(
+        totalScroll,
+        Math.max(0, scrollY - trackTopDocRef.current),
+      );
+      return scrolled / totalScroll;
+    };
+
+    const syncFromScroll = () => {
+      if (scrollRafRef.current) return;
+      scrollRafRef.current = requestAnimationFrame(() => {
+        scrollRafRef.current = 0;
+        try {
+          const p = Math.min(1, Math.max(0, computeProgress()));
+          const frameCount = Math.max(1, totalRef.current);
+          targetRef.current = p * (frameCount - 1);
+          dirtyRef.current = true;
+        } catch {
+          /* ignore */
+        }
+      });
+    };
+
+    measureTrack();
     syncFromScroll();
+
+    window.addEventListener("scroll", syncFromScroll, { passive: true });
 
     let resizeTimer = 0;
     const onResize = () => {
@@ -339,13 +319,14 @@ export default function New3dScrollHero({
           if (nextFolder !== folderRef.current) {
             bindSession(nextFolder);
           }
+          measureTrack();
           sizeCanvas();
           paint(displayedRef.current);
           syncFromScroll();
         } catch {
           /* ignore */
         }
-      }, 160);
+      }, 120);
     };
     window.addEventListener("resize", onResize, { passive: true });
     window.visualViewport?.addEventListener("resize", onResize, {
@@ -357,7 +338,9 @@ export default function New3dScrollHero({
       window.removeEventListener("resize", onResize);
       window.visualViewport?.removeEventListener("resize", onResize);
       window.clearTimeout(resizeTimer);
+      if (scrollRafRef.current) cancelAnimationFrame(scrollRafRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready]);
 
   return (
